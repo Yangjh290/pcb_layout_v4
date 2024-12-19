@@ -1,0 +1,287 @@
+import random
+import re
+import os
+
+from kiutils.board import Board
+from kiutils.items.schitems import SchematicSymbol, Rectangle, Text
+from kiutils.schematic import Schematic
+from kiutils.items.fpitems import FpLine, FpCircle, FpArc, FpPoly, FpRect
+import math
+
+
+from .ssa_entity import ConnectionNet, SymbolModule
+from ..entity.board import Module
+from ..entity.symbol import Symbol
+
+
+def footprint_bounding_box(footprint):
+    """计算 footprint 的外接矩形"""
+
+    min_x, min_y = float('inf'), float('inf')
+    max_x, max_y = float('-inf'), float('-inf')
+
+    # 遍历 footprint 的所有图形元素
+    for item in footprint.graphicItems:
+
+        if isinstance(item, FpLine) and item.layer == 'F.CrtYd':
+            # 线段的起点和终点
+            start_x, start_y = item.start.X, item.start.Y
+            end_x, end_y = item.end.X, item.end.Y
+            min_x = min(min_x, start_x, end_x)
+            min_y = min(min_y, start_y, end_y)
+            max_x = max(max_x, start_x, end_x)
+            max_y = max(max_y, start_y, end_y)
+
+        elif isinstance(item, FpCircle) and item.layer == 'F.CrtYd':
+            # 圆的中心和半径
+            center_x, center_y = item.center.X, item.center.Y
+            radius = math.sqrt((item.end.X - center_x) ** 2 + (item.end.Y - center_y) ** 2)
+            min_x = min(min_x, center_x - radius)
+            min_y = min(min_y, center_y - radius)
+            max_x = max(max_x, center_x + radius)
+            max_y = max(max_y, center_y + radius)
+
+        elif isinstance(item, FpArc) and item.layer == 'F.CrtYd':
+            # 弧的起点和终点
+            start_x, start_y = item.start.X, item.start.Y
+            end_x, end_y = item.end.X, item.end.Y
+            min_x = min(min_x, start_x, end_x)
+            min_y = min(min_y, start_y, end_y)
+            max_x = max(max_x, start_x, end_x)
+            max_y = max(max_y, start_y, end_y)
+
+        # 处理 FpPoly
+        elif isinstance(item, FpPoly) and item.layer == 'F.CrtYd':
+            for point in item.coordinates:
+                x, y = point.X, point.Y
+                min_x = min(min_x, x)
+                min_y = min(min_y, y)
+                max_x = max(max_x, x)
+                max_y = max(max_y, y)
+
+        # 处理 FpRect
+        elif isinstance(item, FpRect) and item.layer == 'F.CrtYd':
+            start_x, start_y = item.start.X, item.start.Y
+            end_x, end_y = item.end.X, item.end.Y
+            min_x = min(min_x, start_x, end_x)
+            min_y = min(min_y, start_y, end_y)
+            max_x = max(max_x, start_x, end_x)
+            max_y = max(max_y, start_y, end_y)
+
+    # 获取基本信息
+    uuid = footprint.properties['Reference']
+    if 'Design Item ID' not in footprint.properties:
+        d_type = footprint.properties['Reference']
+    else:
+        d_type = footprint.properties['Design Item ID']
+
+    return Symbol(uuid, max_y - min_y, max_x - min_x, 0, 0, d_type, 0)
+
+
+def generate_input_symbols(pcb_file_path="../data/origin/智能手环.kicad_pcb"):
+    """遍历 PCB 上的所有 footprint 并计算它们的大小"""
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    pcb_file_path = os.path.join(base_dir, pcb_file_path)
+    board = Board().from_file(pcb_file_path, encoding='utf-8')
+    symbols: list[Symbol] = []
+
+    for footprint in board.footprints:
+        symbol = footprint_bounding_box(footprint)
+        if symbol.uuid == "U9":
+            symbol.width = 6.0
+            symbol.height = 6.0
+        symbols.append(symbol)
+        print(symbol)
+
+    # 给位号预留位置
+    for symbol in symbols:
+        # location_number_length = len(symbol.uuid)
+        # 0.2 使考虑到连接器的情况
+        symbol.height += 1.38 + 0.2
+        # 原则上是按照位号的位数计算长度，但考虑到间隙问题，直接设置最小宽度
+        if symbol.width < 2.65:
+            symbol.width = 2.65
+
+    # 去除类型为“T POINT S”的器件
+    # symbols = [symbol for symbol in symbols if symbol.type != "T POINT S"]
+
+    print(f"共有器件： {len(symbols)}")
+    return symbols
+
+
+def is_multiple_tag(rect, border: Rectangle):
+    """排除多重标签的情况"""
+    if rect.position.X > border.start.X + 50:
+        return False
+    if border.start.Y > border.end.Y:
+        if rect.position.Y > border.end.Y + 50:
+            return False
+    else:
+        if rect.position.Y > border.start.Y + 50:
+            return False
+    return True
+
+
+def is_be_contained(rect, border: Rectangle):
+    """某个器件或者文本是否在矩形框内"""
+    if border.start.Y > border.end.Y:
+        if rect.position.X < border.start.X or rect.position.X > border.end.X:
+            return False
+        if rect.position.Y > border.start.Y or rect.position.Y < border.end.Y:
+            return False
+        return True
+    else:
+        if rect.position.X < border.start.X or rect.position.X > border.end.X:
+            return False
+        if rect.position.Y < border.start.Y or rect.position.Y > border.end.Y:
+            return False
+        return True
+
+
+def is_not_special_symbol(symbol: SchematicSymbol):
+    """判断是否为特殊器件"""
+    if symbol.entryName == 'GND' or symbol.entryName == '3V3' or symbol.entryName == 'VBAT' or symbol.entryName == 'VCC':
+        return False
+    else:
+        return True
+
+
+def reflex_name_to_type(modules: list[Module]):
+    """确定模块的类型"""
+
+    reflexion = {
+        "Board-to-Board Connectors": "1_CONNECTION",
+        "FLASH": "2_STORAGE",
+        "烧录接口": "3_INTERFACE",
+        "充电接口": "5_POWER",
+        "Magnetometer": "0_COMMON",
+        "Battery Chargers": "0_COMMON",
+        "Touch Sensing": "0_COMMON",
+        "System on Chip(SoC)": "4_MCU",
+        "Linear DC-DC Conversion": "0_COMMON",
+        "Voltage Supervisor": "0_COMMON",
+        "Vibration Motor": "6_SENSOR",
+        "Acceleration": "7_CONVERTER",
+        "Flat Flexible Cable Connectors": "1_CONNECTION",
+        "电池接口": "3_INTERFACE",
+        "UART": "3_INTERFACE",
+        "CLOCK": "9_CRYSTAL",
+        "CRYSTAL": "9_CRYSTAL",
+        "CRYSTAL OSCILLATOR": "9_CRYSTAL"
+    }
+    modules = [module for module in modules if module.module_name != 'init']
+    for module in modules:
+        # 设置模块类型
+        if module.module_name in reflexion:
+            module.module_type = reflexion[module.module_name]
+            print(module)
+        else:
+            print(f"Warning: 未找到匹配项 '{module.module_name}'")
+
+
+def generate_mudules(sch_file_path='../data/origin/智能手环.kicad_sch'):
+    """根据原理图生成模块"""
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    sch_file_path = os.path.join(base_dir, sch_file_path)
+
+    schematic = Schematic().from_file(sch_file_path, encoding='utf-8')
+    borders, all_symbols, texts = schematic.shapes, schematic.schematicSymbols, schematic.texts
+
+    modules: list[Module] = []
+    for border in borders:
+        module = Module("init", [], "init")
+        # 将一个模块中的全部器件放入在一个模块中
+        for cur_symbol in all_symbols:
+            if is_be_contained(cur_symbol, border) and is_not_special_symbol(cur_symbol):
+                module.symbol_list.append(cur_symbol.properties[0].value)
+        # 确定模块名
+        for text in texts:
+            # 排除多重包含
+            if not is_multiple_tag(text, border):
+                continue
+            if is_be_contained(text, border):
+                # 使用正则表达式提取括号内的英文部分
+                match = re.search(r'\(.*?([A-Za-z].*)\)', text.text)
+                if match:
+                    module.module_name = match.group(1)
+                else:
+                    print("存在模块名命名不规范的部分")
+
+        modules.append(module)
+
+    # 类型确定
+    reflex_name_to_type(modules)
+    print(f"共有模块： {len(modules)}")
+    return modules
+
+
+def generate_connection_networks(uuid_list, n):
+    """生成连接网络"""
+    if len(uuid_list) < 2:
+        raise ValueError("UUID列表必须至少包含两个元素")
+    if n < len(uuid_list) - 1:
+        raise ValueError("生成的边数n不能小于UUID数量减一，因为需要连通所有节点。")
+
+    # 初始化一个字典来记录每个UUID的连接次数
+    connection_counts = {uuid: 0 for uuid in uuid_list}
+    connection_networks = []
+    connection_set = set()  # 用于存储无重复的无向边
+
+    # Step 1: 生成一个最小生成树，确保所有节点连通
+    available_uuids = set(uuid_list)
+    connected_uuids = {available_uuids.pop()}  # 随机选择一个节点作为起点
+
+    while available_uuids:
+        left_uuid = random.choice(list(connected_uuids))
+        right_uuid = available_uuids.pop()
+        edge = tuple(sorted([left_uuid, right_uuid]))
+        connection_uuid = f"net-{len(connection_networks) + 1}"
+        connection_networks.append(ConnectionNet(connection_uuid, left_uuid, right_uuid))
+        connection_set.add(edge)
+        connection_counts[left_uuid] += 1
+        connection_counts[right_uuid] += 1
+        connected_uuids.add(right_uuid)
+
+    # Step 2: 保证每个uuid至少有两个连接
+    while any(count < 2 for count in connection_counts.values()):
+        left_uuid, right_uuid = random.sample(uuid_list, 2)
+        edge = tuple(sorted([left_uuid, right_uuid]))
+
+        if edge not in connection_set:
+            connection_uuid = f"net-{len(connection_networks) + 1}"
+            connection_networks.append(ConnectionNet(connection_uuid, left_uuid, right_uuid))
+            connection_set.add(edge)
+            connection_counts[left_uuid] += 1
+            connection_counts[right_uuid] += 1
+
+    # Step 3: 生成剩余的连接网络，直到达到n条不重复的无向边
+    while len(connection_networks) < n:
+        left_uuid, right_uuid = random.sample(uuid_list, 2)
+        edge = tuple(sorted([left_uuid, right_uuid]))
+
+        if edge not in connection_set:
+            connection_uuid = f"net-{len(connection_networks) + 1}"
+            connection_networks.append(ConnectionNet(connection_uuid, left_uuid, right_uuid))
+            connection_set.add(edge)
+
+    return connection_networks
+
+
+def generate_connection_nets_by_modules(modules: list[SymbolModule]) -> list[ConnectionNet]:
+    """按照模块类别生成网表"""
+    connection_networks = []
+
+    for module in modules:
+        # 获取主器件的uuid
+        main_uuid = module.main_symbol.uuid
+        # 获取模块内所有器件的uuid
+        uuid_list = [symbol.uuid for symbol in module.symbol_list if symbol.uuid != main_uuid]
+        for uuid in uuid_list:
+            connection_networks.append(ConnectionNet(f"net-{module.module_type}-{len(connection_networks) + 1}", main_uuid, uuid))
+    return connection_networks
+
+
+def get_pad_location(filepath="../data/origin/智能手环.kicad_pcb"):
+    """获取器件的引脚位置"""
+    print(filepath)

@@ -1,0 +1,12 @@
+{
+  "unit" : "mm",
+  "other" : "",
+  "shape" : "rectangle",
+  "size" : [ 40.0, 40.0 ],
+  "scale" : "",
+  "xscale" : "1.2",
+  "source" : "template",
+  "subShape" : "shape1",
+  "yscale" : "1.2",
+  "status" : "1"
+}
