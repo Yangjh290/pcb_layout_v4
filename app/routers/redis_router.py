@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
-from app.dependencies import get_redis_client
+from app.routers.dependencies import get_redis_client
 
 router = APIRouter()
+
 
 @router.get("/redis/{key}")
 def get_value_from_redis(key: str, r = Depends(get_redis_client)):
