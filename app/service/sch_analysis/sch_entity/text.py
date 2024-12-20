@@ -4,10 +4,10 @@
 @Author：
 @Time：2024/12/19 20:51
 """
-from sch_analysis.utils import decimal_convertor
+from ..utils import decimal_convertor
 
 
-class Text(object):
+class TextModel(object):
     def __init__(self, text_obj):
         # 存储原始对象
         self.raw_data = text_obj
@@ -21,3 +21,6 @@ class Text(object):
             decimal_convertor(text_obj.position.X),
             decimal_convertor(text_obj.position.Y)
         )
+
+    def __str__(self):
+        return f"TextModel(text={self.text}, xy={self.xy})"

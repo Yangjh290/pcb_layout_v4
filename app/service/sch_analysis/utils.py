@@ -12,7 +12,7 @@ def decimal_convertor(target_value, precision=10):
     """规范小数的精度"""
     with localcontext() as ctx:
         # 规范精度
-        ctx.pprec = precision
+        ctx.prec = precision
 
         return Decimal(target_value).normalize()
 

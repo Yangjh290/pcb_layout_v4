@@ -10,10 +10,10 @@
 属性列表
 pin的坐标属性
 """
-from sch_analysis.utils import decimal_convertor
+from ..utils import decimal_convertor
 
 
-class DeviceSymbol(object):
+class DeviceSymbolModel(object):
     def __init__(self, schematicSymbol_obj):
         # 三个 name
         self.libraryNickname = schematicSymbol_obj.libraryNickname
@@ -49,12 +49,18 @@ class DeviceSymbol(object):
         # 引脚的坐标字典
         self.pins_xy = dict()
 
+        # 位号
+        self.bitNumber = self._analysis_bitNumber()
+
+    def __str__(self):
+        return f"DeviceSymbolModel({self.bitNumber},{self.libraryNickname}, {self.entryName}, {self.unit})"
+
     # 分析位号
     def _analysis_bitNumber(self):
         for i in self.schematic_symbol_properties:
             if i.key == 'Reference':
-                self.bitNumber = i.value
-                break
+                return i.value
+        return None
 
     # 分析 pin 的 坐标信息
     def analysis_pins_infos(self, libSymbol_obj):

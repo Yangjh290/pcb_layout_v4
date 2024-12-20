@@ -4,10 +4,10 @@
 @Author：
 @Time：2024/12/19 20:48
 """
-from sch_analysis.utils import decimal_convertor
+from ..utils import decimal_convertor
 
 
-class NoConnect(object):
+class NoConnectModel(object):
     def __init__(self, no_connect_obj):
         # 存储原始对象
         self.raw_data = no_connect_obj
@@ -24,9 +24,7 @@ class NoConnect(object):
 
     # 默认添加一个引脚
     def _create_pin(self):
-        self.pin = {
-            "pin_no": "1",
-            "pin_name": "NO_CONNECT",
-            "pin_type": "NO_CONNECT",
-            "description": "NO_CONNECT",
-        }
+        self.pin = {"1", self.xy}
+
+    def __str__(self):
+        return f"NoConnectModel(xy={self.xy}, pin={self.pin})"
