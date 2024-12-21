@@ -1,0 +1,12 @@
+{
+  "unit" : "mm",
+  "other" : "radius",
+  "shape" : "circle",
+  "size" : [ 20 ],
+  "scale" : "",
+  "xscale" : "",
+  "source" : "chat",
+  "subShape" : "",
+  "yscale" : "",
+  "status" : "2"
+}
