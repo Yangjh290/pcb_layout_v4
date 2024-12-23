@@ -9,4 +9,4 @@ app.include_router(redis_router, prefix="/api")
 app.include_router(layout_router, prefix="/api")
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="192.168.146.35", port=8000)

@@ -8,4 +8,4 @@ from pydantic import BaseModel
 
 
 class SourceRecordRequest(BaseModel):
-    source_record_id: str
+    sourceRecordId: str

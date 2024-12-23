@@ -23,8 +23,8 @@ class ExternalServiceClient:
 
         async with httpx.AsyncClient() as client:
             try:
-                resp = await client.post(url, json=payload)
-                resp.raise_for_status()  # 如果不是 2xx，会抛出 HTTPStatusError
+                resp = await client.post(url, data=payload)
+                resp.raise_for_status()
                 return resp.json()
             except httpx.HTTPStatusError as http_err:
                 raise HTTPException(status_code=resp.status_code, detail=resp.text) from http_err

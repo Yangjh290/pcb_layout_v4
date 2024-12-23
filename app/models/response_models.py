@@ -34,3 +34,8 @@ class ResponseData(BaseModel):
 
 class LayoutResponse(BaseModel):
     response: ResponseData
+
+
+class TestResponse(BaseModel):
+    status: int
+    data: str
