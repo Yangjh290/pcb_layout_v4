@@ -7,7 +7,7 @@
 import logging
 import os
 from logging.config import dictConfig
-from env_config import settings
+from .env_config import settings
 
 
 # 创建日志存放目录

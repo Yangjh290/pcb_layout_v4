@@ -11,10 +11,12 @@ class Settings(BaseSettings):
 
     # log配置
     LOG_LEVEL: str = "DEBUG"
-    LOG_FILE: str = "logs"
+    LOG_DIR: str = "logs"
 
     # 外部服务配置
     EXTERNAL_SERVICE_BASE_URL: str = "http://192.168.150.63:8088/chipdesign/chip/download/pcb"
+    REQUEST_BOARD_URL:str = "http://192.168.150.63:8088/chat/temporaryData/getSize"
+    REQUEST_FOOTPRINT_URL:str = "http://192.168.150.63:8088/chipdesign/chip/download/pcb/getFootprint"
 
     # 默认从根目录读取.env文件
     class Config:
