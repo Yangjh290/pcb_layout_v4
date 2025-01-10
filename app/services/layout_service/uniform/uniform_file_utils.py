@@ -4,24 +4,40 @@
 @Author：
 @Time：2024/12/27 15:46
 """
+import os
 
 
-def append_file(src_file, dst_file):
+def append_file(src_file, cur_file):
     """将一个文件拼接到另一个文件，要求从最后一行开始拼接"""
-    # 打开文件 file1.txt 以读取内容
-    with open('file1.txt', 'r', encoding='utf-8') as file1:
-        # 读取所有行
-        file1_lines = file1.readlines()
+    with open(src_file, 'r', encoding='utf-8') as file1:
+        # 读取所有行,并删除最后一行的括号
+        lines = file1.readlines()
 
-    # 打开 file2.txt 以读取内容
-    with open('file2.txt', 'r', encoding='utf-8') as file2:
-        # 读取 file2 的所有内容
-        file2_content = file2.read()
+    if lines:
+        lines = lines[:-1]
 
-    # 打开 file1.txt 以追加模式写入
-    with open('file1.txt', 'a', encoding='utf-8') as file1:
-        # 如果 file1 已经有内容，先写一个换行符（防止直接连接在一起）
-        if file1_lines:
-            file1.write('\n')
-        # 将 file2 的内容写入 file1
-        file1.write(file2_content)
+    # 读取 cur_file 内容，并为每行添加一个 tab
+    with open(cur_file, 'r', encoding='utf-8') as file2:
+        file2_content = file2.readlines()
+
+    # 为每一行添加一个 tab
+    file2_content = [f"\t{line}" for line in file2_content]
+
+    with open(src_file, 'w', encoding='utf-8') as file1:
+        # 先写入原文件的内容
+        file1.writelines(lines)
+        # 然后写入 file2 的内容
+        file1.writelines(file2_content)
+
+        #添加最后一行的括号
+        tail = "\n)"
+        file1.write(tail)
+
+
+if __name__ == '__main__':
+    src_file = "../data/temp/template.kicad_pcb"
+    cur_file = "../data/temp/footprints/C_0603_1608Metric1.txt"
+    base_dir = os.path.dirname(__file__)
+    src_file = os.path.join(base_dir, src_file)
+    cur_file = os.path.join(base_dir, cur_file)
+    append_file(src_file, cur_file)

@@ -1,11 +1,11 @@
 import numpy as np
 from matplotlib.path import Path
 
-from SSA.footprint import footprint_preprocess
-from SSA.ssa_entity import SymbolModule, ConnectionNet, FootprintDistance
-from entity.board import Board
-from entity.rectangle import Rectangle
-from entity.symbol import Symbol
+from app.services.layout_service.SSA.footprint import footprint_preprocess
+from app.services.layout_service.SSA.ssa_entity import SymbolModule, ConnectionNet, FootprintDistance
+from app.services.layout_service.entity.board import Board
+from app.services.layout_service.entity.rectangle import Rectangle
+from app.services.layout_service.entity.symbol import Symbol
 
 
 def find_main_rect_from_layout(layout: list[Rectangle], uuid: str):

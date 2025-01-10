@@ -9,7 +9,7 @@ from kiutils.items.fpitems import FpLine, FpCircle, FpArc, FpPoly, FpRect
 import math
 
 
-from .ssa_entity import ConnectionNet, SymbolModule
+from .ssa_entity import ConnectionNet, SymbolModule, BoardEdge
 from ..entity.board import Module
 from ..entity.symbol import Symbol
 
@@ -168,7 +168,21 @@ def reflex_name_to_type(modules: list[Module]):
         "UART": "3_INTERFACE",
         "CLOCK": "9_CRYSTAL",
         "CRYSTAL": "9_CRYSTAL",
-        "CRYSTAL OSCILLATOR": "9_CRYSTAL"
+        "CRYSTAL OSCILLATOR": "9_CRYSTAL",
+
+        '（Linear DC-DC Conversion）': "1_CONNECTION",
+        '(Flash)': "2_STORAGE",
+        '（Acceleration）': "0_COMMON",
+        '(Atmospheric Pressure)': "0_COMMON",
+        '（Microphone）': "0_COMMON",
+        '(Microcontroller)': "4_MCU",
+        '(Angular Velocity)': "0_COMMON",
+        '（TVS_ESD）': "0_COMMON",
+        '（Magnetometer）': "6_SENSOR",
+        '（Power Monitor）': "7_CONVERTER",
+        '（Power Connectors and Sockets）': "1_CONNECTION",
+        '（RAM）': "2_STORAGE",
+
     }
     modules = [module for module in modules if module.module_name != 'init']
     for module in modules:
@@ -285,3 +299,194 @@ def generate_connection_nets_by_modules(modules: list[SymbolModule]) -> list[Con
 def get_pad_location(filepath="../data/origin/智能手环.kicad_pcb"):
     """获取器件的引脚位置"""
     print(filepath)
+
+
+def _shape1(file_path = "../data/temp/template/shape1/shape1.kicad_pcb"):
+    """本地pcb板子"""
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(base_dir, file_path)
+    board = Board().from_file(file_path, encoding='utf-8')
+
+    p1 = (0, 0)
+    p2 = (40, 0)
+    p3 = (40, 15)
+    p4 = (37.5, 15)
+    p5 = (37.5, 25)
+    p6 = (40, 25)
+    p7 = (40, 40)
+    p8 = (0, 40)
+
+    pts = [p1, p2, p3, p4, p5, p6, p7, p8]
+
+    edge_1 = (p1, p2)
+    edge_2 = (p2, p3)
+    edge_3 = (p3, p4)
+    edge_4 = (p4, p5)
+    edge_5 = (p5, p6)
+    edge_6 = (p6, p7)
+    edge_7 = (p7, p8)
+    edge_8 = (p8, p1)
+
+    external_edges = [edge_1, edge_2, edge_3, edge_4, edge_5, edge_6, edge_7, edge_8]
+
+    cp1 = (2.5, 37.5)
+    r1 = 1
+    circle_1 = (cp1, r1)
+
+    cp2 = (37, 37.5)
+    r2 = 1
+    circle_2 = (cp2, r2)
+
+    cp3 = (2.5, 2.5)
+    r3 = 1
+    circle_3 = (cp3, r3)
+
+    cp4 = (37, 2.5)
+    r4 = 1
+    circle_4 = (cp4, r4)
+
+    internal_edges = [circle_1, circle_2, circle_3, circle_4]
+
+    items = board.graphicItems
+    raw_data = [item for item in items if item.layer == 'Edge.Cuts']
+
+    board_shape = BoardEdge("shape1", internal_edges, external_edges, raw_data, pts)
+
+    return board_shape
+
+
+def _shape2(file_path = "../data/temp/template/shape2/shape2.kicad_pcb"):
+    """本地pcb板子"""
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(base_dir, file_path)
+    board = Board().from_file(file_path, encoding='utf-8')
+
+    arc_1_1 = (20, 40)
+    arc_1_2 = (5.857864, 34.142136)
+    arc_1_3 = (0, 20)
+
+    arc_2_1 = (0, 20)
+    arc_2_2 = (5.857864, 5.857864)
+    arc_2_3 = (20, 0)
+
+    arc_3_1 = (20, 0)
+    arc_3_2 = (32.308244, 4.235891)
+    arc_3_3 = (39.40285, 15.149287)
+
+    arc_4_1 = (39.40285, 24.850713)
+    arc_4_2 = (32.308244, 35.764109)
+    arc_4_3 = (20, 40)
+
+    arc_5_1 = (39.40285, 24.850713)
+    arc_5_2 = (37.593415, 20)
+    arc_5_3 = (39.40285, 15.149287)
+
+    arc_6_1 = (20, 0)
+    arc_6_2 = (32.308244, 4.235891)
+    arc_6_3 = (39.40285, 15.149287)
+
+    edge_1 = (arc_1_1, arc_1_2, arc_1_3)
+    edge_2 = (arc_2_1, arc_2_2, arc_2_3)
+    edge_3 = (arc_3_1, arc_3_2, arc_3_3)
+    edge_4 = (arc_4_1, arc_4_2, arc_4_3)
+    edge_5 = (arc_5_1, arc_5_2, arc_5_3)
+    edge_6 = (arc_6_1, arc_6_2, arc_6_3)
+
+    external_edges = [edge_1, edge_2, edge_3, edge_4, edge_5, edge_6]
+
+    cp1 = (2.5, 6)
+    r1 = 1
+    circle_1 = (cp1, r1)
+
+    cp2 = (10, 6)
+    r2 = 1
+    circle_2 = (cp2, r2)
+
+    cp3 = (20, 38)
+    r3 = 1
+    circle_3 = (cp3, r3)
+
+    internal_edges = [circle_1, circle_2, circle_3]
+
+    items = board.graphicItems
+    raw_data = [item for item in items if item.layer == 'Edge.Cuts']
+
+    board_shape = BoardEdge("shape1", internal_edges, external_edges, raw_data, [])
+
+    return board_shape
+
+
+def _shape3(file_path = "../data/temp/template/shape3/shape3.kicad_pcb"):
+    """本地pcb板子"""
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(base_dir, file_path)
+    board = Board().from_file(file_path, encoding='utf-8')
+
+    # Arc 1
+    arc_1_1 = (25, 50)
+    arc_1_2 = (0, 25)
+    arc_1_3 = (25, 0)
+
+    # Arc 2
+    arc_2_1 = (45, 10)
+    arc_2_2 = (41.464466, 8.535534)
+    arc_2_3 = (40, 5)
+
+    # Arc 3
+    arc_3_1 =  (50, 25)
+    arc_3_2 = (48.717082, 32.905694)
+    arc_3_3 = (45, 40)
+
+    # Arc 4
+    arc_4_1 = (45, 10)
+    arc_4_2 = (48.717082, 17.094306)
+    arc_4_3 = (50, 25)
+
+    # Arc 5
+    arc_5_1 = (40, 45)
+    arc_5_2 = (41.464466, 41.464466)
+    arc_5_3  = (45, 40)
+
+    # Arc 6
+    arc_6_1 =  (40, 45)
+    arc_6_2 =  (32.905694, 48.717082)
+    arc_6_3 = (25, 50)
+
+    # Arc 7
+    arc_7_1 =  (25.000003, 0.000009)
+    arc_7_2 =  (32.905697, 1.282909)
+    arc_7_3 =  (40.000003, 4.999991)
+
+    edge_1 = (arc_1_1, arc_1_2, arc_1_3)
+    edge_2 = (arc_2_1, arc_2_2, arc_2_3)
+    edge_3 = (arc_3_1, arc_3_2, arc_3_3)
+    edge_4 = (arc_4_1, arc_4_2, arc_4_3)
+    edge_5 = (arc_5_1, arc_5_2, arc_5_3)
+    edge_6 = (arc_6_1, arc_6_2, arc_6_3)
+    edge_7 = (arc_7_1, arc_7_2, arc_7_3)
+
+    external_edges = [edge_1, edge_2, edge_3, edge_4, edge_5, edge_6, edge_7]
+
+    # Circle 1
+    cp1 = (5, 25)
+    r1 = 1
+    circle_1 = (cp1, r1)
+
+    # Circle 2
+    cp2 = (45, 25)
+    r2 = 1
+    circle_2 = (cp2, r2)
+
+    internal_edges = [circle_1, circle_2]
+
+    items = board.graphicItems
+    raw_data = [item for item in items if item.layer == 'Edge.Cuts']
+
+    board_shape = BoardEdge("shape1", internal_edges, external_edges, raw_data, [])
+
+    return board_shape
+
+

@@ -503,6 +503,20 @@ def discretize_arc(arc, N):
     return points
 
 
+def discretize_line(line, N: int):
+    """将线段成N个离散点 """
+    (x1, y1), (x2, y2) = line
+
+    # 计算两个端点之间的增量
+    dx = (x2 - x1) / (N - 1) if N > 1 else 0
+    dy = (y2 - y1) / (N - 1) if N > 1 else 0
+
+    # 生成N个离散点
+    points = [(x1 + i * dx, y1 + i * dy) for i in range(N)]
+
+    return points
+
+
 def place_fixed_symbols_for_queer(circle: GrCircle, symbol: Symbol, distance: float):
     """
     在一个圆中，放一个器件垂直与半径进行放置

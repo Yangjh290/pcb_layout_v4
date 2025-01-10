@@ -5,7 +5,7 @@
 @Time：2024/9/12 15:14
 """
 import uuid
-
+from kiutils.board import Board
 
 # 规则实体
 class Rule:
@@ -71,3 +71,15 @@ class FootprintDistance:
 
     def __str__(self):
         return f"uuid:{self.uuid}, item_1:{self.item_1}, item_2:{self.item_2}, recommended_distance:{self.recommended_distance}, alarmed_distance:{self.alarmed_distance}"
+
+
+class BoardEdge:
+    def __init__(self, id: str, internal_edges: list, external_edges: list, raw_data, points: list):
+        self.id = id
+        self.internal_edges = internal_edges
+        self.external_edges = external_edges
+        self.raw_data = raw_data
+        self.points = points
+
+    def __str__(self):
+        return f"id:{self.id}, internal_edges:{self.internal_edges}, external_edges:{self.external_edges}, raw_data:{self.raw_data}, points:{self.points}"

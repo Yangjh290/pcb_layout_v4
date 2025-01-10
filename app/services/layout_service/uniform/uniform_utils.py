@@ -1,15 +1,15 @@
 import copy
 import math
 
-from SSA.footprint import footprint_postprocess
-from SSA.parse_kiutils import generate_connection_nets_by_modules
-from SSA.ssa_entity import SymbolModule, ConnectionNet
-from SSA.ssa_placeutils import is_overlap_with_individual_for_queer, is_out_of_bounds
-from entity.board import Board
-from entity.rectangle import Rectangle
-from entity.symbol import Symbol
-from uniform.uniform_check_utils import is_out_of_margin
-from uniform.uniform_query_utils import find_module_net, find_main_rect_from_layout, find_fq_distance, \
+from app.services.layout_service.SSA.footprint import footprint_postprocess
+from app.services.layout_service.SSA.parse_kiutils import generate_connection_nets_by_modules
+from app.services.layout_service.SSA.ssa_entity import SymbolModule, ConnectionNet
+from app.services.layout_service.SSA.ssa_placeutils import is_overlap_with_individual_for_queer, is_out_of_bounds
+from app.services.layout_service.entity.board import Board
+from app.services.layout_service.entity.rectangle import Rectangle
+from app.services.layout_service.entity.symbol import Symbol
+from app.services.layout_service.uniform.uniform_check_utils import is_out_of_margin
+from app.services.layout_service.uniform.uniform_query_utils import find_module_net, find_main_rect_from_layout, find_fq_distance, \
     find_symbol_from_all, is_beyond_bounds
 
 

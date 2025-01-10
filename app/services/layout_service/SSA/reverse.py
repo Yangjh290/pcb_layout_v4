@@ -17,7 +17,7 @@ def reverse_result(top_rects: list[Rectangle], objective_board: Board):
     """（器件+板子）将布局结果反写回原文件"""
     base_dir = os.path.dirname(os.path.abspath(__file__))
     pcb_file_path = os.path.join(base_dir, "../data/demo01/input/智能手环.kicad_pcb")
-    output_file_path = os.path.join(base_dir, "../data/demo01/output/智能手环.kicad_pcb")
+    output_file_path = os.path.join(base_dir, "../data/temp/output/Project.kicad_pcb")
 
     top_rects = [rect for rect in top_rects if rect.layer == "top"]
     print("成功放置的器件个数：", len(top_rects))

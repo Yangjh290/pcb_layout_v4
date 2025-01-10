@@ -52,6 +52,9 @@ class DeviceSymbolModel(object):
         # 位号
         self.bitNumber = self._analysis_bitNumber()
 
+        # uuid
+        self.uuid = schematicSymbol_obj.uuid
+
     def __str__(self):
         return f"DeviceSymbolModel({self.bitNumber},{self.libraryNickname}, {self.entryName}, {self.unit})"
 

@@ -1,8 +1,8 @@
 import math
 
-from SSA.math_utils import get_border_points
-from entity.board import Board
-from entity.rectangle import Rectangle
+from app.services.layout_service.SSA.math_utils import get_border_points
+from app.services.layout_service.entity.board import Board
+from app.services.layout_service.entity.rectangle import Rectangle
 
 
 def is_out_of_margin(rectangle: Rectangle, board: Board)-> bool:

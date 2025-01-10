@@ -20,9 +20,12 @@ async def get_project(body: LayoutRequestBody):
     """
     try:
         # 1. 调用 Service 层
-        print(body.source_record_id)
+        print(f"请求方案Idw为:  {body.source_record_id}")
         result = await pcb_layout(body.source_record_id)
 
+        status = 500
+        if len(result) != 0:
+            status = 200
         # 2. 返回最终结果
         return {"status": 200, "data": "111"}
 

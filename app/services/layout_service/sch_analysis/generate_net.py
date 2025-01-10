@@ -147,6 +147,7 @@ if __name__ == '__main__':
     # sch_file_path = "../data/origin/智能手环.kicad_sch"
     # sch_file_path = "../data/standard_1220/Project.kicad_sch"
     sch_file_path = "../data/demo02/input/Project.kicad_sch"
+    # sch_file_path = "../data/temp/project/Project.kicad_sch"
     base_dir = os.path.dirname(os.path.abspath(__file__))
     sch_file_path = os.path.join(base_dir, sch_file_path)
 
