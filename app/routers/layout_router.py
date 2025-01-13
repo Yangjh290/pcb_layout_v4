@@ -6,6 +6,7 @@
 """
 from fastapi import APIRouter, HTTPException, Query, Form, Body
 
+from app.config.logger_config import general_logger
 from app.models.request_models import SourceRecordRequest, LayoutRequestBody, FootprintRequest
 from app.models.response_models import LayoutResponse, TestResponse
 from app.services.layout_service.layout_service import pcb_layout, load_footprint
@@ -20,7 +21,7 @@ async def get_project(body: LayoutRequestBody):
     """
     try:
         # 1. 调用 Service 层
-        print(f"请求方案Idw为:  {body.source_record_id}")
+        general_logger.info(f"请求方案Idw为:  {body.source_record_id}")
         result = await pcb_layout(body.source_record_id)
 
         status = 500

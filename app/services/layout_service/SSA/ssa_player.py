@@ -8,6 +8,7 @@ import numpy as np
 from ..entity.board import Board
 from ..entity.rectangle import Rectangle
 from ..entity.symbol import Symbol
+from ..uniform.uniform_utils import calculate_arc_parameters_displayer
 
 
 def draw_plot(board: Board, compound_rectangles: list[Rectangle], fill_color='none',dpi=200):
@@ -591,21 +592,14 @@ def save_plot(board: Board, compound_rectangles: list[Rectangle], save_path, fil
             if rect.layer == "location_number" and rect.r == 0:
                 ax.text( rect.x + rect.w / 2, rect.y + rect.h / 2, rect.uuid, fontsize=5, ha='center', va='center', rotation=rect.r )
 
-        # 异形板
-        if board.shape == "queer":
-            arcs = board.other["arc_segments"]
-            for arc in arcs:
-                # 创建一个新的 Arc 实例，而不是直接使用现有的 arc 对象
-                arc_patch = patches.Arc(
-                    arc.center,  # 中心点位置，假设这是一个包含 (x, y) 坐标的元组
-                    arc.width,  # 宽度
-                    arc.height,  # 高度
-                    angle=arc.angle,
-                    theta1=arc.theta1,
-                    theta2=arc.theta2,
-                    edgecolor=arc.get_edgecolor(),  # 保留颜色或其他属性
-                )
-                ax.add_patch(arc_patch)
+        # 绘制外边界
+        # 2 绘制边界
+        for segment in board.segments:
+            if isinstance(segment, patches.Arc):
+                ax.add_patch(segment)
+            else:
+                ax.plot([segment[0][0], segment[1][0]], [segment[0][1], segment[1][1]], color='blue', lw=0.3,
+                        marker='o')
 
         plt.grid(False)
 

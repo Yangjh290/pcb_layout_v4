@@ -36,13 +36,13 @@ def get_border_points(vertex :tuple[float, float], center_x: float, center_y: fl
     """获取指定范围内的边界点, 然后返回最小半径"""
     # 扫描范围
     rad = angle_from_center(center_x, center_y, vertex[0], vertex[1])
-    rad_range = math.radians(15)
+    rad_range = math.radians(5)
     # 半径集合
     border_radius = []
     # 遍历边界点
     for point in bound_points:
         target_rad = angle_from_center(center_x, center_y, point[0], point[1])
-        if rad_range + rad > target_rad > rad_range - rad:
+        if rad + rad_range > target_rad > rad - rad_range:
             radius = math.sqrt((point[0] - center_x) ** 2 + (point[1] - center_y) ** 2)
             border_radius.append(radius)
     # 计算最小半径

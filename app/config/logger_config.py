@@ -63,7 +63,7 @@ LOGGING_CONFIG = {
         },
         "general_logger": {  # 新增：普通错误日志记录器
             "level": LOG_LEVEL,
-            "handlers": ["console", "general_file"],
+            "handlers": ["console"],
             "propagate": False,
         },
     },

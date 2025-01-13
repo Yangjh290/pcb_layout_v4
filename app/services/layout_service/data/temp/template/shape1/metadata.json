@@ -1,0 +1,6 @@
+{
+	"shape": "rectangle",
+	"subShape": "shape1",
+	"size": [40,40],
+	"unit": "mm"
+}

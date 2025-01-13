@@ -12,6 +12,8 @@ def is_out_of_margin(rectangle: Rectangle, board: Board)-> bool:
     center_x, center_y = board.size[0]/2, board.size[1]/2
     if board.shape == 'queer':
         bound_points = board.other['points']
+    elif board.shape == 'rectangle':
+        bound_points = board.other['points']
 
     # 获取矩形的四个顶点坐标
     vertices = [

@@ -12,6 +12,7 @@ import numpy as np
 from shapely.geometry.polygon import Polygon
 from shapely.measurement import distance
 
+from app.config.logger_config import general_logger
 from .parse_kiutils import generate_connection_networks
 from .ssa_entity import ConnectionNet, SymbolModule
 from ..entity.board import Board
@@ -19,11 +20,20 @@ from ..entity.rectangle import Rectangle
 from ..entity.symbol import Symbol
 from matplotlib.path import Path
 
+from ..uniform.uniform_check_utils import is_out_of_margin
+
 
 def is_out_of_bounds(rect: Rectangle, board: Board) -> bool:
     """判断给定的矩形是否超出板子的边界"""
 
+    # 获取板子的宽度和高度
+    board_width, board_height = board.size
+
     if board.shape == 'queer':
+        bound_points = board.other['points']
+        return is_out_of_bounds_for_queer(rect, bound_points)
+
+    if board.shape == 'rectangle':
         bound_points = board.other['points']
         return is_out_of_bounds_for_queer(rect, bound_points)
 
@@ -34,8 +44,6 @@ def is_out_of_bounds(rect: Rectangle, board: Board) -> bool:
     rect_right = rect.x + rect.w
     rect_top = rect.y + rect.h
 
-    # 获取板子的宽度和高度
-    board_width, board_height = board.size
     # 检查矩形的边界是否超出板子的边界
     if rect.x < brim_length or rect.y < brim_length or board_width - rect_right < brim_length or board_height - rect_top < brim_length:
         return True
@@ -96,51 +104,69 @@ def is_overlap_with_individual(rect: Rectangle, rectangles: list[Rectangle]):
     return False
 
 
+def rotate_point(px: float, py: float,
+                 origin_x: float, origin_y: float,
+                 cos_theta: float, sin_theta: float) -> tuple[float, float]:
+    """
+    将点 (px, py) 绕参考点 (origin_x, origin_y) 逆时针旋转。
+    其中 cos_theta = math.cos(弧度角度)，sin_theta = math.sin(弧度角度)。
+    返回旋转后的 (final_x, final_y)。
+    """
+    # 1. 平移点到原点
+    translated_x = px - origin_x
+    translated_y = py - origin_y
+    # 2. 逆时针旋转
+    rotated_x = translated_x * cos_theta - translated_y * sin_theta
+    rotated_y = translated_x * sin_theta + translated_y * cos_theta
+    # 3. 平移回原位置
+    final_x = rotated_x + origin_x
+    final_y = rotated_y + origin_y
+    return (final_x, final_y)
+
+
 def get_rotated_polygon(rect: Rectangle) -> Polygon:
     """
     根据 Rectangle 对象计算旋转后的多边形。
-
-    参数：
-    - rect: Rectangle 对象
-
-    返回：
-    - Shapely 的 Polygon 对象，表示旋转后的矩形
     """
+    # 1. 基础检查
+    if rect is None:
+        raise ValueError("rect 对象不能为 None。")
+
     x, y, w, h, r = rect.x, rect.y, rect.w, rect.h, rect.r
-    theta = math.radians(r)  # 将角度转换为弧度
 
-    cos_theta = math.cos(theta)
-    sin_theta = math.sin(theta)
+    # 宽高为负或为 NaN 等情况通常是异常，可根据业务需求调整
+    if not isinstance(w, (int, float)) or not isinstance(h, (int, float)):
+        raise TypeError("矩形宽度或高度的类型应为数值。")
+    if w < 0 or h < 0:
+        raise ValueError(f"矩形宽/高为负数 (uuid={rect.uuid}, w={w}, h={h})，不符合逻辑。")
 
-    # 定义未旋转的矩形的四个角（顺时针顺序）
-    # 左下角
-    p1 = (x, y)
-    # 右下角
-    p2 = (x + w, y)
-    # 右上角
-    p3 = (x + w, y + h)
-    # 左上角
-    p4 = (x, y + h)
+    # 2. 尝试执行旋转计算及构造多边形
+    try:
+        # 将角度转换为弧度
+        theta = math.radians(r)
+        cos_theta = math.cos(theta)
+        sin_theta = math.sin(theta)
 
-    # 旋转每个点绕左下角 (x, y)
-    def rotate_point(px, py):
-        # 平移点到原点
-        translated_x = px - x
-        translated_y = py - y
-        # 逆时针旋转
-        rotated_x = translated_x * cos_theta - translated_y * sin_theta
-        rotated_y = translated_x * sin_theta + translated_y * cos_theta
-        # 平移回原位置
-        final_x = rotated_x + x
-        final_y = rotated_y + y
-        return (final_x, final_y)
+        # 定义未旋转的矩形的四个角（顺时针顺序）
+        p1 = (x, y)
+        p2 = (x + w, y)
+        p3 = (x + w, y + h)
+        p4 = (x, y + h)
 
-    rotated_p1 = rotate_point(*p1)
-    rotated_p2 = rotate_point(*p2)
-    rotated_p3 = rotate_point(*p3)
-    rotated_p4 = rotate_point(*p4)
+        # 依次调用 rotate_point
+        rotated_p1 = rotate_point(p1[0], p1[1], x, y, cos_theta, sin_theta)
+        rotated_p2 = rotate_point(p2[0], p2[1], x, y, cos_theta, sin_theta)
+        rotated_p3 = rotate_point(p3[0], p3[1], x, y, cos_theta, sin_theta)
+        rotated_p4 = rotate_point(p4[0], p4[1], x, y, cos_theta, sin_theta)
 
-    return Polygon([rotated_p1, rotated_p2, rotated_p3, rotated_p4])
+        poly = Polygon([rotated_p1, rotated_p2, rotated_p3, rotated_p4])
+
+        return poly
+
+    except Exception as e:
+        # 捕获并记录异常，然后再抛出或根据需求自行处理
+        general_logger.error(f"在 {rect.uuid} 的 get_rotated_polygon 中发生异常：")
+        raise e
 
 
 def is_overlap_with_individual_for_queer(rect: Rectangle, rectangles: list[Rectangle]):
@@ -230,6 +256,43 @@ def stochastic_place_brim(board: Board, await_symbol: Symbol, best_layout: list[
                 not is_out_of_bounds(new_rectangle, board)
         ):
             best_layout.append(new_rectangle)
+            break
+
+
+def stochastic_place_brim_for_rectangle(board: Board, await_symbol: Symbol, best_layout: list[Rectangle]):
+    """随机将一个器件放置在board的边缘位置"""
+    board_width, board_height = board.size
+    grid_points_x = int(board_width / board.unit)
+    grid_points_y = int(board_height / board.unit)
+
+    # 随机挑选一个方向
+    random_direction = random.choice(['right', 'left', 'up', 'down'])
+    # 边缘间距
+    brim_length = 2 * board.unit
+    while True:
+        # 在四个方向上随机布局
+        x, y = 0, 0
+        if random_direction == 'down':
+            x = random.randint(1, grid_points_x - 1) * board.unit
+            y = brim_length
+        elif random_direction == 'up':
+            x = random.randint(1, grid_points_x - 1) * board.unit
+            y = grid_points_y - await_symbol.height - brim_length
+        elif random_direction == 'left':
+            x = brim_length
+            y = random.randint(1, grid_points_y - 1) * board.unit
+        elif random_direction == 'right':
+            x = grid_points_x - await_symbol.width - brim_length
+            y = random.randint(1, grid_points_y - 1) * board.unit
+
+        new_rectangle = Rectangle(await_symbol.uuid, x, y, await_symbol.width, await_symbol.height, 0)
+        general_logger.info("硬规则器件放置中...")
+        if (
+                not is_overlap_with_individual(new_rectangle, best_layout) and
+                not is_out_of_margin(new_rectangle, board)
+        ):
+            best_layout.append(new_rectangle)
+            general_logger.info("硬规则器件放置  成功")
             break
 
 
@@ -555,6 +618,7 @@ def update_individual(i, j, new_x, new_y, new_r, colony_x, uuids_order, module_t
     # 如果重叠就保留父本
     skip_rect = Rectangle(uuid=symbols[j].uuid, x=colony_x[i, j, 0], y=colony_x[i, j, 1], w=symbols[j].width,
                           h=symbols[j].height, r=new_r)
+
 
     # 检查是否超出电路板边界
     if is_out_of_bounds(new_rect, board):

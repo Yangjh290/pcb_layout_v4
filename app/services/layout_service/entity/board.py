@@ -15,6 +15,8 @@ class Board:
         self.size = size    # 如果是矩形则[width,height]，如果是异形则[(x1,y1), (x2,y2), (x3,y3), ...]
         self.unit = unit    # 网格大小，单位为mm
         self.other = other  # 板子内部的螺丝孔等
+        self.scale = 1.0    # 缩放比例，默认1.0
+        self.segments = []  # 板子的线段，用于画线
 
     def __str__(self):
         return f'{self.shape} {self.size} {self.unit} {self.other}'

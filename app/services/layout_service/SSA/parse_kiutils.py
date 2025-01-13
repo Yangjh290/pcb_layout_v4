@@ -2,13 +2,14 @@ import random
 import re
 import os
 
+import pandas as pd
 from kiutils.board import Board
 from kiutils.items.schitems import SchematicSymbol, Rectangle, Text
 from kiutils.schematic import Schematic
 from kiutils.items.fpitems import FpLine, FpCircle, FpArc, FpPoly, FpRect
 import math
 
-
+from app.config.logger_config import general_logger
 from .ssa_entity import ConnectionNet, SymbolModule, BoardEdge
 from ..entity.board import Module
 from ..entity.symbol import Symbol
@@ -76,6 +77,66 @@ def footprint_bounding_box(footprint):
         d_type = footprint.properties['Design Item ID']
 
     return Symbol(uuid, max_y - min_y, max_x - min_x, 0, 0, d_type, 0)
+
+
+def _footprint_bounding_box(footprint):
+    """计算 footprint 的外接矩形"""
+
+    min_x, min_y = float('inf'), float('inf')
+    max_x, max_y = float('-inf'), float('-inf')
+
+    # 遍历 footprint 的所有图形元素
+    for item in footprint.graphicItems:
+
+        if isinstance(item, FpLine) and item.layer == 'F.CrtYd':
+            # 线段的起点和终点
+            start_x, start_y = item.start.X, item.start.Y
+            end_x, end_y = item.end.X, item.end.Y
+            min_x = min(min_x, start_x, end_x)
+            min_y = min(min_y, start_y, end_y)
+            max_x = max(max_x, start_x, end_x)
+            max_y = max(max_y, start_y, end_y)
+
+        elif isinstance(item, FpCircle) and item.layer == 'F.CrtYd':
+            # 圆的中心和半径
+            center_x, center_y = item.center.X, item.center.Y
+            radius = math.sqrt((item.end.X - center_x) ** 2 + (item.end.Y - center_y) ** 2)
+            min_x = min(min_x, center_x - radius)
+            min_y = min(min_y, center_y - radius)
+            max_x = max(max_x, center_x + radius)
+            max_y = max(max_y, center_y + radius)
+
+        elif isinstance(item, FpArc) and item.layer == 'F.CrtYd':
+            # 弧的起点和终点
+            start_x, start_y = item.start.X, item.start.Y
+            end_x, end_y = item.end.X, item.end.Y
+            min_x = min(min_x, start_x, end_x)
+            min_y = min(min_y, start_y, end_y)
+            max_x = max(max_x, start_x, end_x)
+            max_y = max(max_y, start_y, end_y)
+
+        # 处理 FpPoly
+        elif isinstance(item, FpPoly) and item.layer == 'F.CrtYd':
+            for point in item.coordinates:
+                x, y = point.X, point.Y
+                min_x = min(min_x, x)
+                min_y = min(min_y, y)
+                max_x = max(max_x, x)
+                max_y = max(max_y, y)
+
+        # 处理 FpRect
+        elif isinstance(item, FpRect) and item.layer == 'F.CrtYd':
+            start_x, start_y = item.start.X, item.start.Y
+            end_x, end_y = item.end.X, item.end.Y
+            min_x = min(min_x, start_x, end_x)
+            min_y = min(min_y, start_y, end_y)
+            max_x = max(max_x, start_x, end_x)
+            max_y = max(max_y, start_y, end_y)
+
+    # 获取基本信息
+    uuid = footprint.entryName
+
+    return Symbol(uuid, max_y - min_y, max_x - min_x, 0, 0, uuid, 0)
 
 
 def generate_input_symbols(pcb_file_path="../data/origin/智能手环.kicad_pcb"):
@@ -147,6 +208,38 @@ def is_not_special_symbol(symbol: SchematicSymbol):
         return True
 
 
+def extract_outer_parentheses_cn(text):
+    """
+    提取字符串中最外层括号（全角）内的内容。
+
+    :param text: 输入字符串
+    :return: 括号内的内容，如果未找到则返回 None
+    """
+    start = text.find('（')  # 查找全角左括号的位置
+    if start == -1:
+        return None  # 未找到左括号
+    end = text.find('）', start)  # 查找全角右括号的位置，从左括号之后开始
+    if end == -1:
+        return None  # 未找到右括号
+    return text[start+1:end]
+
+
+def extract_outer_parentheses_en(text):
+    """
+    提取字符串中最外层括号（全角）内的内容。
+
+    :param text: 输入字符串
+    :return: 括号内的内容，如果未找到则返回 None
+    """
+    start = text.find('(')  # 查找全角左括号的位置
+    if start == -1:
+        return None  # 未找到左括号
+    end = text.find(')', start)  # 查找全角右括号的位置，从左括号之后开始
+    if end == -1:
+        return None  # 未找到右括号
+    return text[start+1:end]
+
+
 def reflex_name_to_type(modules: list[Module]):
     """确定模块的类型"""
 
@@ -172,16 +265,25 @@ def reflex_name_to_type(modules: list[Module]):
 
         '（Linear DC-DC Conversion）': "1_CONNECTION",
         '(Flash)': "2_STORAGE",
+        'Flash': "2_STORAGE",
         '（Acceleration）': "0_COMMON",
         '(Atmospheric Pressure)': "0_COMMON",
+        'Atmospheric Pressure': "0_COMMON",
         '（Microphone）': "0_COMMON",
+        'Microphone': "0_COMMON",
         '(Microcontroller)': "4_MCU",
+        'Microcontroller': "4_MCU",
         '(Angular Velocity)': "0_COMMON",
+        'Angular Velocity': "0_COMMON",
         '（TVS_ESD）': "0_COMMON",
+        'TVS_ESD': "0_COMMON",
         '（Magnetometer）': "6_SENSOR",
         '（Power Monitor）': "7_CONVERTER",
+        'Power Monitor': "7_CONVERTER",
         '（Power Connectors and Sockets）': "1_CONNECTION",
+        'Power Connectors and Sockets': "1_CONNECTION",
         '（RAM）': "2_STORAGE",
+        'RAM': "2_STORAGE",
 
     }
     modules = [module for module in modules if module.module_name != 'init']
@@ -189,9 +291,26 @@ def reflex_name_to_type(modules: list[Module]):
         # 设置模块类型
         if module.module_name in reflexion:
             module.module_type = reflexion[module.module_name]
-            print(module)
+            general_logger.info(module)
         else:
-            print(f"Warning: 未找到匹配项 '{module.module_name}'")
+            general_logger.error(f"Warning: 未找到匹配项 '{module.module_name}'")
+
+
+def type_reflexion(modules: list[Module]):
+    """确定模块的类型"""
+
+    df = pd.read_excel("../data/temp/appendix/reflexion.xlsx")
+    # 表头为 module_name, module_Chinese_name, module_rule_type, module_type
+    reflexion = dict(zip(df["module_name"], df["module_type"]))
+    modules = [module for module in modules if module.module_name != 'init']
+    for module in modules:
+        # 设置模块类型
+        if module.module_name in reflexion:
+            module.module_type = reflexion[module.module_name]
+            general_logger.info(module)
+        else:
+            module.module_type = "0_COMMON"
+            general_logger.info(module)
 
 
 def generate_mudules(sch_file_path='../data/origin/智能手环.kicad_sch'):
@@ -490,3 +609,38 @@ def _shape3(file_path = "../data/temp/template/shape3/shape3.kicad_pcb"):
     return board_shape
 
 
+def _analyze_footprint(pcb_file_path="../data/temp/template/project.kicad_pcb"):
+    """遍历 PCB 上的所有 footprint 并计算它们的大小"""
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    pcb_file_path = os.path.join(base_dir, pcb_file_path)
+    board = Board().from_file(pcb_file_path, encoding='utf-8')
+    symbols: list[Symbol] = []
+
+    for footprint in board.footprints:
+        symbol = _footprint_bounding_box(footprint)
+        symbols.append(symbol)
+
+    # 给位号预留位置
+    for symbol in symbols:
+        # location_number_length = len(symbol.uuid)
+        # 0.2 使考虑到连接器的情况
+        symbol.height += 1.38 + 0.2
+        # 原则上是按照位号的位数计算长度，但考虑到间隙问题，直接设置最小宽度
+        if symbol.width < 2.65:
+            symbol.width = 2.65
+
+    general_logger.info(f"---------------------------共解析了 {len(symbols)} 个器件")
+    return symbols
+
+
+def _convert_symbol(symbols: list[Symbol], fts: list[Symbol]):
+    """将符号转换为器件"""
+    for symbol in symbols:
+        for ft in fts:
+            if symbol.type.split(":")[1] == ft.uuid:
+                symbol.width = ft.width
+                symbol.height = ft.height
+                general_logger.info(f"器件 {symbol.uuid} 的大小为 {symbol.width} x {symbol.height}")
+                break
+    return symbols

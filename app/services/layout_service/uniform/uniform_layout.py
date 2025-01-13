@@ -1,5 +1,6 @@
 import copy
 
+from app.config.logger_config import general_logger
 from app.services.layout_service.SSA.parse_kiutils import generate_input_symbols, generate_mudules
 from app.services.layout_service.SSA.reverse import reverse_result
 from app.services.layout_service.SSA.ssa_player import save_plot
@@ -115,7 +116,7 @@ def uniform_layout_service(symbols, modules, objective_board):
     back_layout = []
 
     # 保存结果
-    save_path = "../data/demo01/display"
+    save_path = "../data/temp/display"
 
     while not_be_placed:
 
@@ -129,6 +130,7 @@ def uniform_layout_service(symbols, modules, objective_board):
         fixed_layout = copy.deepcopy(screw_layout)
         # 然后正式放置硬规则器件
         place_fixed_symbols(current_board, fixed_symbols, rule_types, fixed_layout)
+        save_plot(current_board, fixed_layout, save_path + "/硬规则布局.png")
         # 异形板布局-4
         # 软规则器件布局
         # 先进行模块间布局
@@ -143,7 +145,6 @@ def uniform_layout_service(symbols, modules, objective_board):
         # 判断当前板是否满足用户需求
         result_board = calculate_optimistic_board(best_layout, current_board)
         is_accommodation = judge_accommodation(result_board, objective_board)
-        print("test-------------------------------------------------------------------------------：")
 
         # 如果能放下，则停止迭代
         if is_accommodation:
@@ -154,7 +155,7 @@ def uniform_layout_service(symbols, modules, objective_board):
             # 如果背面版也放置不下，则返回“放置不小的信息”
             if is_back_place:
                 # 如果背面不允许放置，则返回“背面不允许放置器件，您提供的PCB版无法放置所需要的器件”
-                print("背面不允许放置器件，或者以及考虑背面放置的条件下，您提供的PCB版无法放置所需要的器件")
+                general_logger.error("背面不允许放置器件，或者以及考虑背面放置的条件下，您提供的PCB版无法放置所需要的器件")
                 best_layout = None
                 break
             else:

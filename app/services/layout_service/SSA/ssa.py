@@ -10,6 +10,7 @@ from decimal import Decimal
 
 import numpy as np
 
+from app.config.logger_config import general_logger
 from .ssa_placeutils import stochastic_generate_coordinate, is_out_of_bounds, \
     sort_symbols_by_area, fun_reward, sort_module_types, \
     sort_fitness, sort_position, calculate_single_fitness, get_rest_rects, \
@@ -43,11 +44,13 @@ def initial_population(population_size, symbols, board, fixed_layout):
             # 确保矩形之间不能重叠
             while True:
                 new_rect = stochastic_generate_coordinate(board, symbols[j])
+                # general_logger.debug(f"正在初始化第{i}个个体第{j}个器件...")
                 if (    not is_overlap_with_individual_for_queer(new_rect, taboo_layout)
                         and not is_out_of_bounds(new_rect, board)
                         and not is_lower_threshold(taboo_layout, new_rect, 0.0)
                 ):
                     taboo_layout.append(new_rect)
+                    general_logger.info(f"第{i}个个体第{j}个器件的坐标为{new_rect.x}, {new_rect.y}, {new_rect.r}")
                     break
             colony_x[i, j] = [new_rect.x, new_rect.y, new_rect.r]
 
@@ -122,6 +125,7 @@ def discovery_update_plus(colony_x, discovery_number, ST, max_iter, board, symbo
             new_rect = Rectangle(uuid=symbols[j].uuid, x=new_x, y=new_y, w=symbols[j].width, h=symbols[j].height, r=new_r)
             skip_rect = Rectangle(uuid=symbols[j].uuid, x=colony_x[i, j, 0], y=colony_x[i, j, 1], w=symbols[j].width, h=symbols[j].height, r=new_r)
 
+            # general_logger.debug(f"发现者：第{i}个个体第{j}个器件的坐标确定中...")
             # 检查是否超出电路板边界
             if is_out_of_bounds(new_rect, board):
                 taboo_layout.append(skip_rect)
@@ -145,6 +149,7 @@ def discovery_update_plus(colony_x, discovery_number, ST, max_iter, board, symbo
 
             # 将该位置添加到 taboo_layout 中，以便后续检测重叠
             taboo_layout.append(new_rect)
+            general_logger.info(f"发现者：第{i}个个体第{j}个器件的坐标确定!")
             break
 
     return colony_x
@@ -216,7 +221,10 @@ def follower_update_plus(colony_x, discovery_number, follower_number, board, sym
                 j -= 1
                 continue
 
-            if count_flag == 1: break
+            # general_logger.debug(f"追随者：第{i}个个体第{j}个器件的坐标确定中...")
+            if count_flag == 1:
+                general_logger.info(f"追随者：第{i}个个体第{j}个器件的坐标确定")
+                break
 
     return colony_x
 
@@ -273,7 +281,10 @@ def watcher_update_plus(colony_x, fitness, best_index, worst_index, board, symbo
                 j -= 1
                 continue
 
-            if count_flag == 1: break
+            general_logger.debug(f"警戒者：第{i}个个体第{j}个器件的坐标确定中...")
+            if count_flag == 1:
+                general_logger.info(f"警戒者：第{i}个个体第{j}个器件的坐标确定")
+                break
 
     return colony_x
 
@@ -486,7 +497,7 @@ def watcher_update_internal(colony_x, fitness, best_index, worst_index, board, s
 
 
 def ssa(taboo_layout, current_board, original_symbols, module_types, fun_type,
-        population_size=50, ST=0.6, rate_of_discovery=0.3, rate_of_follower=0.5, max_iter=3):
+        population_size=10, ST=0.6, rate_of_discovery=0.3, rate_of_follower=0.5, max_iter=3):
     """
     :param rate_of_discovery: 发现者比例
     :param rate_of_follower: 追随者比例
@@ -560,7 +571,7 @@ def ssa(taboo_layout, current_board, original_symbols, module_types, fun_type,
         # 记录每次单个迭代的最优值
         curve[i] = colony_fitness[0]
         # 打印当前迭代的最优值
-        print(f"iteration {str(i)} ,best score: {str(colony_fitness[0])}")
+        general_logger.info(f"iteration {str(i)} ,best score: {str(colony_fitness[0])}")
 
     # 将对应的坐标填充为一个矩形
     best_layout = []

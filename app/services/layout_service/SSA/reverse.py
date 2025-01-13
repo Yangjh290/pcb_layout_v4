@@ -8,6 +8,7 @@ import math
 import shutil
 import os
 
+from app.config.logger_config import general_logger
 from .math_utils import rotate_center
 from ..entity.board import Board
 from ..entity.rectangle import Rectangle
@@ -16,11 +17,13 @@ from ..entity.rectangle import Rectangle
 def reverse_result(top_rects: list[Rectangle], objective_board: Board):
     """（器件+板子）将布局结果反写回原文件"""
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    pcb_file_path = os.path.join(base_dir, "../data/demo01/input/智能手环.kicad_pcb")
-    output_file_path = os.path.join(base_dir, "../data/temp/output/Project.kicad_pcb")
+    # pcb_file_path = os.path.join(base_dir, "../data/demo01/input/智能手环.kicad_pcb")
+    pcb_file_path = os.path.join(base_dir, "../data/temp/template/project.kicad_pcb")
+    output_file_path = os.path.join(base_dir, "../data/temp/project/Project.kicad_pcb")
 
     top_rects = [rect for rect in top_rects if rect.layer == "top"]
-    print("成功放置的器件个数：", len(top_rects))
+    general_logger.info(f"成功放置的器件个数：{len(top_rects)}")
+
     for rect in top_rects:
         # 旋转情况器件坐标要特殊处理
         if rect.r != 0:
@@ -105,7 +108,7 @@ def reverse_footprint(input_file: str, output_file: str, rects: list[Rectangle])
 
                     break
                 except IndexError as e:
-                    print(f"发生了 IndexError: {e}")
+                    general_logger.error(f"发生了 IndexError: {e}")
 
 
 
@@ -129,7 +132,7 @@ def midify_board(output_path: str, board: Board):
             line_index = i
             break
     if line_index == 0:
-        print("Error: No gr_arc found in the file.")
+        general_logger.error("Error in midify_board: No gr_arc found in the file.")
         return
 
     # 开始反写所有的弧线
@@ -137,7 +140,7 @@ def midify_board(output_path: str, board: Board):
     if board.shape == "queer":
         arcs = board.other["arc_segments"]
     if len(arcs) == 0:
-        print("Error: No arc segments found.")
+        general_logger.error("Error in midify_board: No arc segments found.")
         return
 
     arc_lines = cal_arc_info(arcs)

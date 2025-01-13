@@ -11,13 +11,15 @@ import random
 import numpy as np
 from matplotlib import patches
 
+from app.config.logger_config import general_logger
 from .math_utils import rotate_center
 from ..uniform.uniform_query_utils import find_module_net
 from .parse_kiutils import generate_input_symbols, generate_mudules, generate_connection_nets_by_modules
 from .ssa import ssa, ssa_internal
 from .ssa_entity import Rule, SymbolModule, ConnectionNet, GrCircle
 from .ssa_placeutils import stochastic_place_brim, filter_symbols, sort_symbols_by_area, find_symbol_by_uuid, \
-    place_regular, is_overlap_with_individual, is_out_of_bounds, is_overlap_with_individual_for_queer
+    place_regular, is_overlap_with_individual, is_out_of_bounds, is_overlap_with_individual_for_queer, \
+    stochastic_place_brim_for_rectangle
 from .ssa_player import draw_plot, find_leftmost_rectangles, move_rect, trim_layout, plot_fitness_curve
 from ..entity.board import Module, Board
 from ..entity.rectangle import Rectangle
@@ -174,7 +176,7 @@ def place_fixed_symbols(current_board: Board, fixed_symbols, rule_types, best_la
         # 放置连接器，开头朝外，对称放置，距离板边至少5mm
         if rule_types[i] == "f_01" or rule_types[i] == "f_02":
             if current_board.shape == "rectangle":
-                stochastic_place_brim(current_board, main_symbol, best_layout)
+                stochastic_place_brim_for_rectangle(current_board, main_symbol, best_layout)
             else:
                 stochastic_place_brim_for_queer(current_board, main_symbol, best_layout)
     return best_layout
@@ -233,6 +235,7 @@ def load_modules(modules: list[Module], rules: list[Rule], symbols: list[Symbol]
 
 def module_placement(fixed_layout: list[Rectangle], current_board: Board, reward_symbol_modules: list[SymbolModule]):
     """先进行模块布局"""
+    general_logger.info("模块间布局开始--------------------------------------")
     original_symbols, module_types = [], []
     for i in range(len(reward_symbol_modules)):
         original_symbols.append(copy.deepcopy(reward_symbol_modules[i].main_symbol))

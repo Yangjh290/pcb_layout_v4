@@ -13,20 +13,21 @@ from fastapi import HTTPException
 from matplotlib import patches
 
 from app.clients.external_service import external_client
-from app.config.logger_config import general_logger
+from app.config.logger_config import general_logger, http_logger
 from app.services.layout_service.SSA.parse_kiutils import is_be_contained, is_multiple_tag, reflex_name_to_type, \
-    _shape1, _shape2
+    _shape1, _shape2, _analyze_footprint, _convert_symbol, extract_outer_parentheses_en, extract_outer_parentheses_cn
 from app.services.layout_service.SSA.ssa_entity import SymbolModule, BoardEdge
 from app.services.layout_service.SSA.ssa_utils import calculate_arc_parameters, discretize_arc, discretize_line
 from app.services.layout_service.entity.board import Module, Board
 from app.services.layout_service.entity.rectangle import Rectangle
 from app.services.layout_service.entity.symbol import Symbol
 from app.services.layout_service.sch_analysis.analysis_sch import SchModel
-from app.services.layout_service.uniform.uniform_layout import uniform_layout
+from app.services.layout_service.uniform.uniform_file_utils import move_files, append_file, zip_directory
+from app.services.layout_service.uniform.uniform_layout import uniform_layout, uniform_layout_service
 from app.services.layout_service.uniform.uniform_player import _draw_board
 
 
-async def pcb_layout(source_record_id: int):
+async def pcb_layout(source_record_id: int, chat_detail_id=147324143):
     """
     先调用外部接口获取数据，再进行业务处理
     """
@@ -35,10 +36,13 @@ async def pcb_layout(source_record_id: int):
         project_data = await external_client.get_project(source_record_id)
         # 将数据存储到临时文件夹
         data_str = project_data["data"]
-        sch_file_path = store_temp_project(data_str)
+        sch_file_path = _store_temp_project(data_str)
 
         # 获取模块信息和基本器件信息
         modules = _load_modules_symbols(sch_file_path)
+
+        # 获取器件信息
+        symbols = await _load_symbols(sch_file_path, modules)
 
         # 获取板子信息
         board = None
@@ -48,14 +52,19 @@ async def pcb_layout(source_record_id: int):
             scale = board_data["data"]["scale"]
             if scale == '':
                 scale = 1.5
-            board = _get_board_top(board_data["data"], scale)
-            _draw_board(board, scale)
 
+            board = _get_board_top(board_data["data"], scale)
+            board.scale = scale
+            _draw_board(board, scale)
         if not board:
             general_logger.error("解析板子信息发生错误")
 
-        result_rects = uniform_layout()
+        # 进行布局
+        result_rects = uniform_layout_service(symbols, modules, board)
 
+        # 发送结果
+        zip_path = zip_directory()
+        response = await external_client.send_file(zip_path, chat_detail_id, source_record_id)
 
         return result_rects
 
@@ -65,24 +74,6 @@ async def pcb_layout(source_record_id: int):
     except Exception as e:
         general_logger.error(e)
         raise HTTPException(status_code=500, detail=str(e))
-
-
-def store_temp_project(data_str):
-    """将数据存储到临时文件夹"""
-    zip_bytes = base64.b64decode(data_str)  # 转为真正的 ZIP bytes
-
-    # 3. 解压到指定文件夹
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    temp_folder = "data/temp/project"
-    temp_folder = os.path.join(base_dir, temp_folder)
-    if not os.path.exists(temp_folder):
-        os.makedirs(temp_folder, exist_ok=True)
-
-    # in-memory 解压缩
-    with zipfile.ZipFile(io.BytesIO(zip_bytes), "r") as zf:
-        zf.extractall(temp_folder)
-
-    return os.path.join(temp_folder, "project.kicad_sch")
 
 
 async def load_footprint(name: str):
@@ -101,18 +92,41 @@ async def load_footprint(name: str):
             os.makedirs(temp_folder, exist_ok=True)
 
         # 生成文件的完整路径
-        file_path = os.path.join(temp_folder, f"{name}1.txt")  # 假设保存为 .bin 文件，你可以根据需要改成其他扩展名
+        file_path = os.path.join(temp_folder, f"{name}.txt")
+        if os.path.exists(file_path):
+            general_logger.info(f"获取器件封装信息已存在： {name}")
+            return
 
         # 保存文件
         with open(file_path, "wb") as f:
             f.write(file_bytes)
 
-        return {"status": "ok", "message": "文件保存完成", "path": file_path}
+        general_logger.info(f"获取器件封装信息成功： {name}")
 
     except HTTPException as e:
+        general_logger.error(e)
         raise e
     except Exception as e:
+        general_logger.error(e)
         raise HTTPException(status_code=500, detail=str(e))
+
+
+def _store_temp_project(data_str):
+    """将数据存储到临时文件夹"""
+    zip_bytes = base64.b64decode(data_str)  # 转为真正的 ZIP bytes
+
+    # 3. 解压到指定文件夹
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    temp_folder = "data/temp/project"
+    temp_folder = os.path.join(base_dir, temp_folder)
+    if not os.path.exists(temp_folder):
+        os.makedirs(temp_folder, exist_ok=True)
+
+    # in-memory 解压缩
+    with zipfile.ZipFile(io.BytesIO(zip_bytes), "r") as zf:
+        zf.extractall(temp_folder)
+
+    return os.path.join(temp_folder, "project.kicad_sch")
 
 
 def _load_modules_symbols(sch_file_path):
@@ -162,13 +176,22 @@ def _load_mudules(schematic, device_symbols):
 
             if is_be_contained(text, border):
 
+                # 先获取基本括号中的模块名
                 module.module_name = text.text.split('\\n', 1)[-1]
+                # 再获取模块名
+                real_name = extract_outer_parentheses_cn(module.module_name)
+                if real_name is None:
+                    real_name = extract_outer_parentheses_en(module.module_name)
+                    if real_name is None:
+                        general_logger.error(f"模块名格式错误： {module.module_name}")
+                        return
+                module.module_name = real_name
 
         modules.append(module)
 
     # 类型确定
     reflex_name_to_type(modules)
-    print(f"解析共有模块： {len(modules)}")
+    general_logger.info(f"解析共有模块： {len(modules)}")
     return modules
 
 
@@ -196,7 +219,7 @@ def _get_board_top(data, scale):
         return _get_board_mid(board_edge, scale, "shape1")
 
 
-def _get_board(board_edge: BoardEdge, scale: float):
+def _get_board(board_edge: BoardEdge, scale: float, board: Board):
     """获取板子边界的基本参数"""
 
     # 获取边界线段
@@ -219,6 +242,8 @@ def _get_board(board_edge: BoardEdge, scale: float):
                 y2 = cy + scale * (y2 - cy)
                 segments.append([(x1, y1), (x2, y2)])
             break
+
+    board.segments = segments
 
     # 将边界离散为点
     points = []
@@ -249,8 +274,9 @@ def _amplify_board(points: list[tuple[float, float]], scale: float):
 def _get_board_mid(board_edge: BoardEdge, scale: float, dtype):
     """获取板子边界的基本参数"""
 
+    board = Board(None, None)
     board_shape = None
-    points = _get_board(board_edge, scale)
+    points = _get_board(board_edge, scale, board)
 
     # 外部边界
     x_values = [point[0] for point in points]
@@ -272,6 +298,10 @@ def _get_board_mid(board_edge: BoardEdge, scale: float, dtype):
         board_shape = "circle"
     elif dtype == "shape3":
         board_shape = "circle"
+
+    # 设置板子形状
+    cur_file = f"../data/temp/template/{dtype}/{dtype}.txt"
+    append_file(cur_file)
 
     # 螺丝孔
     screw_holes = []
@@ -314,4 +344,83 @@ def _get_board_mid(board_edge: BoardEdge, scale: float, dtype):
         "screw_holes": screw_holes,
         "arc_segments": board_edge.external_edges
     }
-    return Board(board_shape, board_size, unit, other)
+    temp_board = Board(board_shape, board_size, unit, other)
+    temp_board.scale = scale
+    temp_board.segments = board.segments
+    # 最终的外边界需要调整
+    _adjust_board_edge(temp_board, min_x, min_y)
+
+    return temp_board
+
+def _adjust_board_edge(board, min_x, min_y):
+    """调整板子边界"""
+    segments = []
+    for segment in board.segments:
+        if isinstance(segment, patches.Arc):
+            x, y = segment.center
+            segment.center = (x - min_x, y - min_y)
+            segments.append(segment)
+        else:
+            x1, y1 = segment[0]
+            x2, y2 = segment[1]
+            segment[0] = (x1 - min_x, y1 - min_y)
+            segment[1] = (x2 - min_x, y2 - min_y)
+        segments.append(segment)
+    board.segments = segments
+
+
+async def _load_symbols(sch_file_path: str, modules: list[Module]):
+    """加载器件信息"""
+    # 获取原理图对象
+    sch_model = SchModel(sch_file_path)
+    sch_model.analysis_graph_base_models_main()
+
+    symbols: list[Symbol] = []
+    for module in modules:
+        for uuid in module.symbol_list:
+            symbols.append(Symbol(uuid, 0, 0, 0,0, 0, 0, 0, 0))
+
+    for symbol in symbols:
+        for device in sch_model.device_symbol_list:
+            if symbol.uuid == device.bitNumber:
+
+                # 找到器件的封装名称
+                for s_property in device.schematic_symbol_properties:
+                    if s_property.key == "Footprint":
+                        symbol.type = s_property.value
+
+    await _load_footprints(symbols)
+    fts = _analyze_footprint()
+    _convert_symbol(symbols, fts)
+
+    for symbol in symbols:
+        if symbol.width < 0 or symbol.height < 0:
+            # 测试
+            symbol.width = 5.0
+            symbol.height = 5.0
+
+            # general_logger.error(f"器件尺寸错误： {symbol.uuid}, {symbol.width}, {symbol.height}")
+            # raise ValueError(f"矩形宽/高为负数 (uuid={symbol.uuid}, w={symbol.width}, h={symbol.height})，不符合逻辑。")
+
+    return symbols
+
+
+async def _load_footprints(symbols: list[Symbol]):
+    """获取所有器件的封装"""
+
+    try:
+        # 先获取所有器件的封装名称
+        # 构建pcb文件
+        move_files()
+        for symbol in symbols:
+            footprint_name = symbol.type.split(":")[1]
+            await load_footprint(footprint_name)
+            cur_file = f"../data/temp/footprints/{footprint_name}.txt"
+            append_file(cur_file)
+        general_logger.info("加载全部器件封装成功")
+
+    except Exception as e:
+        general_logger.error(e)
+        raise HTTPException(status_code=500, detail=str(e))
+
+

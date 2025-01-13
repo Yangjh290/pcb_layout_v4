@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     EXTERNAL_SERVICE_BASE_URL: str = "http://192.168.150.63:8088/chipdesign/chip/download/pcb"
     REQUEST_BOARD_URL:str = "http://192.168.150.68:8088/chat/temporaryData/getSize"
     REQUEST_FOOTPRINT_URL:str = "http://192.168.150.63:8088/chipdesign/chip/download/pcb/getFootprint"
+    REQUEST_USER_BOARD_URL:str = "http://192.168.150.63:8088/chipdesign/chip/download/get/customGraphicsFile"
+    OUTPUT_URL:str = "http://192.168.150.63:8088/vnc/chip/kiCadOperation/save/projectFile"
 
     # 默认从根目录读取.env文件
     class Config:

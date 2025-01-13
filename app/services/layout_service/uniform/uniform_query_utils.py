@@ -59,7 +59,8 @@ def find_fq_distance(left_uuid: str, right_uuid: str, fp_distances: list[Footpri
         if left_type ==fp_distance.item_2 and right_type ==fp_distance.item_1:
             return fp_distance.recommended_distance
 
-    return None
+    # return None
+    return 1.5
 
 def orient(symbol: Symbol, pad_x: float, pad_y: float):
     """计a点在b点的方向"""

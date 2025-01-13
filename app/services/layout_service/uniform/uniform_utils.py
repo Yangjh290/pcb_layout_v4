@@ -1,6 +1,9 @@
 import copy
 import math
 
+import numpy as np
+
+from app.config.logger_config import general_logger
 from app.services.layout_service.SSA.footprint import footprint_postprocess
 from app.services.layout_service.SSA.parse_kiutils import generate_connection_nets_by_modules
 from app.services.layout_service.SSA.ssa_entity import SymbolModule, ConnectionNet
@@ -29,6 +32,7 @@ def place_A(direction: str, best_layout: list[Rectangle], center_symbol: Symbol,
         start_alpha = math.radians(0)
         end_alpha = math.radians(360)
     # 开始放置
+    general_logger.info(f"Start placing {target_symbol.uuid} at {center_symbol.uuid} with distance {distance}")
     while True:
         center_x = center_symbol.x + center_symbol.width / 2
         center_y = center_symbol.y + center_symbol.height / 2
@@ -75,13 +79,13 @@ def uniform_module_middle(nets: list[ConnectionNet], module: SymbolModule, best_
         # 获取推荐的数值
         distance = find_fq_distance(main_rect.uuid, target_uuid, footprint_distance)
         if distance is None:
-            print(f"Error: find_fq_distance {main_rect.uuid}")
+            general_logger.error(f"Error: find_fq_distance {main_rect.uuid}")
             return None
         # 计算放置的方向
         direction = "default"
         # 开始放置
         if place_A(direction, best_layout, main_symbol, target_symbol, distance, current_board):
-            print("Error: place_A")
+            general_logger.info(f"Uniform module placed at {main_rect.uuid}")
             return None
 
 
@@ -113,6 +117,7 @@ def uniform_module_top(fixed_layout, current_board, original_symbols, connection
 
 def uniform_module_placement(current_board: Board, fixed_layout: list[Rectangle], all_symbol_modules: list[SymbolModule], symbols: list[Symbol]):
     """均匀布局，平均放置"""
+    general_logger.info("开始模块内布局------------------------------------")
     # 网表
     connection_nets = generate_connection_nets_by_modules(all_symbol_modules)
     # 待布局的器件
@@ -128,3 +133,72 @@ def uniform_module_placement(current_board: Board, fixed_layout: list[Rectangle]
     best_layout = uniform_module_top(fixed_layout, current_board, original_symbols, connection_nets, symbols, all_symbol_modules)
 
     return best_layout
+
+
+def calculate_arc_parameters_displayer(p1, p2, p3):
+    """
+    计算弧的参数
+    :param p1:
+    :param p2:
+    :param p3:
+    :return:
+    """
+    # 解析输入的点坐标
+    x1, y1 = p1
+    x2, y2 = p2
+    x3, y3 = p3
+
+    # 使用线性代数方法求三角形的外接圆
+    A = np.array([
+        [x1, y1, 1],
+        [x2, y2, 1],
+        [x3, y3, 1]
+    ])
+
+    B = np.array([
+        [x1 ** 2 + y1 ** 2, y1, 1],
+        [x2 ** 2 + y2 ** 2, y2, 1],
+        [x3 ** 2 + y3 ** 2, y3, 1]
+    ])
+
+    C = np.array([
+        [x1 ** 2 + y1 ** 2, x1, 1],
+        [x2 ** 2 + y2 ** 2, x2, 1],
+        [x3 ** 2 + y3 ** 2, x3, 1]
+    ])
+
+    D = np.array([
+        [x1 ** 2 + y1 ** 2, x1, y1],
+        [x2 ** 2 + y2 ** 2, x2, y2],
+        [x3 ** 2 + y3 ** 2, x3, y3]
+    ])
+
+    # 计算行列式
+    detA = np.linalg.det(A)
+    detB = np.linalg.det(B)
+    detC = np.linalg.det(C)
+    detD = np.linalg.det(D)
+
+    # 圆心坐标 (h, k)
+    h = 0.5 * detB / detA
+    k = -0.5 * detC / detA
+
+    # 半径 r
+    r = math.sqrt(h ** 2 + k ** 2 + detD / detA)
+
+    # 计算起始角度、结束角度
+    def angle_from_center(x, y, h, k):
+        return math.degrees(math.atan2(y - k, x - h))
+
+    theta1 = angle_from_center(x1, y1, h, k)
+    theta2 = angle_from_center(x3, y3, h, k)
+
+    # 计算中间点的角度，判断弧的方向
+    theta_mid = angle_from_center(x2, y2, h, k)
+
+    # 确定起始角和结束角，使其包含中间点
+    if not (min(theta1, theta2) <= theta_mid <= max(theta1, theta2)):
+        theta1, theta2 = theta2, theta1
+
+    # 返回圆心、半径、起始角和结束角
+    return (h, k), r, theta1, theta2
