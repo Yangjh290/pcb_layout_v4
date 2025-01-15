@@ -7,6 +7,9 @@
 import math
 import shutil
 import os
+import traceback
+
+from matplotlib import patches
 
 from app.config.logger_config import general_logger
 from .math_utils import rotate_center
@@ -16,36 +19,42 @@ from ..entity.rectangle import Rectangle
 
 def reverse_result(top_rects: list[Rectangle], objective_board: Board):
     """（器件+板子）将布局结果反写回原文件"""
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    # pcb_file_path = os.path.join(base_dir, "../data/demo01/input/智能手环.kicad_pcb")
-    pcb_file_path = os.path.join(base_dir, "../data/temp/template/project.kicad_pcb")
-    output_file_path = os.path.join(base_dir, "../data/temp/project/Project.kicad_pcb")
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        # pcb_file_path = os.path.join(base_dir, "../data/demo01/input/智能手环.kicad_pcb")
+        pcb_file_path = os.path.join(base_dir, "../data/temp/template/project.kicad_pcb")
+        output_file_path = os.path.join(base_dir, "../data/temp/project/Project.kicad_pcb")
 
-    top_rects = [rect for rect in top_rects if rect.layer == "top"]
-    general_logger.info(f"成功放置的器件个数：{len(top_rects)}")
+        top_rects = [rect for rect in top_rects if rect.layer == "top"]
+        general_logger.info(f"成功放置的器件个数：{len(top_rects)}")
 
-    for rect in top_rects:
-        # 旋转情况器件坐标要特殊处理
-        if rect.r != 0:
-            rect.x, rect.y = rotate_center(rect.x, rect.y, rect.w, rect.h, rect.r)
-            rect.r = -rect.r
+        for rect in top_rects:
+            # 旋转情况器件坐标要特殊处理
+            if rect.r != 0:
+                rect.x, rect.y = rotate_center(rect.x, rect.y, rect.w, rect.h, rect.r)
+                rect.r = -rect.r
+                rect.uuid = rect.uuid[2:]
+                # 移到图纸中心
+                rect.x += 125
+                rect.y += 70
+                continue
+
+            rect.x = rect.x + rect.w / 2
+            # 1.38是位号的高度
+            rect.y = rect.y + rect.h / 2 + 1.38
             rect.uuid = rect.uuid[2:]
             # 移到图纸中心
             rect.x += 125
             rect.y += 70
-            continue
+        # 反写器件坐标
+        reverse_footprint(pcb_file_path, output_file_path, top_rects)
+        # 反写板子形状
+        midify_board(output_file_path, objective_board)
 
-        rect.x = rect.x + rect.w / 2
-        # 1.38是位号的高度
-        rect.y = rect.y + rect.h / 2 + 1.38
-        rect.uuid = rect.uuid[2:]
-        # 移到图纸中心
-        rect.x += 125
-        rect.y += 70
-    # 反写器件坐标
-    reverse_footprint(pcb_file_path, output_file_path, top_rects)
-    # 反写板子形状
-    midify_board(output_file_path, objective_board)
+    except Exception as e:
+        # 记录详细的错误信息，包括堆栈跟踪
+        general_logger.error(f"发生了错误 in reverse_result: {e}")
+        general_logger.error(traceback.format_exc())
 
 
 def reverse_footprint(input_file: str, output_file: str, rects: list[Rectangle]):
@@ -108,7 +117,7 @@ def reverse_footprint(input_file: str, output_file: str, rects: list[Rectangle])
 
                     break
                 except IndexError as e:
-                    general_logger.error(f"发生了 IndexError: {e}")
+                    general_logger.error(f"发生了 IndexError in reverse_footprint: {e}")
 
 
 
@@ -119,41 +128,40 @@ def reverse_footprint(input_file: str, output_file: str, rects: list[Rectangle])
 
 def midify_board(output_path: str, board: Board):
     """（板子）将放大后的板子大小反写到原文件中"""
-    # 先获取全部的字符串行
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(base_dir, output_path)
-    with open(output_path, "r", encoding="utf-8") as f:
-        lines = f.readlines()
+    try:
+        # 先获取全部的字符串行
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        output_path = os.path.join(base_dir, output_path)
+        with open(output_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
 
-    objective_line = "(gr_arc\n"
-    line_index = 0
-    for i in range(len(lines)):
-        if objective_line in lines[i]:
-            line_index = i
-            break
-    if line_index == 0:
-        general_logger.error("Error in midify_board: No gr_arc found in the file.")
-        return
+        # 开始反写所有的弧线
+        segments = board.segments
 
-    # 开始反写所有的弧线
-    arcs = []
-    if board.shape == "queer":
-        arcs = board.other["arc_segments"]
-    if len(arcs) == 0:
-        general_logger.error("Error in midify_board: No arc segments found.")
-        return
+        # 处理弧线段
+        lines = lines[:-1]
+        if isinstance(segments[0], patches.Arc):
+            arc_lines = cal_arc_info(segments)
+            for i in range(len(arc_lines)):
+                lines.append(arc_lines[i])
+            lines.append(")\n")
+        else:
+            # 处理多边形
+            edge_lines = cal_poly_info(segments)
+            for i in range(len(edge_lines)):
+                lines.append(edge_lines[i])
+            lines.append(")\n")
 
-    arc_lines = cal_arc_info(arcs)
-    for i in range(len(arc_lines)):
-        lines[line_index] = arc_lines[i]
-        line_index += 1
+        # 覆盖写入原文件
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.writelines(lines)
 
-    # 覆盖写入原文件
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.writelines(lines)
+    except Exception as e:
+        general_logger.error(f"发生了错误 in midify_board: {e}")
 
 
-def cal_arc_info(arcs):
+
+def cal_arc_info(arcs) -> list[str]:
     """计算弧线的起始、中点、终止点坐标，并转换为字符串"""
     all_lines = []
     string_arcs = []
@@ -186,6 +194,35 @@ def cal_arc_info(arcs):
         all_lines.extend(arc)
 
     return all_lines
+
+
+def cal_poly_info(edges: list[tuple[tuple[float, float], tuple[float, float]]]):
+    """计算弧线的起始、中点、终止点坐标，并转换为字符串"""
+    pts = "\t\t\t"
+    for i in range(len(edges)):
+        start, end = edges[i]
+        point = f"(xy {start[0] + 125} {start[1] + 70}) "
+        pts += point
+
+        if i == len(edges) - 1 :
+            pts += f"(xy {end[0] + 125} {end[1] + 70}) "
+            pts += "\n"
+
+    string_gr_poly = [
+        "\t(gr_poly\n",
+        "\t\t(pts\n",
+        pts,
+        "\t\t)\n",
+        "\t\t(stroke\n",
+        "\t\t\t(width 0.2)\n",
+        "\t\t\t(type default)\n",
+        "\t\t)\n",
+        "\t\t(layer \"Edge.Cuts\")\n",
+        "\t\t(uuid \"97663b9e-379c-47b6-986f-9f3942a65190\")\n",
+        "\t)\n",
+    ]
+
+    return string_gr_poly
 
 
 def compute_arc_points(xy, width, height, angle=0.0, theta1=0.0, theta2=360.0):

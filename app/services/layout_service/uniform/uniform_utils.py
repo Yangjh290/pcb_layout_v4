@@ -1,7 +1,9 @@
 import copy
 import math
+import os
 
 import numpy as np
+from kiutils.schematic import Schematic
 
 from app.config.logger_config import general_logger
 from app.services.layout_service.SSA.footprint import footprint_postprocess
@@ -10,10 +12,13 @@ from app.services.layout_service.SSA.ssa_entity import SymbolModule, ConnectionN
 from app.services.layout_service.SSA.ssa_placeutils import is_overlap_with_individual_for_queer, is_out_of_bounds
 from app.services.layout_service.entity.board import Board
 from app.services.layout_service.entity.rectangle import Rectangle
+from app.services.layout_service.entity.schematic import Net
 from app.services.layout_service.entity.symbol import Symbol
+from app.services.layout_service.sch_analysis.generate_net import generate_net
 from app.services.layout_service.uniform.uniform_check_utils import is_out_of_margin
 from app.services.layout_service.uniform.uniform_query_utils import find_module_net, find_main_rect_from_layout, find_fq_distance, \
     find_symbol_from_all, is_beyond_bounds
+from app.utils.path_util import convert_relative_path
 
 
 def place_A(direction: str, best_layout: list[Rectangle], center_symbol: Symbol, target_symbol: Symbol,
@@ -134,6 +139,43 @@ def uniform_module_placement(current_board: Board, fixed_layout: list[Rectangle]
 
     return best_layout
 
+
+"""
+开始第二轮模块内布局
+"""
+
+def precise_layout(current_board: Board, fixed_layout: list[Rectangle], all_symbol_modules: list[SymbolModule], symbols: list[Symbol]):
+    """精准布局:考虑焊盘和旋转方向"""
+    general_logger.info("开始第二轮模块内布局------------------------------------")
+    # 网表和连接关系
+    sch_file_path = convert_relative_path("../data/temp/project/Project.kicad_sch")
+    schematic = Schematic().from_file(sch_file_path, encoding='utf-8')
+    wire_nets = generate_net(schematic, sch_file_path)
+
+    # 获取待布局的器件和对应主器件的uuid
+    original_symbols = []
+    uuid_main_symbol = []
+    for i in range(len(all_symbol_modules)):
+        # 每个模块的主器件
+        for symbol in all_symbol_modules[i].symbol_list:
+            if symbol.uuid != all_symbol_modules[i].main_symbol.uuid:
+                original_symbols.append(copy.deepcopy(symbol))
+        uuid_main_symbol.append(all_symbol_modules[i].main_symbol.uuid)
+
+    # 开始布局
+    best_layout = precise_layout_top(fixed_layout, current_board, original_symbols, wire_nets, symbols, all_symbol_modules)
+
+    return best_layout
+
+
+def precise_layout_top(fixed_layout: list[Rectangle], current_board: Board, original_symbols: list[Symbol],
+                       wire_nets: list[Net], symbols: list[Symbol], all_symbol_modules: list[SymbolModule]):
+    """先确定主器件的位置"""
+
+
+"""
+辅助模块
+"""
 
 def calculate_arc_parameters_displayer(p1, p2, p3):
     """

@@ -17,6 +17,22 @@ def decimal_convertor(target_value, precision=10):
         return Decimal(target_value).normalize()
 
 
+def decimal_comparer(dec1, dec2, precision=10, scope=0.2540):
+    with localcontext() as ctx:
+        # 设置精度
+        ctx.prec = precision
+        # 规范化两个Decimal值
+        norm_dec1 = dec1.normalize()
+        norm_dec2 = dec2.normalize()
+
+        if norm_dec1 == norm_dec2:
+            return True
+        elif abs(norm_dec1 - norm_dec2) < Decimal(scope):
+            return True
+        else:
+            return False
+
+
 def find_point(target_point: tuple[float, float], wires:  list[tuple[tuple[float, float], tuple[float, float]]]):
     """找到和当前点相连的线"""
     results: list = []

@@ -131,7 +131,7 @@ def uniform_layout_service(symbols, modules, objective_board):
         # 然后正式放置硬规则器件
         place_fixed_symbols(current_board, fixed_symbols, rule_types, fixed_layout)
         save_plot(current_board, fixed_layout, save_path + "/硬规则布局.png")
-        # 异形板布局-4
+
         # 软规则器件布局
         # 先进行模块间布局
         reward_symbol_modules = load_modules(modules, reward_rules, symbols)
@@ -141,6 +141,9 @@ def uniform_layout_service(symbols, modules, objective_board):
         # 模块内的布局
         instance_symbol_modules = load_modules(modules, rules, symbols)
         best_layout = uniform_module_placement(current_board, main_layout + fixed_layout, instance_symbol_modules, symbols)
+
+        # 精确布局
+        best_layout = precise_layout(current_board, main_layout + fixed_layout, instance_symbol_modules, symbols)
 
         # 判断当前板是否满足用户需求
         result_board = calculate_optimistic_board(best_layout, current_board)

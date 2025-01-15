@@ -85,8 +85,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "capacitor")
-		(property "Reference" "REF**"
+		(property "Reference" "C21"
 			(at 0 -1.1 0)
 			(layer "F.SilkS")
 			(uuid "d8b50c90-0233-4120-8eb7-fd37553c1dae")
@@ -288,8 +289,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "MC3635 ")
-		(property "Reference" "REF**"
+		(property "Reference" "U7"
 			(at 0 -1.6 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -1154,8 +1156,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "CL10A105KB8NNNC ")
-		(property "Reference" "REF**"
+		(property "Reference" "C18"
 			(at 0 -1.1 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -1446,8 +1449,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "MPXV7002DP ")
-		(property "Reference" "REF**"
+		(property "Reference" "U6"
 			(at 0 -13.4 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -2610,8 +2614,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "04025C471KAT2A ")
-		(property "Reference" "REF**"
+		(property "Reference" "C19"
 			(at -0.01 -1 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -2902,8 +2907,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "CL05B104KA51PEC ")
-		(property "Reference" "REF**"
+		(property "Reference" "C20"
 			(at 0 -1 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -3204,8 +3210,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "M1"
 			(at -0.5 -2.1 0)
 			(layer "F.SilkS")
 			(uuid "35c3795f-59b5-4ae8-ac90-52739553afab")
@@ -3634,8 +3641,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "capacitor")
-		(property "Reference" "REF**"
+		(property "Reference" "C24"
 			(at 0 -1.1 0)
 			(layer "F.SilkS")
 			(uuid "d8b50c90-0233-4120-8eb7-fd37553c1dae")
@@ -3838,8 +3846,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "capacitor")
-		(property "Reference" "REF**"
+		(property "Reference" "C25"
 			(at 0 -1.1 0)
 			(layer "F.SilkS")
 			(uuid "d8b50c90-0233-4120-8eb7-fd37553c1dae")
@@ -4042,8 +4051,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "capacitor")
-		(property "Reference" "REF**"
+		(property "Reference" "C26"
 			(at 0 -1.1 0)
 			(layer "F.SilkS")
 			(uuid "d8b50c90-0233-4120-8eb7-fd37553c1dae")
@@ -4245,8 +4255,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "IS25LP080D-JULE-TR ")
-		(property "Reference" "REF**"
+		(property "Reference" "U5"
 			(at 0 -1.7 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -4593,8 +4604,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "CC0603KRX7R9BB104 ")
-		(property "Reference" "REF**"
+		(property "Reference" "C16"
 			(at 0 -1.1 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -4874,8 +4886,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "CC0603KRX7R9BB104 ")
-		(property "Reference" "REF**"
+		(property "Reference" "C17"
 			(at 0 -1.1 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -5155,8 +5168,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "CL05B104KA51PEC ")
-		(property "Reference" "REF**"
+		(property "Reference" "C22"
 			(at 0 -1 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -5458,8 +5472,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "BMX160 ")
-		(property "Reference" "REF**"
+		(property "Reference" "U8"
 			(at 0 -2.2 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -6571,8 +6586,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "SM712-02HTG ")
-		(property "Reference" "REF**"
+		(property "Reference" "C5"
 			(at 0 -2.4 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -7023,8 +7039,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "resistor")
-		(property "Reference" "REF**"
+		(property "Reference" "R1"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "41d78466-b78f-4259-a93b-b5098dbbea74")
@@ -7227,8 +7244,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "capacitor")
-		(property "Reference" "REF**"
+		(property "Reference" "C1"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "3f001d39-98c9-450a-a6f0-b7475527fbd7")
@@ -7431,8 +7449,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "capacitor")
-		(property "Reference" "REF**"
+		(property "Reference" "C2"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "3f001d39-98c9-450a-a6f0-b7475527fbd7")
@@ -7634,8 +7653,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "AP9101CK-AUTRG1 ")
-		(property "Reference" "REF**"
+		(property "Reference" "U1"
 			(at 0 -2.4 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -8193,8 +8213,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "resistor")
-		(property "Reference" "REF**"
+		(property "Reference" "R2"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "41d78466-b78f-4259-a93b-b5098dbbea74")
@@ -8397,8 +8418,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "resistor")
-		(property "Reference" "REF**"
+		(property "Reference" "R4"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "41d78466-b78f-4259-a93b-b5098dbbea74")
@@ -8601,8 +8623,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "resistor")
-		(property "Reference" "REF**"
+		(property "Reference" "R5"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "41d78466-b78f-4259-a93b-b5098dbbea74")
@@ -8805,8 +8828,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "resistor")
-		(property "Reference" "REF**"
+		(property "Reference" "R6"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "41d78466-b78f-4259-a93b-b5098dbbea74")
@@ -9009,8 +9033,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "resistor")
-		(property "Reference" "REF**"
+		(property "Reference" "R7"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "41d78466-b78f-4259-a93b-b5098dbbea74")
@@ -9212,8 +9237,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "MMSZ5231BT1G ")
-		(property "Reference" "REF**"
+		(property "Reference" "D1"
 			(at 0 -1.6 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -9670,8 +9696,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "J1"
 			(at 0 -6.1 0)
 			(layer "F.SilkS")
 			(uuid "fc4f0f2d-5222-4372-9504-52c632a1a7e9")
@@ -9989,8 +10016,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "PMEG3050EP_115 ")
-		(property "Reference" "REF**"
+		(property "Reference" "D2"
 			(at 0 -2 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -10437,8 +10465,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "capacitor")
-		(property "Reference" "REF**"
+		(property "Reference" "C3"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "3f001d39-98c9-450a-a6f0-b7475527fbd7")
@@ -10640,8 +10669,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "DMG2305UX-7 ")
-		(property "Reference" "REF**"
+		(property "Reference" "Q1"
 			(at 0 -1.9 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -11092,8 +11122,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "capacitor")
-		(property "Reference" "REF**"
+		(property "Reference" "C4"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "3f001d39-98c9-450a-a6f0-b7475527fbd7")
@@ -11296,8 +11327,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "resistor")
-		(property "Reference" "REF**"
+		(property "Reference" "R8"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "41d78466-b78f-4259-a93b-b5098dbbea74")
@@ -11499,8 +11531,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "MMST3906-7-F ")
-		(property "Reference" "REF**"
+		(property "Reference" "Q2"
 			(at 0 -2.1 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -11951,8 +11984,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "resistor")
-		(property "Reference" "REF**"
+		(property "Reference" "R3"
 			(at 0 -1.1 0)
 			(layer "F.SilkS")
 			(uuid "6df974b4-b819-4abf-a570-cfac24b90f22")
@@ -12154,8 +12188,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "TCM809TVNB713 ")
-		(property "Reference" "REF**"
+		(property "Reference" "U2"
 			(at 0 -2.4 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -12606,8 +12641,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "CR1225 battery")
+		(at 0 0)
 		(tags "battery CR1225 coin cell")
-		(property "Reference" "REF**"
+		(property "Reference" "B1"
 			(at 0 -6.6 0)
 			(layer "F.SilkS")
 			(uuid "65908b01-f0a0-46e1-84f2-bf49d46af2a7")
@@ -12696,8 +12732,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "LH, 3-Pin (SOT-23W)_2022")
+		(at 0 0)
 		(tags "Integrated Circuit")
-		(property "Reference" "IC**"
+		(property "Reference" "I1"
 			(at 0 -2.2 0)
 			(layer "F.SilkS")
 			(uuid "555a7234-2e8b-4738-bead-28d1ea7072af")
@@ -12945,8 +12982,9 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
+		(at 0 0)
 		(tags "capacitor")
-		(property "Reference" "REF**"
+		(property "Reference" "C23"
 			(at 0 -0.8 0)
 			(layer "F.SilkS")
 			(uuid "3f001d39-98c9-450a-a6f0-b7475527fbd7")
@@ -13148,8 +13186,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "MR25H40CDC ")
-		(property "Reference" "REF**"
+		(property "Reference" "U4"
 			(at 0 -3.2 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -13644,8 +13683,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "STM32F103RET6 ")
-		(property "Reference" "REF**"
+		(property "Reference" "U3"
 			(at 0 -7.3 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -14532,8 +14572,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "R9"
 			(at 0 -0.9 0)
 			(layer "F.SilkS")
 			(uuid "c27dab0c-552c-488a-896c-2d2c57526ea1")
@@ -14692,8 +14733,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "R10"
 			(at 0 -0.9 0)
 			(layer "F.SilkS")
 			(uuid "c27dab0c-552c-488a-896c-2d2c57526ea1")
@@ -14852,8 +14894,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "R11"
 			(at 0 -0.9 0)
 			(layer "F.SilkS")
 			(uuid "c27dab0c-552c-488a-896c-2d2c57526ea1")
@@ -15013,8 +15056,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(descr "<B>WR-PHD </B><BR> 2.54mm Pin Header, 6 Pin")
-		(property "Reference" "REF**"
+		(property "Reference" "J2"
 			(at 0 -2 0)
 			(layer "F.SilkS")
 			(uuid "c7cb632a-ff9e-469d-9ed7-0e5e20d48a29")
@@ -15236,8 +15280,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C6"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -15396,8 +15441,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C7"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -15556,8 +15602,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C8"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -15716,8 +15763,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "S1"
 			(at 0 -2.3 0)
 			(layer "F.SilkS")
 			(uuid "c3c01aff-c525-4538-bd7c-d00ef7d08718")
@@ -15907,8 +15955,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C9"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -16067,8 +16116,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C10"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -16228,8 +16278,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(tags "NX5032GA-16.000M-STD-CSU-2 ")
-		(property "Reference" "REF**"
+		(property "Reference" "X1"
 			(at 0 -2.4 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -16648,8 +16699,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C11"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -16808,8 +16860,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C12"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -16968,8 +17021,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C13"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -17128,8 +17182,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "R12"
 			(at 0 -0.9 0)
 			(layer "F.SilkS")
 			(uuid "c27dab0c-552c-488a-896c-2d2c57526ea1")
@@ -17289,8 +17344,9 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
+		(at 0 0)
 		(descr "<B>WR-PHD </B><BR> 2.54mm Pin Header, 3 Pin")
-		(property "Reference" "REF**"
+		(property "Reference" "J3"
 			(at 0 -2 0)
 			(layer "F.SilkS")
 			(uuid "1200c818-7fbc-4b54-bd08-f51d9f3182ed")
@@ -17485,8 +17541,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C14"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -17645,8 +17702,9 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
+		(at 0 0)
 		(layer "F.Cu")
-		(property "Reference" "REF**"
+		(property "Reference" "C15"
 			(at 0 -0.88 0)
 			(layer "F.SilkS")
 			(uuid "9a41511f-e313-4bef-a1da-8cd26502f20b")
@@ -17800,62 +17858,5 @@
 			(solder_mask_margin 0.102)
 			(uuid "af8b1d07-029c-4971-8391-66d7b17a32db")
 		)
-	)
-	(gr_circle
-	    (center 2.5 37.5)
-	    (end 3.5 37.5)
-	    (stroke
-	        (width 0.2)
-	        (type default)
-	    )
-	    (fill none)
-	    (layer "Edge.Cuts")
-	    (uuid "08196082-416f-4abb-b8c5-1f219d56118c")
-	)
-	(gr_poly
-	    (pts
-	        (xy 0 0) (xy 40 0) (xy 40 15) (xy 37.5 15) (xy 37.5 25) (xy 40 25) (xy 40 40)
-	        (xy 0 40)
-	    )
-	    (stroke
-	        (width 0.2)
-	        (type solid)
-	    )
-	    (fill none)
-	    (layer "Edge.Cuts")
-	    (uuid "97663b9e-379c-47b6-986f-9f3942a65190")
-	)
-	(gr_circle
-	    (center 37 37.5)
-	    (end 38 37.5)
-	    (stroke
-	        (width 0.2)
-	        (type default)
-	    )
-	    (fill none)
-	    (layer "Edge.Cuts")
-	    (uuid "9d5454af-ad33-4c33-a435-5230f3febdab")
-	)
-	(gr_circle
-	    (center 3 2.5)
-	    (end 4 2.5)
-	    (stroke
-	        (width 0.2)
-	        (type default)
-	    )
-	    (fill none)
-	    (layer "Edge.Cuts")
-	    (uuid "ac5c9b83-417b-4613-9d15-f1c5f0bfbb0f")
-	)
-	(gr_circle
-	    (center 37 2.5)
-	    (end 38 2.5)
-	    (stroke
-	        (width 0.2)
-	        (type default)
-	    )
-	    (fill none)
-	    (layer "Edge.Cuts")
-	    (uuid "cfd1c985-f634-4742-b12e-c4626c1d09dc")
 	)
 )

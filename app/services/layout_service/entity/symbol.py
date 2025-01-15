@@ -25,7 +25,8 @@ class Symbol:
         return self.area() < other.area()
 
     def __repr__(self):
-        return f'uuid: {self.uuid}, width: {self.width}, height: {self.height}, type: {self.type}, pins_id: {self.pins_id}, x: {self.x}, y: {self.y}'
+        return (f'uuid: {self.uuid}, width: {self.width}, height: {self.height}, type: {self.type},'
+                f' pins_id: {self.pins_id}, x: {self.x}, y: {self.y}, rotate: {self.rotate}, pin_number: {self.pin_number}')
 
 
 # 网络类
@@ -49,3 +50,17 @@ class Pin:
 
     def __repr__(self):
         return f'pin_id:{self.pin_id}, uuid:{self.uuid}, direction:{self.direction}, pin_type:{self.pin_type}'
+
+
+class SymbolPad:
+    def __init__(self, number, type, x, y, angle=None, pinType=None, pinFunction=None):
+        self.number = number
+        self.type = type
+        self.x = x
+        self.y = y
+        self.angle = angle
+        self.pinType = pinType
+        self.pinFunction = pinFunction
+
+    def __repr__(self):
+        return f'number: {self.number}, type: {self.type}, x: {self.x}, y: {self.y}, angle: {self.angle}, pinType: {self.pinType}, pinFunction: {self.pinFunction}'

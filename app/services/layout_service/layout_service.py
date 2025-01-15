@@ -7,8 +7,11 @@
 import os
 import base64
 import re
+import traceback
 import zipfile
 import io
+from pathlib import Path
+
 from fastapi import HTTPException
 from matplotlib import patches
 
@@ -27,7 +30,7 @@ from app.services.layout_service.uniform.uniform_layout import uniform_layout, u
 from app.services.layout_service.uniform.uniform_player import _draw_board
 
 
-async def pcb_layout(source_record_id: int, chat_detail_id=147324143):
+async def pcb_layout(source_record_id: int, chat_detail_id=1875111791218778114):
     """
     先调用外部接口获取数据，再进行业务处理
     """
@@ -70,9 +73,11 @@ async def pcb_layout(source_record_id: int, chat_detail_id=147324143):
 
     except HTTPException as e:
         general_logger.error(e)
+        general_logger.error(traceback.format_exc())
         raise e
     except Exception as e:
         general_logger.error(e)
+        general_logger.error(traceback.format_exc())
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -113,9 +118,8 @@ async def load_footprint(name: str):
 
 def _store_temp_project(data_str):
     """将数据存储到临时文件夹"""
-    zip_bytes = base64.b64decode(data_str)  # 转为真正的 ZIP bytes
+    zip_bytes = base64.b64decode(data_str)
 
-    # 3. 解压到指定文件夹
     base_dir = os.path.dirname(os.path.abspath(__file__))
     temp_folder = "data/temp/project"
     temp_folder = os.path.join(base_dir, temp_folder)
@@ -126,7 +130,7 @@ def _store_temp_project(data_str):
     with zipfile.ZipFile(io.BytesIO(zip_bytes), "r") as zf:
         zf.extractall(temp_folder)
 
-    return os.path.join(temp_folder, "project.kicad_sch")
+    return os.path.join(temp_folder, "Project.kicad_sch")
 
 
 def _load_modules_symbols(sch_file_path):
@@ -300,8 +304,8 @@ def _get_board_mid(board_edge: BoardEdge, scale: float, dtype):
         board_shape = "circle"
 
     # 设置板子形状
-    cur_file = f"../data/temp/template/{dtype}/{dtype}.txt"
-    append_file(cur_file)
+    # cur_file = f"../data/temp/template/{dtype}/{dtype}.txt"
+    # append_file(cur_file)
 
     # 螺丝孔
     screw_holes = []
@@ -351,6 +355,7 @@ def _get_board_mid(board_edge: BoardEdge, scale: float, dtype):
     _adjust_board_edge(temp_board, min_x, min_y)
 
     return temp_board
+
 
 def _adjust_board_edge(board, min_x, min_y):
     """调整板子边界"""
@@ -402,7 +407,43 @@ async def _load_symbols(sch_file_path: str, modules: list[Module]):
             # general_logger.error(f"器件尺寸错误： {symbol.uuid}, {symbol.width}, {symbol.height}")
             # raise ValueError(f"矩形宽/高为负数 (uuid={symbol.uuid}, w={symbol.width}, h={symbol.height})，不符合逻辑。")
 
+    # 修改封装中的位号
+    _modify_bit_numbers(symbols)
+
     return symbols
+
+
+def _modify_bit_numbers(symbols: list[Symbol]):
+    """修改封装中的位号"""
+
+    pcb_file_path = "data/temp/template/project.kicad_pcb"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    pcb_file_path = os.path.join(base_dir, pcb_file_path)
+
+    with open(pcb_file_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    for symbol in symbols:
+        general_logger.info(f"反写器件位号： {symbol.uuid}")
+
+        original_line = f'\t(footprint "{symbol.type.split(":")[1]}"\n'
+        next_line_type1 = f'\t\t(property "Reference" "REF**"\n'
+        next_line_type2 = f'\t\t(property "Reference" "IC**"\n'
+        add_line = f'\t\t(at 0 0)\n'
+        updated_line = f'\t\t(property "Reference" "{symbol.uuid}"\n'
+        index = 0
+        while True:
+            index += 1
+            if lines[index] == original_line:
+                break
+        while True:
+            index += 1
+            if lines[index] == next_line_type1 or lines[index] == next_line_type2:
+                lines[index] = updated_line
+                lines.insert(index - 1, add_line)
+                break
+        with open(pcb_file_path, "w", encoding="utf-8") as f:
+            f.writelines(lines)
 
 
 async def _load_footprints(symbols: list[Symbol]):

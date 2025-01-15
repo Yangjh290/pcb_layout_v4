@@ -4,6 +4,7 @@ import os
 
 import pandas as pd
 from kiutils.board import Board
+from kiutils.footprint import Pad
 from kiutils.items.schitems import SchematicSymbol, Rectangle, Text
 from kiutils.schematic import Schematic
 from kiutils.items.fpitems import FpLine, FpCircle, FpArc, FpPoly, FpRect
@@ -12,7 +13,7 @@ import math
 from app.config.logger_config import general_logger
 from .ssa_entity import ConnectionNet, SymbolModule, BoardEdge
 from ..entity.board import Module
-from ..entity.symbol import Symbol
+from ..entity.symbol import Symbol, SymbolPad
 
 
 def footprint_bounding_box(footprint):
@@ -136,7 +137,15 @@ def _footprint_bounding_box(footprint):
     # 获取基本信息
     uuid = footprint.entryName
 
-    return Symbol(uuid, max_y - min_y, max_x - min_x, 0, 0, uuid, 0)
+    # 获取pad数量和类型
+    symbol_pads: list[SymbolPad] = []
+    for pad in footprint.pads:
+        if isinstance(pad, Pad):
+            symbol_pads.append(SymbolPad(pad.number, pad.type, pad.size.X, pad.size.Y, pad.size.angle, pad.pinType, pad.pinFunction))
+
+    pin_count = len(symbol_pads)
+
+    return Symbol(uuid, max_y - min_y, max_x - min_x, pin_count, 0, uuid, symbol_pads)
 
 
 def generate_input_symbols(pcb_file_path="../data/origin/智能手环.kicad_pcb"):
@@ -641,6 +650,8 @@ def _convert_symbol(symbols: list[Symbol], fts: list[Symbol]):
             if symbol.type.split(":")[1] == ft.uuid:
                 symbol.width = ft.width
                 symbol.height = ft.height
-                general_logger.info(f"器件 {symbol.uuid} 的大小为 {symbol.width} x {symbol.height}")
+                symbol.pin_number = ft.pin_number
+                symbol.pins_id = ft.pins_id
+                general_logger.info(f"器件 {symbol.uuid} 的大小为 {symbol.width} x {symbol.height}, 引脚数量为 {symbol.pin_number}")
                 break
     return symbols

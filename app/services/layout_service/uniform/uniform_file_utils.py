@@ -115,7 +115,7 @@ def zip_directory(folder_path="../data/temp/project", output_path="../data/temp/
             for file in files:
                 file_path = Path(root) / file
                 # 相对路径作为压缩包内的路径
-                arcname = file_path.relative_to(folder.parent)
+                arcname = file_path.relative_to(folder)
                 zipf.write(file_path, arcname)
                 general_logger.debug(f"添加文件到压缩包：{file_path} as {arcname}")
 

@@ -19,6 +19,7 @@ from app.services.layout_service.sch_analysis.sch_entity.local_label import Loca
 from app.services.layout_service.sch_analysis.utils import decimal_convertor
 
 
+
 def get_nodes(items) -> list[Node]:
     """辅助函数：获取元件的所有点"""
     nodes: list = []
@@ -131,6 +132,7 @@ def generate_net(sch: Schematic, sch_file_path: str):
     # 获取原理图对象
     sch_model = SchModel(sch_file_path)
     sch_model.analysis_graph_base_models_main()
+    sch_model.analysis_wireNet_connect_main()
 
     # 构建具体的网络
     nets = build_net(nets, sch_model)
@@ -139,7 +141,7 @@ def generate_net(sch: Schematic, sch_file_path: str):
     nets = [net for net in nets if len(net.nodes) > 1]
 
     # 网络去标签化
-    nets = remove_label_net(nets)
+    # nets = remove_label_net(nets)
     return nets
 
 
@@ -152,5 +154,5 @@ if __name__ == '__main__':
     sch_file_path = os.path.join(base_dir, sch_file_path)
 
     schematic = Schematic().from_file(sch_file_path, encoding='utf-8')
-    generate_net(schematic, sch_file_path)
+    nets = generate_net(schematic, sch_file_path)
     print('Done')

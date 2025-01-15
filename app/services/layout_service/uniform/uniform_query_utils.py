@@ -5,6 +5,7 @@ from app.services.layout_service.SSA.footprint import footprint_preprocess
 from app.services.layout_service.SSA.ssa_entity import SymbolModule, ConnectionNet, FootprintDistance
 from app.services.layout_service.entity.board import Board
 from app.services.layout_service.entity.rectangle import Rectangle
+from app.services.layout_service.entity.schematic import Net
 from app.services.layout_service.entity.symbol import Symbol
 
 
@@ -33,6 +34,26 @@ def find_module_net(module: SymbolModule, connection_nets: list[ConnectionNet]):
         if uuid == net.left_uuid:
             nets.append(net)
     return nets
+
+
+def get_module_net(nets: list[Net], module: SymbolModule):
+    """获取模块的网络"""
+    module_nets: list[ConnectionNet] = []
+    uuids = [ symbol.uuid for symbol in module.symbol_list ]
+    main_uuid = module.main_symbol.uuid
+    for net in nets:
+        # 整个网路中的所有节点uuid
+        node_uuids = [ item.ref for item in net.nodes ]
+        if main_uuid in node_uuids:
+            # other_uuids：该网络中的其他器件uuid
+            other_uuids = [ item for item in node_uuids if item!= main_uuid ]
+            for id in other_uuids:
+                # 在该网络中，其他的器件也要在该模块中
+                if id in uuids:
+                    module_nets.append(ConnectionNet(left_uuid=main_uuid, right_uuid=id, net_id=net.code))
+        break
+    return module_nets
+
 
 
 def find_fq_distance(left_uuid: str, right_uuid: str, fp_distances: list[FootprintDistance]):
@@ -89,3 +110,5 @@ def is_beyond_bounds(rectangle: Rectangle, board: Board):
         if (vertex[0] - center_x)**2 + (vertex[1] - center_y)**2 > board_radius**2:
             return True
     return False
+
+
