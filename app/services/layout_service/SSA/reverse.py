@@ -160,7 +160,6 @@ def midify_board(output_path: str, board: Board):
         general_logger.error(f"发生了错误 in midify_board: {e}")
 
 
-
 def cal_arc_info(arcs) -> list[str]:
     """计算弧线的起始、中点、终止点坐标，并转换为字符串"""
     all_lines = []

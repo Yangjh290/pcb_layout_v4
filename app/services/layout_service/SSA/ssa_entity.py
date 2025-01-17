@@ -38,6 +38,8 @@ class ConnectionNet:
         self.uuid = uuid
         self.left_uuid = left_uuid
         self.right_uuid = right_uuid
+        self.left_pin_number = 0
+        self.right_pin_number = 0
 
     def __str__(self):
         return f"连接网络{self.uuid}，左侧模块{self.left_uuid}，右侧模块{self.right_uuid}"

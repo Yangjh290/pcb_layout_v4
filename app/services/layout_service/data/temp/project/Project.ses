@@ -3,95 +3,95 @@
   (placement
     (resolution um 10)
     (component C_0603_1608Metric
-      (place C21 1744173 -1275341 front 0)
-      (place C24 1394681 -901382 front 0)
-      (place C25 1364344 -900057 front 0)
-      (place C26 1334660 -883603 front 0)
+      (place C21 1350518 -944350 front 0)
+      (place C24 1402648 -822300 front 0)
+      (place C25 1326386 -892181 front 0)
+      (place C26 1295327 -881788 front 0)
     )
     (component MC3635_MEM
-      (place U7 1693250 -1275341 front 0)
+      (place U7 1383250 -905341 front 0)
     )
     (component CAP_CL10A105KB8NNN_SAM
-      (place C18 1519620 -1117089 front 0)
+      (place C18 1499411 -1204332 front 0)
     )
     (component "1351-01_NXP"
-      (place U6 1350130 -1117089 front 0)
+      (place U6 1352628 -1119587 front 0)
     )
     (component 0402_AVX
-      (place C19 1495227 -1200861 front 0)
+      (place C19 1475162 -1233852 front 0)
     )
     (component CAP_0402_SAM
-      (place C20 1474505 -1229077 front 0)
+      (place C20 1448624 -1256683 front 0)
     )
     (component "MIC_ICS-40720"
-      (place M1 1382500 -832300 front 0)
+      (place M1 1332500 -822300 front 0)
     )
     (component 8L_USON_2X3_ISI
-      (place U5 1568034 -1187881 front 0)
+      (place U5 1678034 -1267881 front 0)
     )
     (component YAG_CC0603_YAG
-      (place C16 1623606 -1187881 front 0)
+      (place C16 1733606 -1267881 front 0)
     )
     (component YAG_CC0603_YAG::1
-      (place C17 1614640 -1218148 front 0)
+      (place C17 1625490 -1285973 front 0)
     )
     (component CAP_0402_SAM::1
-      (place C22 1283158 -771295 front 0)
+      (place C22 1401588 -1280308 front 0)
     )
     (component BMX160_BOS
-      (place U8 1280856 -903156 front 0)
+      (place U8 1530588 -1252888 front 0)
     )
     (component "SOT23-3_LTF"
-      (place C5 1727780 -1054104 front 0)
+      (place C5 1817780 -884104 front 0)
     )
     (component R_0402_1005Metric
-      (place R1 1794041 -953515 front 0)
-      (place R2 1741515 -892015 front 0)
-      (place R4 1682127 -1243208 front 0)
-      (place R5 1670239 -1217714 front 0)
-      (place R6 1665030 -1192109 front 0)
-      (place R7 1665714 -1165988 front 0)
-      (place R8 1618383 -1279159 front 0)
+      (place R1 1796519 -1032530 front 0)
+      (place R2 1716161 -1023374 front 0)
+      (place R4 1585410 -792050 front 0)
+      (place R5 1430528 -900499 front 0)
+      (place R6 1388393 -873657 front 0)
+      (place R7 1369061 -848002 front 0)
+      (place R8 1617464 -828817 front 0)
     )
     (component C_0402_1005Metric
-      (place C1 1767043 -943080 front 0)
-      (place C2 1746300 -917465 front 0)
-      (place C3 1699878 -1099081 front 0)
-      (place C4 1611666 -1158392 front 0)
-      (place C23 1446513 -830387 front 0)
+      (place C1 1769657 -1043311 front 0)
+      (place C2 1742860 -1040966 front 0)
+      (place C3 1365466 -743305 front 0)
+      (place C4 1540774 -905312 front 0)
+      (place C23 1751170 -1201231 front 0)
     )
     (component SOT25_DIO
-      (place U1 1801336 -894104 front 0)
+      (place U1 1761336 -984104 front 0)
     )
     (component "SOD-123_ONS"
-      (place D1 1661185 -1131616 front 0)
+      (place D1 1341886 -776320 front 0)
     )
     (component "CUI_PJ-044A"
-      (place J1 1780000 -1182050 front 0)
+      (place J1 1470000 -792050 front 0)
     )
     (component SDO_CFP5_SOD128_NEX
-      (place D2 1775284 -1046994 front 0)
+      (place D2 1593455 -737084 front 0)
     )
     (component "SOT-23_DIO"
-      (place Q1 1651084 -1269005 front 0)
+      (place Q1 1625501 -792050 front 0)
     )
     (component "SOT-323_DIO"
-      (place Q2 1590679 -1274388 front 0)
+      (place Q2 1355643 -895017 front 0)
     )
     (component R_0603_1608Metric
-      (place R3 1465998 -971279 front 0)
+      (place R3 1320233 -968038 front 0)
     )
     (component "SOT-23_MC_MCH"
-      (place U2 1427790 -924096 front 0)
+      (place U2 1278058 -924364 front 0)
     )
     (component Battery_CR1225
-      (place B1 1495000 -781900 front 0)
+      (place B1 1695000 -1161900 front 0)
     )
     (component "SOT95P285X113-3N"
-      (place I1 1578857 -781900 front 0)
+      (place I1 1778857 -1161900 front 0)
     )
     (component MR25H40CDC_EVS
-      (place U4 1683020 -832867 front 0)
+      (place U4 1683020 -852867 front 0)
     )
     (component STM32F103RET6
       (place U3 1550000 -1006900 front 0)
@@ -100,31 +100,31 @@
       (place R9 1678174 -1006900 front 0)
       (place R10 1675373 -1033549 front 0)
       (place R11 1666165 -1061069 front 0)
-      (place R12 1554473 -878804 front 0)
+      (place R12 1512526 -884327 front 0)
     )
     (component 61300611121
-      (place J2 1350775 -985961 front 0)
+      (place J2 1726874 -1100946 front 0)
     )
     (component 0402C
-      (place C6 1649883 -1087784 front 0)
-      (place C7 1621871 -1113453 front 0)
-      (place C8 1593958 -1127675 front 0)
-      (place C9 1565663 -1134468 front 0)
-      (place C10 1487689 -1119311 front 0)
-      (place C11 1460718 -1099354 front 0)
-      (place C12 1459119 -916019 front 0)
-      (place C13 1527682 -880327 front 0)
-      (place C14 1581093 -882192 front 0)
-      (place C15 1608350 -892383 front 0)
+      (place C6 1634321 -1103900 front 0)
+      (place C7 1606342 -1122418 front 0)
+      (place C8 1578912 -1132132 front 0)
+      (place C9 1495683 -1123384 front 0)
+      (place C10 1469116 -1106783 front 0)
+      (place C11 1437589 -944589 front 0)
+      (place C12 1457546 -917618 front 0)
+      (place C13 1485737 -895593 front 0)
+      (place C14 1565663 -879332 front 0)
+      (place C15 1593958 -886125 front 0)
     )
     (component KMR221GLFS
-      (place S1 1520337 -1159501 front 0)
+      (place S1 1536451 -1161766 front 0)
     )
     (component NX5032GA_16_000M_STD_CSU_2
-      (place X1 1480665 -870822 front 0)
+      (place X1 1398763 -985645 front 0)
     )
     (component 61300311121
-      (place J3 1555761 -841926 front 0)
+      (place J3 1561515 -842227 front 0)
     )
   )
   (was_is

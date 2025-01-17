@@ -8,7 +8,7 @@ from app.services.layout_service.SSA.ssa_utils import generate_rules, separate_r
     acquire_symbols_by_rule, place_fixed_symbols, load_modules, module_placement, \
     calculate_optimistic_board, judge_accommodation, select_back_symbols, place_back_symbols, \
     generate_queer_board
-from app.services.layout_service.uniform.uniform_utils import uniform_module_placement
+from app.services.layout_service.uniform.uniform_utils import uniform_module_placement, precise_layout
 
 
 def uniform_layout():
@@ -143,7 +143,7 @@ def uniform_layout_service(symbols, modules, objective_board):
         best_layout = uniform_module_placement(current_board, main_layout + fixed_layout, instance_symbol_modules, symbols)
 
         # 精确布局
-        best_layout = precise_layout(current_board, main_layout + fixed_layout, instance_symbol_modules, symbols)
+        # best_layout = precise_layout(current_board, main_layout + fixed_layout, instance_symbol_modules, symbols)
 
         # 判断当前板是否满足用户需求
         result_board = calculate_optimistic_board(best_layout, current_board)

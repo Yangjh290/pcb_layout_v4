@@ -85,7 +85,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 171.68992238969997 126.15680996908236 0)
+		(at 146.4172642360769 80.5341 0)
 		(tags "capacitor")
 		(property "Reference" "C21"
 			(at 0 -1.1 0)
@@ -289,7 +289,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 167.325 123.5341 0.0)
+		(at 141.325 80.5341 0.0)
 		(tags "MC3635 ")
 		(property "Reference" "U7"
 			(at 0 -1.6 0)
@@ -1156,7 +1156,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 152.3840688617354 90.6726996150583 0)
+		(at 149.7282448007141 119.41615412558285 0)
 		(tags "CL10A105KB8NNNC ")
 		(property "Reference" "C18"
 			(at 0 -1.1 0)
@@ -1449,7 +1449,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 135.4996 89.1955 0.0)
+		(at 134.76319713811571 111.45909713811574 0.0)
 		(tags "MPXV7002DP ")
 		(property "Reference" "U6"
 			(at 0 -13.4 0)
@@ -2614,7 +2614,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 146.71044831493663 101.6464084404204 0)
+		(at 147.40786552617232 122.45093967193742 0)
 		(tags "04025C471KAT2A ")
 		(property "Reference" "C19"
 			(at -0.01 -1 0)
@@ -2907,7 +2907,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 130.60637509884788 105.20051748076511 0)
+		(at 144.60055618000737 124.99906026855905 0)
 		(tags "CL05B104KA51PEC ")
 		(property "Reference" "C20"
 			(at 0 -1 0)
@@ -3210,7 +3210,7 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
-		(at 147.25 76.23 0.0)
+		(at 167.25 79.23 0.0)
 		(layer "F.Cu")
 		(property "Reference" "M1"
 			(at -0.5 -2.1 0)
@@ -3641,7 +3641,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 154.26475218328522 76.23 0)
+		(at 174.26475218328522 79.23 0)
 		(tags "capacitor")
 		(property "Reference" "C24"
 			(at 0 -1.1 0)
@@ -3846,7 +3846,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 153.55481749860084 79.30506495902793 0)
+		(at 173.55481749860084 82.30506495902793 0)
 		(tags "capacitor")
 		(property "Reference" "C25"
 			(at 0 -1.1 0)
@@ -4051,7 +4051,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 140.2875347157627 77.08488324272686 0)
+		(at 170.65081934210068 85.36524050020037 0)
 		(tags "capacitor")
 		(property "Reference" "C26"
 			(at 0 -1.1 0)
@@ -4255,7 +4255,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 138.8034 127.7881 0.0)
+		(at 162.8034 115.7881 0.0)
 		(tags "IS25LP080D-JULE-TR ")
 		(property "Reference" "U5"
 			(at 0 -1.7 0)
@@ -4604,7 +4604,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 144.36057149892233 127.78810000000001 0)
+		(at 168.3605714989223 115.78810000000001 0)
 		(tags "CC0603KRX7R9BB104 ")
 		(property "Reference" "C16"
 			(at 0 -1.1 0)
@@ -4886,7 +4886,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 133.2597654915466 127.40045131224389 0)
+		(at 157.27667126800523 116.36898259689721 0)
 		(tags "CC0603KRX7R9BB104 ")
 		(property "Reference" "C17"
 			(at 0 -1.1 0)
@@ -5168,7 +5168,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 128.73334591833878 124.61425408166124 0)
+		(at 173.08461521245826 88.35188645219603 0)
 		(tags "CL05B104KA51PEC ")
 		(property "Reference" "C22"
 			(at 0 -1 0)
@@ -5472,7 +5472,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 138.0588 115.28880000000001 0.0)
+		(at 160.0588 86.2888 0.0)
 		(tags "BMX160 ")
 		(property "Reference" "U8"
 			(at 0 -2.2 0)
@@ -6586,7 +6586,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 159.778 84.4104 0.0)
+		(at 149.778 76.4104 0.0)
 		(tags "SM712-02HTG ")
 		(property "Reference" "C5"
 			(at 0 -2.4 0)
@@ -7039,7 +7039,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 180.0747178405736 112.13987754532724 0)
+		(at 169.15606864264896 98.09713085596655 0)
 		(tags "resistor")
 		(property "Reference" "R1"
 			(at 0 -0.8 0)
@@ -7244,7 +7244,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 179.14789217218697 114.66671941112907 0)
+		(at 169.90437303202208 95.51179215954903 0)
 		(tags "capacitor")
 		(property "Reference" "C1"
 			(at 0 -0.8 0)
@@ -7449,7 +7449,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 176.46972590437423 116.91396773868217 0)
+		(at 172.60682545625846 92.99171450437919 0)
 		(tags "capacitor")
 		(property "Reference" "C2"
 			(at 0 -0.8 0)
@@ -7653,7 +7653,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 174.1336 111.41040000000001 0.0)
+		(at 175.1336 98.4104 0.0)
 		(tags "AP9101CK-AUTRG1 ")
 		(property "Reference" "U1"
 			(at 0 -2.4 0)
@@ -8213,7 +8213,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 168.37974260832584 113.06029205737683 0)
+		(at 175.34249912488525 92.42831174920155 0)
 		(tags "resistor")
 		(property "Reference" "R2"
 			(at 0 -0.8 0)
@@ -8418,7 +8418,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 163.54095298180255 122.17500000000001 0)
+		(at 171.88422668733318 127.99228320404848 0)
 		(tags "resistor")
 		(property "Reference" "R4"
 			(at 0 -0.8 0)
@@ -8623,7 +8623,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 163.2451591045623 124.77114954138946 0)
+		(at 169.15911709999278 125.62338158067763 0)
 		(tags "resistor")
 		(property "Reference" "R5"
 			(at 0 -0.8 0)
@@ -8828,7 +8828,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 162.28306440213726 127.41448301167915 0)
+		(at 167.71693559786266 112.96551698832101 0)
 		(tags "resistor")
 		(property "Reference" "R6"
 			(at 0 -0.8 0)
@@ -9033,7 +9033,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 140.67108683017128 124.37711764414578 0)
+		(at 169.55948131654577 110.33408899285243 0)
 		(tags "resistor")
 		(property "Reference" "R7"
 			(at 0 -0.8 0)
@@ -9237,7 +9237,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 139.14147218092197 121.0500245861981 0)
+		(at 171.546177346803 107.02665126162441 0)
 		(tags "MMSZ5231BT1G ")
 		(property "Reference" "D1"
 			(at 0 -1.6 0)
@@ -9696,7 +9696,7 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
-		(at 152.0 122.17500000000001 0)
+		(at 178.0 118.20500000000001 0)
 		(layer "F.Cu")
 		(property "Reference" "J1"
 			(at 0 -6.1 0)
@@ -10016,7 +10016,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 173.1166090453462 122.17500000000001 0)
+		(at 177.05731990970816 104.72404664189452 0)
 		(tags "PMEG3050EP_115 ")
 		(property "Reference" "D2"
 			(at 0 -2 0)
@@ -10465,7 +10465,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 141.46309697991384 117.4836685211437 0)
+		(at 166.43366917380422 124.88282421604049 0)
 		(tags "capacitor")
 		(property "Reference" "C3"
 			(at 0 -0.8 0)
@@ -10669,7 +10669,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 133.57606280530848 123.46332719147243 0)
+		(at 162.00544040838676 127.43946328578753 0)
 		(tags "DMG2305UX-7 ")
 		(property "Reference" "Q1"
 			(at 0 -1.9 0)
@@ -11122,7 +11122,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 153.80432705711345 110.78292731017848 0)
+		(at 166.72112707921787 128.36054279299367 0)
 		(tags "capacitor")
 		(property "Reference" "C4"
 			(at 0 -0.8 0)
@@ -11327,7 +11327,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 156.57260471226004 109.61187180497244 0)
+		(at 170.5361616195391 102.90186349561492 0)
 		(tags "resistor")
 		(property "Reference" "R8"
 			(at 0 -0.8 0)
@@ -11531,7 +11531,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 146.48536594866562 107.80888713708177 0)
+		(at 158.75719216493044 126.77245003405295 0)
 		(tags "MMST3906-7-F ")
 		(property "Reference" "Q2"
 			(at 0 -2.1 0)
@@ -11984,7 +11984,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 134.51890389983944 112.4356336837019 0)
+		(at 179.1252075845289 91.25834630422685 0)
 		(tags "resistor")
 		(property "Reference" "R3"
 			(at 0 -1.1 0)
@@ -12188,7 +12188,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 133.779 106.40960000000001 0.0)
+		(at 182.779 86.4096 0.0)
 		(tags "TCM809TVNB713 ")
 		(property "Reference" "U2"
 			(at 0 -2.4 0)
@@ -12641,7 +12641,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "CR1225 battery")
-		(at 167.5 78.19 0.0)
+		(at 144.5 90.19 0.0)
 		(tags "battery CR1225 coin cell")
 		(property "Reference" "B1"
 			(at 0 -6.6 0)
@@ -12732,7 +12732,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "LH, 3-Pin (SOT-23W)_2022")
-		(at 175.8857167367645 78.19 0)
+		(at 137.80286883682186 85.14334968791766 0)
 		(tags "Integrated Circuit")
 		(property "Reference" "I1"
 			(at 0 -2.2 0)
@@ -12982,7 +12982,7 @@
 		(generator_version "8.0")
 		(layer "F.Cu")
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
-		(at 173.1170124216661 82.12307443986819 0)
+		(at 151.30599420060693 91.02567100942923 0)
 		(tags "capacitor")
 		(property "Reference" "C23"
 			(at 0 -0.8 0)
@@ -13186,7 +13186,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 174.302 92.2867 0.0)
+		(at 132.302 87.2867 0.0)
 		(tags "MR25H40CDC ")
 		(property "Reference" "U4"
 			(at 0 -3.2 0)
@@ -15056,7 +15056,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 167.0557106004665 116.68846832330338 0)
+		(at 159.16493952215495 120.28449988008711 0)
 		(descr "<B>WR-PHD </B><BR> 2.54mm Pin Header, 6 Pin")
 		(property "Reference" "J2"
 			(at 0 -2 0)
@@ -15763,7 +15763,7 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
-		(at 145.42907567387923 112.94022450357147 0)
+		(at 149.68303760918698 115.2982341088481 0)
 		(layer "F.Cu")
 		(property "Reference" "S1"
 			(at 0 -2.3 0)
@@ -16278,7 +16278,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 141.2732818802856 107.3849677610423 0)
+		(at 139.9596484496423 98.03798022233174 0)
 		(tags "NX5032GA-16.000M-STD-CSU-2 ")
 		(property "Reference" "X1"
 			(at 0 -2.4 0)
@@ -16699,7 +16699,7 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
-		(at 151.02833352835205 112.91353251494175 0)
+		(at 147.8129269706007 111.34527395123804 0)
 		(layer "F.Cu")
 		(property "Reference" "C11"
 			(at 0 -0.88 0)
@@ -16860,7 +16860,7 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
-		(at 142.38355545770804 103.14238839034971 0)
+		(at 148.38043055567215 89.6731863918113 0)
 		(layer "F.Cu")
 		(property "Reference" "C12"
 			(at 0 -0.88 0)
@@ -17021,7 +17021,7 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
-		(at 146.3999435538991 91.13866968272328 0)
+		(at 151.24226848994272 88.39901405076984 0)
 		(layer "F.Cu")
 		(property "Reference" "C13"
 			(at 0 -0.88 0)
@@ -17182,7 +17182,7 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
-		(at 149.18103891508932 89.2696458436293 0)
+		(at 154.10590594655469 87.90385933957272 0)
 		(layer "F.Cu")
 		(property "Reference" "R12"
 			(at 0 -0.9 0)
@@ -17344,7 +17344,7 @@
 		(generator "pcbnew")
 		(generator_version "8.0")
 		(layer "F.Cu")
-		(at 149.3541056097296 85.17803265010775 0)
+		(at 153.5612773730978 84.24532512534682 0)
 		(descr "<B>WR-PHD </B><BR> 2.54mm Pin Header, 3 Pin")
 		(property "Reference" "J3"
 			(at 0 -2 0)
@@ -17541,7 +17541,7 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
-		(at 154.99999999999963 87.83741731379055 0)
+		(at 162.5545585568231 90.29204218524707 0)
 		(layer "F.Cu")
 		(property "Reference" "C14"
 			(at 0 -0.88 0)
@@ -17702,7 +17702,7 @@
 		(version 20240108)
 		(generator "pcbnew")
 		(generator_version "8.0")
-		(at 159.18439162515682 88.53764432576267 0)
+		(at 165.26452892902557 92.95512265313485 0)
 		(layer "F.Cu")
 		(property "Reference" "C15"
 			(at 0 -0.88 0)
