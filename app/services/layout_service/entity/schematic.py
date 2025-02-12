@@ -25,3 +25,16 @@ class MiniNet:
 
     def __repr__(self):
         return f"MiniNet(code={self.code}, label={self.labels})"
+
+
+class NetNode:
+    """去标签化时的辅助类"""
+    def __init__(self, net_id: str,ref: str, pin_number: str, xy: tuple[float, float], ntype: str):
+        self.net_id = net_id
+        self.ref = ref
+        self.pin_number = pin_number
+        self.xy = xy
+        self.ntype = ntype
+
+    def __repr__(self):
+        return f"NetNode(net_id={self.net_id}, ref={self.ref}, pin_number={self.pin_number}, xy={self.xy}, ntype={self.ntype})"

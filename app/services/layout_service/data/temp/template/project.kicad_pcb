@@ -79,6 +79,7 @@
 			(outputdirectory "")
 		)
 	)
+	(net 0 "")
 	(footprint "C_0603_1608Metric"
 		(version 20240108)
 		(generator "pcbnew")

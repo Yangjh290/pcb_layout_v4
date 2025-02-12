@@ -8,6 +8,7 @@ from app.services.layout_service.SSA.ssa_utils import generate_rules, separate_r
     acquire_symbols_by_rule, place_fixed_symbols, load_modules, module_placement, \
     calculate_optimistic_board, judge_accommodation, select_back_symbols, place_back_symbols, \
     generate_queer_board
+from app.services.layout_service.sch_analysis.generate_net import reverse_net
 from app.services.layout_service.uniform.uniform_utils import uniform_module_placement, precise_layout
 
 
@@ -174,6 +175,9 @@ def uniform_layout_service(symbols, modules, objective_board):
 
     # 将布局结果反写回原文件
     reverse_result(top_rects, objective_board)
+
+    # 反写网表
+    reverse_net()
 
 
 if __name__ == '__main__':

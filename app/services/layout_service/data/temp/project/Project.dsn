@@ -3,7 +3,7 @@
     (string_quote ")
     (space_in_quoted_tokens on)
     (host_cad "KiCad's Pcbnew")
-    (host_version "v1.0.0-30-g3e0af9a-dirty")
+    (host_version "v1.0.0-31-g35af060-dirty")
   )
   (resolution um 10)
   (unit um)
@@ -35,95 +35,95 @@
   )
   (placement
     (component C_0603_1608Metric
-      (place C21 135051.756000 -94435.001000 front 0.000000 (PN C_0603_1608Metric))
-      (place C24 140264.752000 -82230.000000 front 0.000000 (PN C_0603_1608Metric))
-      (place C25 132638.624000 -89218.059000 front 0.000000 (PN C_0603_1608Metric))
-      (place C26 129532.748000 -88178.847000 front 0.000000 (PN C_0603_1608Metric))
+      (place C21 179103.322000 -90381.658000 front 0.000000 (PN C_0603_1608Metric))
+      (place C24 146542.581000 -107798.250000 front 0.000000 (PN C_0603_1608Metric))
+      (place C25 140235.351000 -124234.692000 front 0.000000 (PN C_0603_1608Metric))
+      (place C26 146591.512000 -104672.440000 front 0.000000 (PN C_0603_1608Metric))
     )
     (component MC3635_MEM
-      (place U7 138325.000000 -90534.100000 front 0.000000 (PN MC3635_MEM))
+      (place U7 183325.000000 -87534.100000 front 0.000000 (PN MC3635_MEM))
     )
     (component CAP_CL10A105KB8NNN_SAM
-      (place C18 149941.071000 -120433.219000 front 0.000000 (PN CAP_CL10A105KB8NNN_SAM))
+      (place C18 150464.648000 -120152.557000 front 0.000000 (PN CAP_CL10A105KB8NNN_SAM))
     )
     (component "1351-01_NXP"
-      (place U6 135262.837000 -111958.737000 front 0.000000 (PN "1351-01_NXP"))
+      (place U6 135499.600000 -112195.500000 front 0.000000 (PN "1351-01_NXP"))
     )
     (component 0402_AVX
-      (place C19 147516.193000 -123385.176000 front 0.000000 (PN 0402_AVX))
+      (place C19 148144.268000 -123187.343000 front 0.000000 (PN 0402_AVX))
     )
     (component CAP_0402_SAM
-      (place C20 144862.393000 -125668.324000 front 0.000000 (PN CAP_0402_SAM))
+      (place C20 145336.959000 -125735.463000 front 0.000000 (PN CAP_0402_SAM))
     )
     (component "MIC_ICS-40720"
-      (place M1 133250.000000 -82230.000000 front 0.000000 (PN "MIC_ICS-40720"))
+      (place M1 139058.594000 -113038.594000 front 0.000000 (PN "MIC_ICS-40720"))
     )
     (component 8L_USON_2X3_ISI
-      (place U5 167803.400000 -126788.100000 front 0.000000 (PN 8L_USON_2X3_ISI))
+      (place U5 168803.400000 -127788.100000 front 0.000000 (PN 8L_USON_2X3_ISI))
     )
     (component YAG_CC0603_YAG
-      (place C16 173360.571000 -126788.100000 front 0.000000 (PN YAG_CC0603_YAG))
+      (place C16 163287.651000 -128465.349000 front 0.000000 (PN YAG_CC0603_YAG))
     )
     (component YAG_CC0603_YAG::1
-      (place C17 162548.991000 -128597.338000 front 0.000000 (PN YAG_CC0603_YAG))
+      (place C17 163766.892000 -125439.538000 front 0.000000 (PN YAG_CC0603_YAG))
     )
     (component CAP_0402_SAM::1
-      (place C22 140158.810000 -128030.778000 front 0.000000 (PN CAP_0402_SAM))
+      (place C22 176332.578000 -127601.030000 front 0.000000 (PN CAP_0402_SAM))
     )
     (component BMX160_BOS
-      (place U8 153058.800000 -125288.800000 front 0.000000 (PN BMX160_BOS))
+      (place U8 181058.800000 -115288.800000 front 0.000000 (PN BMX160_BOS))
     )
     (component "SOT23-3_LTF"
-      (place C5 181778.000000 -88410.400000 front 0.000000 (PN "SOT23-3_LTF"))
+      (place C5 174778.000000 -106410.400000 front 0.000000 (PN "SOT23-3_LTF"))
     )
     (component R_0402_1005Metric
-      (place R1 179651.927000 -103252.961000 front 0.000000 (PN R_0402_1005Metric))
-      (place R2 171616.109000 -102337.395000 front 0.000000 (PN R_0402_1005Metric))
-      (place R4 158540.953000 -79205.000000 front 0.000000 (PN R_0402_1005Metric))
-      (place R5 143052.762000 -90049.948000 front 0.000000 (PN R_0402_1005Metric))
-      (place R6 138839.314000 -87365.686000 front 0.000000 (PN R_0402_1005Metric))
-      (place R7 136906.055000 -84800.165000 front 0.000000 (PN R_0402_1005Metric))
-      (place R8 161746.409000 -82881.693000 front 0.000000 (PN R_0402_1005Metric))
+      (place R1 152119.335000 -74410.400000 front 0.000000 (PN R_0402_1005Metric))
+      (place R2 146551.144000 -80381.554000 front 0.000000 (PN R_0402_1005Metric))
+      (place R4 128242.633000 -80292.815000 front 0.000000 (PN R_0402_1005Metric))
+      (place R5 130994.140000 -79707.964000 front 0.000000 (PN R_0402_1005Metric))
+      (place R6 133805.403000 -79806.135000 front 0.000000 (PN R_0402_1005Metric))
+      (place R7 136509.410000 -80581.497000 front 0.000000 (PN R_0402_1005Metric))
+      (place R8 143454.928000 -89798.512000 front 0.000000 (PN R_0402_1005Metric))
     )
     (component C_0402_1005Metric
-      (place C1 176965.696000 -104331.072000 front 0.000000 (PN C_0402_1005Metric))
-      (place C2 174286.031000 -104096.632000 front 0.000000 (PN C_0402_1005Metric))
-      (place C3 136546.577000 -74330.489000 front 0.000000 (PN C_0402_1005Metric))
-      (place C4 154077.415000 -90531.232000 front 0.000000 (PN C_0402_1005Metric))
-      (place C23 175117.012000 -120123.074000 front 0.000000 (PN C_0402_1005Metric))
+      (place C1 151552.285000 -76937.175000 front 0.000000 (PN C_0402_1005Metric))
+      (place C2 149301.912000 -79480.759000 front 0.000000 (PN C_0402_1005Metric))
+      (place C3 141562.183000 -84755.226000 front 0.000000 (PN C_0402_1005Metric))
+      (place C4 142838.486000 -87260.114000 front 0.000000 (PN C_0402_1005Metric))
+      (place C23 170117.012000 -119123.074000 front 0.000000 (PN C_0402_1005Metric))
     )
     (component SOT25_DIO
-      (place U1 176133.600000 -98410.400000 front 0.000000 (PN SOT25_DIO))
+      (place U1 146133.600000 -74410.400000 front 0.000000 (PN SOT25_DIO))
     )
     (component "SOD-123_ONS"
-      (place D1 134188.566000 -77631.954000 front 0.000000 (PN "SOD-123_ONS"))
+      (place D1 140468.177000 -81463.476000 front 0.000000 (PN "SOD-123_ONS"))
     )
     (component "CUI_PJ-044A"
-      (place J1 147000.000000 -79205.000000 front 0.000000 (PN "CUI_PJ-044A"))
+      (place J1 132000.000000 -91205.000000 front 0.000000 (PN "CUI_PJ-044A"))
     )
     (component SDO_CFP5_SOD128_NEX
-      (place D2 159345.537000 -73708.413000 front 0.000000 (PN SDO_CFP5_SOD128_NEX))
+      (place D2 137350.704000 -74737.227000 front 0.000000 (PN SDO_CFP5_SOD128_NEX))
     )
     (component "SOT-23_DIO"
-      (place Q1 162550.119000 -79205.000000 front 0.000000 (PN "SOT-23_DIO"))
+      (place Q1 146313.960000 -97280.916000 front 0.000000 (PN "SOT-23_DIO"))
     )
     (component "SOT-323_DIO"
-      (place Q2 135564.346000 -89501.709000 front 0.000000 (PN "SOT-323_DIO"))
+      (place Q2 131194.644000 -75837.899000 front 0.000000 (PN "SOT-323_DIO"))
     )
     (component R_0603_1608Metric
-      (place R3 132023.305000 -96803.753000 front 0.000000 (PN R_0603_1608Metric))
+      (place R3 163850.288000 -84409.600000 front 0.000000 (PN R_0603_1608Metric))
     )
     (component "SOT-23_MC_MCH"
-      (place U2 127805.834000 -92436.434000 front 0.000000 (PN "SOT-23_MC_MCH"))
+      (place U2 157779.000000 -84409.600000 front 0.000000 (PN "SOT-23_MC_MCH"))
     )
     (component Battery_CR1225
-      (place B1 169500.000000 -116190.000000 front 0.000000 (PN Battery_CR1225))
+      (place B1 164500.000000 -115190.000000 front 0.000000 (PN Battery_CR1225))
     )
     (component "SOT95P285X113-3N"
-      (place I1 177885.717000 -116190.000000 front 0.000000 (PN "SOT95P285X113-3N"))
+      (place I1 172885.717000 -115190.000000 front 0.000000 (PN "SOT95P285X113-3N"))
     )
     (component MR25H40CDC_EVS
-      (place U4 168302.000000 -85286.700000 front 0.000000 (PN MR25H40CDC_EVS))
+      (place U4 170302.000000 -83286.700000 front 0.000000 (PN MR25H40CDC_EVS))
     )
     (component STM32F103RET6
       (place U3 155000.000000 -100690.000000 front 0.000000 (PN "LQFP64-10x10mm"))
@@ -132,31 +132,31 @@
       (place R9 167817.363000 -100690.000000 front 0.000000 (PN "RES_ERJ-2GEJ103X"))
       (place R10 167537.273000 -103354.880000 front 0.000000 (PN "RES_ERJ-2GEJ103X"))
       (place R11 166616.476000 -106106.852000 front 0.000000 (PN "RES_ERJ-2GEJ103X"))
-      (place R12 151252.566000 -88432.695000 front 0.000000 (PN "RES_ERJ-2GEJ103X"))
+      (place R12 150616.204000 -88645.618000 front 0.000000 (PN "RES_ERJ-2GEJ103X"))
     )
     (component 61300611121
-      (place J2 172687.429000 -110094.573000 front 0.000000 (PN 61300611121))
+      (place J2 159846.241000 -120127.209000 front 0.000000 (PN 61300611121))
     )
     (component 0402C
-      (place C6 163432.053000 -110389.967000 front 0.000000 (PN CAPC1005X55N))
-      (place C7 160634.201000 -112241.825000 front 0.000000 (PN CAPC1005X55N))
-      (place C8 157891.202000 -113213.172000 front 0.000000 (PN CAPC1005X55N))
-      (place C9 149568.264000 -112338.396000 front 0.000000 (PN CAPC1005X55N))
-      (place C10 146911.608000 -110678.333000 front 0.000000 (PN CAPC1005X55N))
-      (place C11 143758.878000 -94458.944000 front 0.000000 (PN CAPC1005X55N))
-      (place C12 145754.626000 -91761.846000 front 0.000000 (PN CAPC1005X55N))
-      (place C13 148573.709000 -89559.337000 front 0.000000 (PN CAPC1005X55N))
-      (place C14 156566.336000 -87933.219000 front 0.000000 (PN CAPC1005X55N))
-      (place C15 159395.842000 -88612.523000 front 0.000000 (PN CAPC1005X55N))
+      (place C6 164988.333000 -108778.392000 front 0.000000 (PN CAPC1005X55N))
+      (place C7 162187.073000 -111345.274000 front 0.000000 (PN CAPC1005X55N))
+      (place C8 159395.842000 -112767.477000 front 0.000000 (PN CAPC1005X55N))
+      (place C9 156566.336000 -113446.781000 front 0.000000 (PN CAPC1005X55N))
+      (place C10 153879.824000 -113493.675000 front 0.000000 (PN CAPC1005X55N))
+      (place C11 147445.441000 -111087.958000 front 0.000000 (PN CAPC1005X55N))
+      (place C12 145011.667000 -92601.608000 front 0.000000 (PN CAPC1005X55N))
+      (place C13 147812.927000 -90034.726000 front 0.000000 (PN CAPC1005X55N))
+      (place C14 159184.392000 -88537.644000 front 0.000000 (PN CAPC1005X55N))
+      (place C15 162000.018000 -89910.917000 front 0.000000 (PN CAPC1005X55N))
     )
     (component KMR221GLFS
-      (place S1 153645.098000 -116176.602000 front 0.000000 (PN SW_KMR221GLFS))
+      (place S1 149176.457000 -115103.776000 front 0.000000 (PN SW_KMR221GLFS))
     )
     (component NX5032GA_16_000M_STD_CSU_2
-      (place X1 139876.256000 -98564.496000 front 0.000000 (PN "XTAL_NX5032GA-16.000M-STD-CSU-2_NDK"))
+      (place X1 140319.253000 -96480.363000 front 0.000000 (PN "XTAL_NX5032GA-16.000M-STD-CSU-2_NDK"))
     )
     (component 61300311121
-      (place J3 156151.504000 -84222.721000 front 0.000000 (PN 61300311121))
+      (place J3 149898.905000 -84990.443000 front 0.000000 (PN 61300311121))
     )
   )
   (library
@@ -275,8 +275,8 @@
       (outline (path signal 25.4  -647.699 0  -647.701 0  -647.699 0))
       (pin Rect[T]Pad_863.6x889_um 1 -774.7 0)
       (pin Rect[T]Pad_863.6x889_um 2 774.7 0)
-      (keepout "" (polygon F.Cu 0  -150233 120827  -149649 120827  -149649 120040  -150233 120040
-            -150233 120827))
+      (keepout "" (polygon F.Cu 0  -150757 120546  -150173 120546  -150173 119759  -150757 119759
+            -150757 120546))
     )
     (image "1351-01_NXP"
       (outline (path signal 152.4  -6286.5 6286.5  -6286.5 -6286.5))
@@ -413,8 +413,8 @@
       (outline (path signal 25.4  -406.399 0  -406.401 0  -406.399 0))
       (pin Rect[T]Pad_762x609.6_um 1 -533.4 0)
       (pin Rect[T]Pad_762x609.6_um 2 533.4 0)
-      (keepout "" (polygon F.Cu 0  -147618 123639  -147415 123639  -147415 123131  -147618 123131
-            -147618 123639))
+      (keepout "" (polygon F.Cu 0  -148246 123441  -148043 123441  -148043 122933  -148246 122933
+            -148246 123441))
     )
     (image CAP_0402_SAM
       (outline (path signal 152.4  -1632.7 0  -1647.25 -44.789  -1685.35 -72.471  -1732.45 -72.471
@@ -441,8 +441,8 @@
             -367.353 72.471  -329.253 44.789  -314.7 0))
       (pin Rect[T]Pad_705.6x558.8_um 1 -517.9 0)
       (pin Rect[T]Pad_705.6x558.8_um 2 517.9 0)
-      (keepout "" (polygon F.Cu 0  -144977 125897  -144748 125897  -144748 125440  -144977 125440
-            -144977 125897))
+      (keepout "" (polygon F.Cu 0  -145451 125964  -145223 125964  -145223 125507  -145451 125507
+            -145451 125964))
     )
     (image "MIC_ICS-40720"
       (outline (path signal 127  -2680 1500  1320 1500))
@@ -536,8 +536,8 @@
       (outline (path signal 25.4  850.9 -457.2  850.9 457.2))
       (pin Rect[T]Pad_959.6x914.4_um 1 -721.1 0)
       (pin Rect[T]Pad_959.6x914.4_um 2 721.1 0)
-      (keepout "" (polygon F.Cu 0  -173551 127194  -173170 127194  -173170 126382  -173551 126382
-            -173551 127194))
+      (keepout "" (polygon F.Cu 0  -163478 128872  -163097 128872  -163097 128059  -163478 128059
+            -163478 128872))
     )
     (image YAG_CC0603_YAG::1
       (outline (path signal 152.4  -1454.9 711.2  1454.9 711.2))
@@ -558,8 +558,8 @@
       (outline (path signal 25.4  850.9 -457.2  850.9 457.2))
       (pin Rect[T]Pad_959.6x914.4_um 1 -721.1 0)
       (pin Rect[T]Pad_959.6x914.4_um 2 721.1 0)
-      (keepout "" (polygon F.Cu 0  -162739 129004  -162358 129004  -162358 128191  -162739 128191
-            -162739 129004))
+      (keepout "" (polygon F.Cu 0  -163957 125846  -163576 125846  -163576 125033  -163957 125033
+            -163957 125846))
     )
     (image CAP_0402_SAM::1
       (outline (path signal 152.4  -1632.7 0  -1647.25 -44.789  -1685.35 -72.471  -1732.45 -72.471
@@ -586,8 +586,8 @@
             -367.353 72.471  -329.253 44.789  -314.7 0))
       (pin Rect[T]Pad_705.6x558.8_um 1 -517.9 0)
       (pin Rect[T]Pad_705.6x558.8_um 2 517.9 0)
-      (keepout "" (polygon F.Cu 0  -140273 128259  -140045 128259  -140045 127802  -140273 127802
-            -140273 128259))
+      (keepout "" (polygon F.Cu 0  -176447 127830  -176218 127830  -176218 127372  -176447 127372
+            -176447 127830))
     )
     (image BMX160_BOS
       (outline (path signal 152.4  -1625.6 -1371.6  -959.739 -1371.6))
@@ -948,8 +948,8 @@
       (outline (path signal 25.4  2501.9 -952.5  2501.9 952.5))
       (pin Rect[T]Pad_809.6x1905_um 1 -2297.1 0)
       (pin Rect[T]Pad_809.6x1905_um 2 2297.1 0)
-      (keepout "" (polygon F.Cu 0  -161187 75003.8  -157504 75003.8  -157504 72413  -161187 72413
-            -161187 75003.8))
+      (keepout "" (polygon F.Cu 0  -139192 76032.6  -135509 76032.6  -135509 73441.8  -139192 73441.8
+            -139192 76032.6))
     )
     (image "SOT-23_DIO"
       (outline (path signal 152.4  -1652 827  -1652 -827))

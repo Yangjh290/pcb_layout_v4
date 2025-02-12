@@ -85,3 +85,27 @@ class BoardEdge:
 
     def __str__(self):
         return f"id:{self.id}, internal_edges:{self.internal_edges}, external_edges:{self.external_edges}, raw_data:{self.raw_data}, points:{self.points}"
+
+
+class NetPad:
+    """display 为True时，每个pad的信息"""
+    def __init__(self, uuid: str, pin_number: int, name: str, pin_type: str):
+        self.uuid = uuid
+        self.pin_number = pin_number
+        self.name = name
+        self.pin_type = pin_type
+        self.is_nc = False
+        self.net_id = None
+
+    def __str__(self):
+        return f"uuid:{self.uuid}, pin_number:{self.pin_number}, name:{self.name}, pin_type:{self.pin_type}"
+
+
+class ReverseNet:
+    """反写回pcb文件中的net"""
+    def __init__(self, net_id: str, uuid: str, name: str, pin_number: str):
+        self.net_id = net_id
+        self.uuid = uuid
+        self.name = name
+        self.pin_number = "Pad" + pin_number
+        self.ntype = None
