@@ -1,0 +1,252 @@
+(footprint "ESD7205DT5G"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(descr "SOT−723 CASE 631 AA−01 ISSUE D")
+	(tags "Zener Diode")
+	(property "Reference" "Z**"
+		(at 0 -2.1 0)
+		(layer "F.SilkS")
+		(uuid "551003d8-a41e-4aa9-af24-0547c7eeb61d")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+		)
+	)
+	(property "Value" "ESD7205DT5G"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "236a4a1d-77be-40f2-93c8-4cd271d40ac7")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "8bd8bfe3-a866-4600-a66b-315bf3f08c75")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "aa7ff188-af9e-4c68-8b67-d710c89356b6")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "badd983b-8bfd-4838-8163-98f2f40f0814")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -0.4 1.1)
+		(end -0.4 1.1)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a5811d49-60ae-4a81-95ec-cc55b4face81")
+	)
+	(fp_line
+		(start -0.4 1.2)
+		(end -0.4 1.2)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "e707dba0-0fb1-4807-a529-751fbf066e03")
+	)
+	(fp_line
+		(start -0.4 1.2)
+		(end -0.4 1.2)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "fd063376-ef9c-4e3b-8b45-f629e2140ce2")
+	)
+	(fp_arc
+		(start -0.4 1.1)
+		(mid -0.35 1.15)
+		(end -0.4 1.2)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "14140229-feaa-4970-bbeb-7c41b0faa08f")
+	)
+	(fp_arc
+		(start -0.4 1.1)
+		(mid -0.35 1.15)
+		(end -0.4 1.2)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "dc9612fb-ca50-4b36-93ce-93b1c1b7087a")
+	)
+	(fp_arc
+		(start -0.4 1.2)
+		(mid -0.45 1.15)
+		(end -0.4 1.1)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "408c1edb-db6f-47c0-8395-e1a24de6972a")
+	)
+	(fp_line
+		(start -1.6 -1.75)
+		(end -1.6 1.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "64670fbe-543d-48c0-886e-cf3a10c1f967")
+	)
+	(fp_line
+		(start -1.6 1.75)
+		(end 1.6 1.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "fc081764-8da0-4493-b1f5-02484e66423a")
+	)
+	(fp_line
+		(start 1.6 -1.75)
+		(end -1.6 -1.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "1ae7169c-04c2-493d-bedd-6577ed905491")
+	)
+	(fp_line
+		(start 1.6 1.75)
+		(end 1.6 -1.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "a2f550e4-7bf2-4445-b531-ce7b50d0d4f2")
+	)
+	(fp_line
+		(start -0.6 -0.4)
+		(end 0.6 -0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a2a00a78-0327-4ec2-ae02-9f5ed646d042")
+	)
+	(fp_line
+		(start -0.6 0.4)
+		(end -0.6 -0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "0b51599e-01b2-4c11-81e5-c5ca13bf88e5")
+	)
+	(fp_line
+		(start 0.6 -0.4)
+		(end 0.6 0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "866861cc-32ce-42cf-b4a3-7be073362abe")
+	)
+	(fp_line
+		(start 0.6 0.4)
+		(end -0.6 0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "74561019-051d-482b-be93-3d2c14d57375")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "c4dcfef7-4b67-4e51-a310-668696c81409")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -0.4 0.49)
+		(size 0.27 0.52)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "e59e70eb-41ed-4477-bbf5-30c92f5dad7e")
+	)
+	(pad "2" smd rect
+		(at 0.4 0.49)
+		(size 0.27 0.52)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "503db8a5-9716-4921-9d66-a102b89ccc93")
+	)
+	(pad "3" smd rect
+		(at 0 -0.49)
+		(size 0.36 0.52)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "13f92ce1-a734-4195-b02f-b20b5779a597")
+	)
+	(model "ESD7205DT5G.stp"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
