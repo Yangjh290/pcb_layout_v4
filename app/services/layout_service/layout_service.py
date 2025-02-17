@@ -54,9 +54,8 @@ async def pcb_layout(source_record_id: int, chat_detail_id=1875111791218778114):
         board_data = await external_client.get_board(source_record_table, source_record_id)
         if board_data["code"] == 0:
             scale = board_data["data"]["scale"]
-            if scale == '':
-                scale = 1.34
-
+            # if scale == '':
+            #     scale = 1.34
             board = _get_board_top(board_data["data"], scale)
             board.scale = scale
             _draw_board(board, scale)
@@ -224,7 +223,7 @@ def _get_board_top(data, scale):
         return None
     elif source == "chat":
         board_edge = _shape1()
-        return _get_board_mid(board_edge, scale, "shape1")
+        return _get_board_mid(board_edge, scale, "shape2")
 
 
 def _get_board(board_edge: BoardEdge, scale: float, board: Board):

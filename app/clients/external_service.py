@@ -56,6 +56,7 @@ class ExternalServiceClient:
             f"Starting request to {url}",
             extra={"method": "POST", "url": url},
         )
+        general_logger.info(f"请求板子的基本信息：source_record_table: {source_record_table}, source_record_id: {source_record_id}")
 
         async with httpx.AsyncClient() as client:
             try:
