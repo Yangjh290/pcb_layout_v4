@@ -259,7 +259,7 @@ def split_net_type(net_pads: list[NetPad], nets: list[Net], net_nodes: list[NetN
         else:
             uuid = net.nodes[0].ref
             pin_number = net.nodes[0].pin_number
-            name = _query_pin_name(uuid, int(pin_number), net_pads)
+            name = _query_pin_name(uuid, str(pin_number), net_pads)
             if name is None or name == "~" or name == "":
                 name = "Pad"+ str(pin_number)
             reverse_net = ReverseNet(net.code, uuid, name, "")
@@ -335,7 +335,7 @@ def reverse_net_pads(net_pads: list[NetPad], net_nodes: list[NetNode],
     for net_node in net_nodes:
         if not net_node.ntype == "device_symbol":
             continue
-        net_pad = _query_net_pad(net_node.ref, int(net_node.pin_number), net_pads)
+        net_pad = _query_net_pad(net_node.ref, str(net_node.pin_number), net_pads)
         new_net_id = net_id_dicts.get(net_node.net_id)
         if new_net_id is None:
             # 出现这个情况的原因：消除重复标签的时候，重复的网络被消除了
@@ -437,7 +437,7 @@ def _modify_net_nodes(outer_net_id: str, inner_net_id: str, ref: str, net_nodes:
             node.net_id = outer_net_id
 
 
-def _query_pin_name(ref: str, pin_number: int, net_pads: list[NetPad]):
+def _query_pin_name(ref: str, pin_number: str, net_pads: list[NetPad]):
     """查询指定引脚名称"""
     for net_pad in net_pads:
         if net_pad.uuid == ref and str(net_pad.pin_number) == str(pin_number):
@@ -445,7 +445,7 @@ def _query_pin_name(ref: str, pin_number: int, net_pads: list[NetPad]):
     return None
 
 
-def _query_net_pad(uuid: str, pin_number: int, net_pads: list[NetPad]):
+def _query_net_pad(uuid: str, pin_number: str, net_pads: list[NetPad]):
     """根据uuid和引脚号,查询指定引脚的NetPad"""
     for net_pad in net_pads:
         if net_pad.uuid == uuid and str(net_pad.pin_number) == str(pin_number):

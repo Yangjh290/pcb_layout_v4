@@ -13,7 +13,7 @@ async def add_message_to_stream():
     stream_key = "pcb:layout:msg"
     message_id = await redis.xadd(
         stream_key,
-        {"chatDetailId": "test", "sourceRecordId": "98765", "sourceRecordTable": "my_table"}
+        {"chatDetailId": "test", "sourceRecordId": "1851567561837912066", "sourceRecordTable": "my_table"}
     )
     print(f"Message added to stream: {message_id}")
 

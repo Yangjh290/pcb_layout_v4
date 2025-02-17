@@ -7,6 +7,7 @@
 import os
 import base64
 import re
+import shutil
 import traceback
 import zipfile
 import io
@@ -54,7 +55,7 @@ async def pcb_layout(source_record_id: int, chat_detail_id=1875111791218778114):
         if board_data["code"] == 0:
             scale = board_data["data"]["scale"]
             if scale == '':
-                scale = 1.5
+                scale = 1.34
 
             board = _get_board_top(board_data["data"], scale)
             board.scale = scale
@@ -65,8 +66,8 @@ async def pcb_layout(source_record_id: int, chat_detail_id=1875111791218778114):
         # 进行布局
         result_rects = uniform_layout_service(symbols, modules, board)
 
-        # 发送结果
-        zip_path = zip_directory()
+        # 发送结果:zip文件夹以方案id命名
+        zip_path = zip_directory(str(source_record_id))
         response = await external_client.send_file(zip_path, chat_detail_id, source_record_id)
 
         return result_rects
@@ -126,6 +127,9 @@ def _store_temp_project(data_str):
     if not os.path.exists(temp_folder):
         os.makedirs(temp_folder, exist_ok=True)
 
+
+    # 压缩前先清空临时文件夹
+    _clean_temp_folder(temp_folder)
     # in-memory 解压缩
     with zipfile.ZipFile(io.BytesIO(zip_bytes), "r") as zf:
         zf.extractall(temp_folder)
@@ -426,7 +430,13 @@ def _modify_bit_numbers(symbols: list[Symbol]):
     for symbol in symbols:
         general_logger.info(f"反写器件位号： {symbol.uuid}")
 
-        original_line = f'\t(footprint "{symbol.type.split(":")[1]}"\n'
+        temp_uuid = symbol.type.split(":")
+        if len(temp_uuid) == 1:
+            temp_uuid = temp_uuid[0]
+        else:
+            temp_uuid = temp_uuid[1]
+
+        original_line = f'\t(footprint "{temp_uuid}"\n'
         next_line_type1 = f'\t\t(property "Reference" "REF**"\n'
         next_line_type2 = f'\t\t(property "Reference" "IC**"\n'
         add_line = f'\t\t(at 0 0)\n'
@@ -454,7 +464,12 @@ async def _load_footprints(symbols: list[Symbol]):
         # 构建pcb文件
         move_files()
         for symbol in symbols:
-            footprint_name = symbol.type.split(":")[1]
+            general_logger.info(f"解析器件封装名称： {symbol.type}")
+            temp_name = symbol.type.split(":")
+            if len(temp_name) == 1:
+                footprint_name = temp_name[0]
+            else:
+                footprint_name = symbol.type.split(":")[1]
             await load_footprint(footprint_name)
             cur_file = f"../data/temp/footprints/{footprint_name}.txt"
             append_file(cur_file)
@@ -465,3 +480,17 @@ async def _load_footprints(symbols: list[Symbol]):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+"""
+辅助函数
+"""
+def _clean_temp_folder(temp_folder :str):
+    for filename in os.listdir(temp_folder):
+        file_path = os.path.join(temp_folder, filename)
+        general_logger.info(f"清除临时文件： {file_path}")
+        try:
+            if os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+            else:
+                os.remove(file_path)
+        except Exception as e:
+            general_logger.error(f"Error occurred while deleting {file_path}: {e}")

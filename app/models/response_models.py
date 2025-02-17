@@ -40,3 +40,14 @@ class TestResponse(BaseModel):
     status: int
     data: str
 
+
+class LayoutResultResponse(BaseModel):
+    """第一版返回结果模型"""
+    sourceRecordId: int
+    chatDetailId: int
+    status: int
+    is_back: bool
+    ref_point: Tuple[float, float]
+    total_time: float
+    desc: str
+    data: list[SymbolModel]

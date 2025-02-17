@@ -303,3 +303,72 @@
 2025-02-12 08:55:07,228 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
 2025-02-12 19:35:21,773 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
 2025-02-12 19:35:22,102 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-13 15:59:59,831 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Listening to stream: pcb:layout:msg
+2025-02-13 16:00:14,111 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739433614091-0, chatDetailId=test, sourceRecordId=1851567561837912066
+2025-02-13 16:00:36,429 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-13 16:00:36,697 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-13 16:01:57,096 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Listening to stream: pcb:layout:msg
+2025-02-13 16:20:25,115 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739434825072-0, chatDetailId=1889952755347185665, sourceRecordId=1889952465541750786
+2025-02-13 16:20:32,864 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-13 16:20:33,140 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-13 16:35:55,459 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739435755433-0, chatDetailId=1889956656809074690, sourceRecordId=1889956360854790145
+2025-02-13 16:52:50,146 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-13 16:52:50,474 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-13 16:58:58,561 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-13 16:58:58,876 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-13 17:00:00,605 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-13 17:00:00,952 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-13 17:22:29,107 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Listening to stream: pcb:layout:msg
+2025-02-13 17:27:53,621 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739438873601-0, chatDetailId=1889969723743756290, sourceRecordId=1889969586090893314
+2025-02-13 17:28:04,870 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-13 17:28:05,155 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-13 17:50:01,254 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-13 17:50:01,568 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 09:38:31,165 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 09:38:31,453 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 09:42:31,752 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 09:42:32,079 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 09:45:45,949 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 09:45:46,282 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 09:48:58,201 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 09:48:58,508 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 09:51:33,679 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 09:51:34,002 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 10:20:09,871 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 10:20:10,207 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 10:46:56,662 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739501216641-0, chatDetailId=1890231221166628866, sourceRecordId=1890230863077924865
+2025-02-14 10:47:04,428 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 10:47:04,713 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 10:52:35,131 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739501555128-0, chatDetailId=1890232628108156929, sourceRecordId=1881153084982124545
+2025-02-14 10:52:42,718 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 10:52:42,994 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 10:59:10,031 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739501950029-0, chatDetailId=1890234295536934914, sourceRecordId=1881153084982124545
+2025-02-14 10:59:17,436 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 10:59:17,719 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 11:05:43,238 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739502343226-0, chatDetailId=1890235940303888386, sourceRecordId=1890235465374457858
+2025-02-14 11:05:48,211 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 11:05:48,477 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 11:12:59,748 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739502779732-0, chatDetailId=1890237764800962561, sourceRecordId=1881153084982124545
+2025-02-14 11:13:07,192 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 11:13:07,480 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 11:29:08,361 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739503748347-0, chatDetailId=1890241836237021185, sourceRecordId=1851438135615692801
+2025-02-14 15:11:07,961 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 15:11:08,267 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 15:17:32,691 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739517452660-0, chatDetailId=1890299305969672193, sourceRecordId=1890299195047108610
+2025-02-14 15:17:39,504 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 15:17:39,790 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 15:46:44,777 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739519204745-0, chatDetailId=1890306651760451586, sourceRecordId=1890299195047108610
+2025-02-14 15:46:51,173 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 15:46:51,457 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 16:18:15,977 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739521095953-0, chatDetailId=1890314572670001153, sourceRecordId=1890299195047108610
+2025-02-14 16:18:22,626 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 16:18:22,894 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-14 17:50:45,015 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739526644989-0, chatDetailId=1890337865607241729, sourceRecordId=1890337729770512386
+2025-02-14 17:50:54,176 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-14 17:50:54,446 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-17 09:21:01,193 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739755261157-0, chatDetailId=1891296735045443585, sourceRecordId=1891296611015680002
+2025-02-17 09:21:17,524 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-17 09:21:19,287 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.
+2025-02-17 09:42:40,298 - http_logger - INFO - [POST redis://192.168.150.71:6479] - Received message: Entry ID=1739756560273-0, chatDetailId=1891302202639474689, sourceRecordId=1891296611015680002
+2025-02-17 09:42:47,872 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Starting request to http://192.168.150.68:8088/chat/temporaryData/getSize
+2025-02-17 09:42:48,146 - http_logger - INFO - [POST http://192.168.150.68:8088/chat/temporaryData/getSize] - Request to http://192.168.150.68:8088/chat/temporaryData/getSize completed successfully.

@@ -179,6 +179,8 @@ def uniform_layout_service(symbols, modules, objective_board):
     # 反写网表
     reverse_net()
 
+    return top_rects
+
 
 if __name__ == '__main__':
     uniform_layout()

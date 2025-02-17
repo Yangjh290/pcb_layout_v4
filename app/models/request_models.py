@@ -15,3 +15,4 @@ class FootprintRequest(BaseModel):
 
 class LayoutRequestBody(BaseModel):
     source_record_id: int = Field(..., alias="sourceRecordId")
+    chat_detail_id: int = Field(..., alias="chatDetailId")

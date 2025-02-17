@@ -88,7 +88,8 @@ def move_files(delete_path="../data/temp/template/project.kicad_pcb",
         general_logger.error(f"复制文件时出错: {e}")
 
 
-def zip_directory(folder_path="../data/temp/project", output_path="../data/temp/output/project.zip") -> str:
+def zip_directory(source_record_id:str,
+                  folder_path="../data/temp/project", output_path="../data/temp/output/project.zip") -> str:
     """
     将指定文件夹中的所有文件打包为一个 ZIP 压缩文件。
 
@@ -104,8 +105,11 @@ def zip_directory(folder_path="../data/temp/project", output_path="../data/temp/
         general_logger.error(f"指定的路径不是一个文件夹：{folder_path}")
         raise NotADirectoryError(f"The specified path is not a directory: {folder_path}")
 
-    if output_path is None:
-        output_path = folder.with_suffix('.zip')
+    # if output_path is None:
+    #     output_path = folder.with_suffix('.zip')
+
+    zip_file_name = f"{source_record_id}.zip"
+    output_path = os.path.join(os.path.dirname(output_path), zip_file_name)
 
     zip_path = Path(output_path)
     general_logger.info(f"开始压缩文件夹：{folder} 到 {zip_path}")

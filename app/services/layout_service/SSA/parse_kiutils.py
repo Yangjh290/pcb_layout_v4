@@ -302,6 +302,8 @@ def reflex_name_to_type(modules: list[Module]):
             module.module_type = reflexion[module.module_name]
             general_logger.info(module)
         else:
+            module.module_type = "0_COMMON"
+            general_logger.info(module)
             general_logger.error(f"Warning: 未找到匹配项 '{module.module_name}'")
 
 
@@ -647,7 +649,13 @@ def _convert_symbol(symbols: list[Symbol], fts: list[Symbol]):
     """将符号转换为器件"""
     for symbol in symbols:
         for ft in fts:
-            if symbol.type.split(":")[1] == ft.uuid:
+            general_logger.info(f"正在匹配器件 {symbol.type}")
+            temp_uuid = symbol.type.split(":")
+            if len(temp_uuid) == 1:
+                temp_uuid = temp_uuid[0]
+            else:
+                temp_uuid = temp_uuid[1]
+            if temp_uuid == ft.uuid:
                 symbol.width = ft.width
                 symbol.height = ft.height
                 symbol.pin_number = ft.pin_number

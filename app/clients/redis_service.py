@@ -1,4 +1,5 @@
 import asyncio
+import aiohttp
 from redis.asyncio import Redis
 
 
@@ -26,6 +27,31 @@ async def get_redis_connection() -> Redis:
     )
 
 
+async def process_message(message_id, chat_detail_id, source_record_id, source_record_table):
+    """
+    处理 Redis Stream 消息:
+    发送http请求到：http://192.168.146.35:8013/api/layout
+    参数在body中： key为sourceRecordId, value为source_record_id
+    """
+    url = "http://192.168.146.35:8013/api/layout"
+    payload = {
+        "sourceRecordId": source_record_id,
+        "chatDetailId": chat_detail_id,
+    }
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=payload) as resp:
+                # 判断响应状态码
+                if resp.status != 0:
+                    data = await resp.json()
+                    print(f"[process_message] 成功发送请求，message_id={message_id}, 响应数据: {data}")
+                else:
+                    print(f"[process_message] 请求失败，status={resp.status}, message_id={message_id}")
+    except Exception as e:
+        print(f"[process_message] 发送请求异常, message_id={message_id}, 异常信息: {e}")
+
+
 async def listen_to_stream_group():
     """# 监听 Redis Stream 键"""
     redis = await get_redis_connection()
@@ -48,7 +74,7 @@ async def listen_to_stream_group():
                     print_redis_info(info)
 
                     # 处理消息
-                    # await process_message(message_id, chat_detail_id, source_record_id, source_record_table)
+                    await process_message(message_id, chat_detail_id, source_record_id, source_record_table)
 
                     # 更新 last_id，避免重复消费
                     last_id = message_id
@@ -56,7 +82,6 @@ async def listen_to_stream_group():
         except Exception as e:
             print_redis_info(f"Error listening to stream: {e}")
             await asyncio.sleep(1)  # 防止快速循环刷屏
-
 
 
 if __name__ == "__main__":
