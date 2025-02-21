@@ -596,7 +596,8 @@ def save_plot(board: Board, compound_rectangles: list[Rectangle], save_path, fil
         # 2 绘制边界
         for segment in board.segments:
             if isinstance(segment, patches.Arc):
-                ax.add_patch(segment)
+                arc_copy = copy.copy(segment)
+                ax.add_patch(arc_copy)
             else:
                 ax.plot([segment[0][0], segment[1][0]], [segment[0][1], segment[1][1]], color='blue', lw=0.3,
                         marker='o')

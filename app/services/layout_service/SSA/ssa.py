@@ -16,8 +16,6 @@ from .ssa_placeutils import stochastic_generate_coordinate, is_out_of_bounds, \
     sort_fitness, sort_position, calculate_single_fitness, get_rest_rects, \
     update_individual, function_reward_internal, calculate_single_fitness_internal, update_individual_internal, \
     is_overlap_with_individual_for_queer, is_lower_threshold
-from .ssa_player import clear_file_content, \
-    clear_folder_content
 from ..entity.rectangle import Rectangle
 from ..entity.symbol import Symbol
 

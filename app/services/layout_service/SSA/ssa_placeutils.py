@@ -37,6 +37,10 @@ def is_out_of_bounds(rect: Rectangle, board: Board) -> bool:
         bound_points = board.other['points']
         return is_out_of_bounds_for_queer(rect, bound_points)
 
+    if board.shape == 'circle':
+        bound_points = board.other['points']
+        return is_out_of_bounds_for_queer(rect, bound_points)
+
     # 器件距离边缘的距离
     brim_length = 2 * board.unit
 

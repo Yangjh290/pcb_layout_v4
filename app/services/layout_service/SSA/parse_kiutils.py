@@ -524,7 +524,7 @@ def _shape2(file_path = "../data/temp/template/shape2/shape2.kicad_pcb"):
     edge_5 = (arc_5_1, arc_5_2, arc_5_3)
     edge_6 = (arc_6_1, arc_6_2, arc_6_3)
 
-    external_edges = [edge_1, edge_2, edge_3, edge_4, edge_5, edge_6]
+    external_edges = [edge_1, edge_2, edge_3, edge_4, edge_5]
 
     # svg的坐标高了0.1，是为了显示，这里要去掉
     cp1 = (30.0, 6.0)
