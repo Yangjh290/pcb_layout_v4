@@ -405,6 +405,15 @@ def calculate_arc_parameters(p1, p2, p3):
     # 计算中间点的角度，判断弧的方向
     theta_mid = angle_from_center(x2, y2, h, k)
 
+    def positive_angle(theta):
+        if theta < 0:
+            return 360 + theta
+        return theta
+
+    theta1 = positive_angle(theta1)
+    theta2 = positive_angle(theta2)
+    theta_mid = positive_angle(theta_mid)
+
     # 确定起始角和结束角，使其包含中间点
     if not (min(theta1, theta2) <= theta_mid <= max(theta1, theta2)):
         theta1, theta2 = theta2, theta1

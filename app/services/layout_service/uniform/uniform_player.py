@@ -11,8 +11,8 @@ def _draw_board(board: Board, scale: float):
 
     # 基础设置
     fig, ax = plt.subplots(figsize=(8, 8))
-    ax.set_xlim(0, board.size[0])
-    ax.set_ylim(0, board.size[1])
+    ax.set_xlim(-10, board.size[0] + 10)
+    ax.set_ylim(-10, board.size[1] + 10)
     ax.set_aspect('equal')
     ax.set_title('Board', fontsize=14)
     ax.set_xlabel(f'Width ({board.unit}mm)', fontsize=12)
@@ -37,7 +37,7 @@ def _draw_board(board: Board, scale: float):
     for edge in board.other["arc_segments"]:
         if len(edge) == 3:
             arc_1, arc_2, arc_3 = edge
-            center, radius, theta_end, theta_start = calculate_arc_parameters(arc_1, arc_2, arc_3)
+            center, radius, theta_start, theta_end = calculate_arc_parameters(arc_1, arc_2, arc_3)
             segments.append(patches.Arc((center[0] * scale, center[1] * scale), 2 * radius * scale, 2 * radius * scale,
                                     angle=0, theta1=theta_start, theta2=theta_end, color='blue'))
         elif len(edge) == 2:

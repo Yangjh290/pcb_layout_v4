@@ -82,6 +82,7 @@ class BoardEdge:
         self.external_edges = external_edges
         self.raw_data = raw_data
         self.points = points
+        self.original_center_xy = None  # 中心点坐标
 
     def __str__(self):
         return f"id:{self.id}, internal_edges:{self.internal_edges}, external_edges:{self.external_edges}, raw_data:{self.raw_data}, points:{self.points}"

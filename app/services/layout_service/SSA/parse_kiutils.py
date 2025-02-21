@@ -526,15 +526,16 @@ def _shape2(file_path = "../data/temp/template/shape2/shape2.kicad_pcb"):
 
     external_edges = [edge_1, edge_2, edge_3, edge_4, edge_5, edge_6]
 
-    cp1 = (2.5, 6)
+    # svg的坐标高了0.1，是为了显示，这里要去掉
+    cp1 = (30.0, 6.0)
     r1 = 1
     circle_1 = (cp1, r1)
 
-    cp2 = (10, 6)
+    cp2 = (10.0, 6.0)
     r2 = 1
     circle_2 = (cp2, r2)
 
-    cp3 = (20, 38)
+    cp3 = (20.0, 38.0)
     r3 = 1
     circle_3 = (cp3, r3)
 
@@ -555,22 +556,23 @@ def _shape3(file_path = "../data/temp/template/shape3/shape3.kicad_pcb"):
     file_path = os.path.join(base_dir, file_path)
     board = Board().from_file(file_path, encoding='utf-8')
 
+    # 弧线段为逆时针方向
     # Arc 1
     arc_1_1 = (25, 50)
     arc_1_2 = (0, 25)
     arc_1_3 = (25, 0)
 
-    # Arc 2
+    # Arc 2-缺口
     arc_2_1 = (45, 10)
     arc_2_2 = (41.464466, 8.535534)
     arc_2_3 = (40, 5)
 
     # Arc 3
-    arc_3_1 =  (50, 25)
+    arc_3_1 = (50, 25)
     arc_3_2 = (48.717082, 32.905694)
     arc_3_3 = (45, 40)
 
-    # Arc 4
+    # Arc 4-缺口
     arc_4_1 = (45, 10)
     arc_4_2 = (48.717082, 17.094306)
     arc_4_3 = (50, 25)
@@ -586,9 +588,9 @@ def _shape3(file_path = "../data/temp/template/shape3/shape3.kicad_pcb"):
     arc_6_3 = (25, 50)
 
     # Arc 7
-    arc_7_1 =  (25.000003, 0.000009)
+    arc_7_1 =  (25, 0)
     arc_7_2 =  (32.905697, 1.282909)
-    arc_7_3 =  (40.000003, 4.999991)
+    arc_7_3 =  (40, 5)
 
     edge_1 = (arc_1_1, arc_1_2, arc_1_3)
     edge_2 = (arc_2_1, arc_2_2, arc_2_3)
@@ -601,12 +603,12 @@ def _shape3(file_path = "../data/temp/template/shape3/shape3.kicad_pcb"):
     external_edges = [edge_1, edge_2, edge_3, edge_4, edge_5, edge_6, edge_7]
 
     # Circle 1
-    cp1 = (5, 25)
+    cp1 = (5.0, 25.0)
     r1 = 1
     circle_1 = (cp1, r1)
 
     # Circle 2
-    cp2 = (45, 25)
+    cp2 = (45.0, 25.0)
     r2 = 1
     circle_2 = (cp2, r2)
 
