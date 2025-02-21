@@ -241,7 +241,7 @@ def _get_board(board_edge: BoardEdge, scale: float, board: Board):
     segments = []
     # 便于计算质心的变量
     segments_xy = []
-    # 如果为0，表示这是这是弧构成的边界
+    # 如果为True，表示这是这是弧构成的边界
     temp_tag = True
     for edge in board_edge.external_edges:
         if len(edge) == 3:
@@ -251,11 +251,12 @@ def _get_board(board_edge: BoardEdge, scale: float, board: Board):
                                     angle=0, theta1=theta_start, theta2=theta_end, color='blue'))
             segments_xy.append(patches.Arc((center[0], center[1]), 2 * radius, 2 * radius,
                                         angle=0, theta1=theta_start, theta2=theta_end, color='blue'))
+
         elif len(edge) == 2:
             cx = sum(x for x, y in board_edge.points) / len(board_edge.points)
             cy = sum(y for x, y in board_edge.points) / len(board_edge.points)
             board_edge.original_center_xy = (cx, cy)
-            print(f"original_center: {board_edge.original_center_xy}")
+            general_logger.info(f"original_center: {board_edge.original_center_xy}")
             temp_tag = False # 不是弧，是直线
             for item in board_edge.external_edges:
                 x1, y1 = item[0]
@@ -268,19 +269,6 @@ def _get_board(board_edge: BoardEdge, scale: float, board: Board):
             break
 
     board.segments = segments
-
-    # 计算弧边界的质心
-    if temp_tag:
-        temp_points = []
-        for segment in segments_xy:
-            if isinstance(segment, patches.Arc):
-                distance = abs(segment.theta2 - segment.theta1)
-                arc_discrete_number = int(1 * distance)
-                temp_points.extend(discretize_arc(arc=segment, N=arc_discrete_number))
-
-        cx = sum(x for x, y in temp_points) / len(temp_points)
-        cy = sum(y for x, y in temp_points) / len(temp_points)
-        board_edge.original_center_xy = (cx, cy)
 
     # 将边界离散为点
     points = []
@@ -295,6 +283,31 @@ def _get_board(board_edge: BoardEdge, scale: float, board: Board):
             line_discrete_number = int(3 * distance)
             pts = discretize_line(line=segment, N=line_discrete_number)
             points.extend(pts)
+
+    # 计算弧边界的质心
+    if temp_tag:
+
+        temp_points = []
+        for segment in segments_xy:
+            if isinstance(segment, patches.Arc):
+                distance = abs(segment.theta2 - segment.theta1)
+                arc_discrete_number = int(1 * distance)
+                temp_points.extend(discretize_arc(arc=segment, N=arc_discrete_number))
+
+        # 外部边界
+        x_values = [point[0] for point in temp_points]
+        y_values = [point[1] for point in temp_points]
+
+        min_x = min(x_values)
+        max_x = max(x_values)
+        min_y = min(y_values)
+        max_y = max(y_values)
+
+        cx = (max_x - min_x) / 2
+        cy = (max_y - min_y) / 2
+
+        board_edge.original_center_xy = (cx, cy)
+        general_logger.info(f"original_center: {board_edge.original_center_xy}")
 
     return points
 
@@ -333,35 +346,39 @@ def _get_board_mid(board_edge: BoardEdge, scale: float, dtype):
     # 螺丝孔的坐标对齐，应该是以板子的中心为原点，来看变化距离
     # 第一轮应该先计算出应该伸缩的距离
 
-    points = [(x - min_x, y - min_y) for x, y in points]
     (cx, cy) = board_edge.original_center_xy
 
-    first_screw_holes = []
-    second_screw_holes = []
+    screw_holes = []
     for index, circle in enumerate(board_edge.internal_edges):
         center, radius = circle
 
         #螺丝柱也要等比例移动
         new_center = (
-            scale * (center[0] - cx),
-            scale * (center[1] - cy)
+            cx + scale * (center[0] - cx),
+            cy + scale * (center[1] - cy)
         )
 
-        x = scale * (center[0] - cx)
-        y = scale * (center[1] - cy)
+        x = new_center[0] - radius
+        y = new_center[1] - radius
         w = 2 * radius
         h = 2 * radius
-
         t_rect = Rectangle(str(index),x, y, w, h, 0, "screw_hole")
-        first_screw_holes.append(t_rect)
+        screw_holes.append(t_rect)
 
-    # 第二轮以已经对齐的坐标为原点为参考，来计算螺丝孔的位置
-    new_cx = sum(x for x, y in points) / len(points)
-    new_cy = sum(y for x, y in points) / len(points)
-    for rect in first_screw_holes:
-        rect.x = new_cx + rect.x - rect.w / 2
-        rect.y = new_cy + rect.y - rect.h / 2
-        second_screw_holes.append(rect)
+    # 对齐坐标原点
+    points = [(x - min_x, y - min_y) for x, y in points]
+    # 外边界移动多少，内部螺丝孔也要移动多少
+    for rect in screw_holes:
+        rect.x -= min_x
+        rect.y -= min_y
+
+    # 如果是圆形板子，螺丝空的放大是按照半径来放大的
+    if board_shape != "rectangle":
+        new_cx, new_cy = (max_x - min_x) / 2, (max_y - min_y) / 2
+        diff_x, diff_y = new_cx - cx, new_cy - cy
+        for rect in screw_holes:
+            rect.x += diff_x
+            rect.y += diff_y
 
     # 外边界的另一种表示形式也要对齐坐标原点
     new_external_edges = []
@@ -378,7 +395,7 @@ def _get_board_mid(board_edge: BoardEdge, scale: float, dtype):
 
     other = {
         "points": points,
-        "screw_holes": second_screw_holes,
+        "screw_holes": screw_holes,
         "arc_segments": board_edge.external_edges
     }
     temp_board = Board(board_shape, board_size, unit, other)

@@ -5,7 +5,7 @@ from app.services.layout_service.uniform.uniform_player import _draw_board
 
 def test_get_board():
     board_edge = _shape1()
-    return _get_board_mid(board_edge, 1.5, "shape1")
+    return _get_board_mid(board_edge, 2, "shape1")
 
 if __name__ == '__main__':
     board = test_get_board()

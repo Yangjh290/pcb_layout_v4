@@ -11,8 +11,8 @@ def _draw_board(board: Board, scale: float):
 
     # 基础设置
     fig, ax = plt.subplots(figsize=(8, 8))
-    ax.set_xlim(-10, board.size[0] + 10)
-    ax.set_ylim(-10, board.size[1] + 10)
+    ax.set_xlim(0, board.size[0] + 10)
+    ax.set_ylim(0, board.size[1] + 10)
     ax.set_aspect('equal')
     ax.set_title('Board', fontsize=14)
     ax.set_xlabel(f'Width ({board.unit}mm)', fontsize=12)
