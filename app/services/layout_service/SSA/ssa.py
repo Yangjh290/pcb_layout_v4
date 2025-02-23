@@ -16,6 +16,8 @@ from .ssa_placeutils import stochastic_generate_coordinate, is_out_of_bounds, \
     sort_fitness, sort_position, calculate_single_fitness, get_rest_rects, \
     update_individual, function_reward_internal, calculate_single_fitness_internal, update_individual_internal, \
     is_overlap_with_individual_for_queer, is_lower_threshold
+from .ssa_player import clear_file_content, \
+    clear_folder_content, _draw_rect_test
 from ..entity.rectangle import Rectangle
 from ..entity.symbol import Symbol
 
@@ -42,7 +44,8 @@ def initial_population(population_size, symbols, board, fixed_layout):
             # 确保矩形之间不能重叠
             while True:
                 new_rect = stochastic_generate_coordinate(board, symbols[j])
-                # general_logger.debug(f"正在初始化第{i}个个体第{j}个器件...")
+                # _draw_rect_test(board, taboo_layout + [new_rect], save_path=f"../data/test_displayer/ssa_init/rect_{i}_{j}.png")
+                # general_logger.debug(f"正在初始化第{i}个个体第{j}个器件, uuid={new_rect.uuid}, w={new_rect.w}, h={new_rect.h}, x={new_rect.x}, y={new_rect.y}...")
                 if (    not is_overlap_with_individual_for_queer(new_rect, taboo_layout)
                         and not is_out_of_bounds(new_rect, board)
                         and not is_lower_threshold(taboo_layout, new_rect, 0.0)
@@ -495,7 +498,7 @@ def watcher_update_internal(colony_x, fitness, best_index, worst_index, board, s
 
 
 def ssa(taboo_layout, current_board, original_symbols, module_types, fun_type,
-        population_size=10, ST=0.6, rate_of_discovery=0.3, rate_of_follower=0.5, max_iter=3):
+        population_size=10, ST=0.6, rate_of_discovery=0.3, rate_of_follower=0.5, max_iter=100):
     """
     :param rate_of_discovery: 发现者比例
     :param rate_of_follower: 追随者比例

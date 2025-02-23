@@ -11,6 +11,7 @@ import random
 import numpy as np
 from matplotlib import patches
 
+from app.config import global_var
 from app.config.logger_config import general_logger
 from .math_utils import rotate_center
 from ..uniform.uniform_query_utils import find_module_net
@@ -73,13 +74,15 @@ def generate_queer_board():
     screw_hole_rectangles.append(Rectangle("t_right", t_right_x, t_right_y, t_right_width, t_right_height, 0, "screw_hole"))
 
     board_size = [max_x - min_x, max_y - min_y]
-    unit = 1.0
+    unit = 1.5
     other = {
         "points": arc_points,
         "screw_holes": screw_hole_rectangles,
         "arc_segments": arc_segments
     }
-    return Board(board_shape, board_size, unit, other)
+    board = Board(board_shape, board_size, unit, other)
+    board.segments = arc_segments
+    return board
 
 
 def generate_rules():
@@ -157,9 +160,9 @@ def acquire_symbols_by_rule(modules: list[Module], fixed_rules: list[Rule], symb
 def find_largest_symbol(symbols):
     """找到面积最大的 Symbol 对象"""
     if not symbols:
-        return None  # 如果符号列表为空，返回None
+        return None
 
-    # 使用 max 函数找出面积最大的 symbol
+    # 最小最大归一化
     largest_symbol = max(symbols, key=lambda symbol: symbol.area())
     return largest_symbol
 
@@ -167,7 +170,9 @@ def find_largest_symbol(symbols):
 def place_fixed_symbols(current_board: Board, fixed_symbols, rule_types, best_layout):
     """先满足硬规则"""
     for i in range(len(fixed_symbols)):
+
         main_symbol = find_largest_symbol(fixed_symbols[i])
+        general_logger.info("test(硬规则):正在放置模块主器件：{}".format(main_symbol.uuid))
 
         # 主控放置在最中心的位置（此时先将主控定义为硬规则）
         if rule_types[i] == "r_01":
@@ -177,7 +182,9 @@ def place_fixed_symbols(current_board: Board, fixed_symbols, rule_types, best_la
         if rule_types[i] == "f_01" or rule_types[i] == "f_02":
             if current_board.shape == "rectangle":
                 stochastic_place_brim_for_rectangle(current_board, main_symbol, best_layout)
-            else:
+            elif current_board.shape == "queer":
+                stochastic_place_brim_for_queer(current_board, main_symbol, best_layout)
+            elif current_board.shape == "circle":
                 stochastic_place_brim_for_queer(current_board, main_symbol, best_layout)
     return best_layout
 
@@ -189,6 +196,14 @@ def place_center(current_board, main_symbol, best_layout):
     rect_x = center_x - main_symbol.width / 2
     rect_y = center_y - main_symbol.height / 2
     rect = Rectangle(main_symbol.uuid, rect_x, rect_y, main_symbol.width, main_symbol.height, 0)
+
+    # 主板虽然在硬规则模块，但是后续软规则需要用到主控的位置，所以先将其放入symbol对象中
+    global_var.main_uuid = main_symbol.uuid
+    global_var.w = main_symbol.width
+    global_var.h = main_symbol.height
+    global_var.x = rect_x
+    global_var.y = rect_y
+
     best_layout.append(rect)
 
 
@@ -233,7 +248,8 @@ def load_modules(modules: list[Module], rules: list[Rule], symbols: list[Symbol]
     return symbol_modules
 
 
-def module_placement(fixed_layout: list[Rectangle], current_board: Board, reward_symbol_modules: list[SymbolModule]):
+def module_placement(fixed_layout: list[Rectangle], current_board: Board, reward_symbol_modules: list[SymbolModule],
+                     save_path="../data/test_displayer/模块布局(fitness).png"):
     """先进行模块布局"""
     general_logger.info("模块间布局开始--------------------------------------")
     original_symbols, module_types = [], []
@@ -243,7 +259,7 @@ def module_placement(fixed_layout: list[Rectangle], current_board: Board, reward
     global_best_score, best_layout, curve = ssa(fixed_layout, current_board, original_symbols, module_types, 1)
 
     # 打印适应度曲线
-    plot_fitness_curve(curve, "../data/demo01/display/模块布局(fitness).png")
+    plot_fitness_curve(curve, save_path)
     return best_layout
 
 
@@ -445,46 +461,46 @@ def generate_queer_board_arc():
     arc_4_2 = (48.717082, 17.094306)
     arc_4_3 = (45, 40)
     # 上边缺口左上
-    arc_5_1 = (25, 50)
+    arc_5_1 = (40, 45)
     arc_5_2 = (32.905694, 48.717082)
-    arc_5_3 = (40, 45)
+    arc_5_3 = (25, 50)
     # 下缺口左下
-    arc_6_1 = (40.000003, 4.999991)
+    arc_6_1 = (25.000003, -0.000009)
     arc_6_2 = (32.905697, 1.282909)
-    arc_6_3 = (25.000003, -0.000009)
+    arc_6_3 = (40.000003, 4.999991)
     # 缺口2
     arc_7_1 = (40, 45)
     arc_7_2 = (41.464466, 41.464466)
     arc_7_3 = (45, 40)
 
     arcs = []
-    scale = 1.2
+    scale = 1.5
 
-    center_1, radius_1, theta_end_1, theta_start_1 = calculate_arc_parameters(arc_1_1, arc_1_2, arc_1_3)
+    center_1, radius_1, theta_start_1, theta_end_1 = calculate_arc_parameters(arc_1_1, arc_1_2, arc_1_3)
     arcs.append(patches.Arc((center_1[0] * scale, center_1[1] * scale), 2 * radius_1 * scale, 2 * radius_1 * scale,
                             angle=0, theta1=theta_start_1, theta2=theta_end_1, color='blue'))
 
-    center_2, radius_2, theta_end_2, theta_start_2 = calculate_arc_parameters(arc_2_1, arc_2_2, arc_2_3)
+    center_2, radius_2, theta_start_2, theta_end_2 = calculate_arc_parameters(arc_2_1, arc_2_2, arc_2_3)
     arcs.append(patches.Arc((center_2[0] * scale, center_2[1] * scale), 2 * radius_2 * scale, 2 * radius_2 * scale,
                             angle=0, theta1=theta_start_2, theta2=theta_end_2, color='blue'))
 
-    center_3, radius_3, theta_end_3, theta_start_3 = calculate_arc_parameters(arc_3_1, arc_3_2, arc_3_3)
+    center_3, radius_3, theta_start_3, theta_end_3 = calculate_arc_parameters(arc_3_1, arc_3_2, arc_3_3)
     arcs.append(patches.Arc((center_3[0] * scale, center_3[1] * scale), 2 * radius_3 * scale, 2 * radius_3 * scale,
                             angle=0, theta1=theta_start_3, theta2=theta_end_3, color='blue'))
 
-    center_4, radius_4, theta_end_4, theta_start_4 = calculate_arc_parameters(arc_4_1, arc_4_2, arc_4_3)
+    center_4, radius_4, theta_start_4, theta_end_4 = calculate_arc_parameters(arc_4_1, arc_4_2, arc_4_3)
     arcs.append(patches.Arc((center_4[0] * scale, center_4[1] * scale), 2 * radius_4 * scale, 2 * radius_4 * scale,
                             angle=0, theta1=theta_start_4, theta2=theta_end_4, color='blue'))
 
-    center_5, radius_5, theta_end_5, theta_start_5 = calculate_arc_parameters(arc_5_1, arc_5_2, arc_5_3)
+    center_5, radius_5, theta_start_5, theta_end_5 = calculate_arc_parameters(arc_5_1, arc_5_2, arc_5_3)
     arcs.append(patches.Arc((center_5[0] * scale, center_5[1] * scale), 2 * radius_5 * scale, 2 * radius_5 * scale,
                             angle=0, theta1=theta_start_5, theta2=theta_end_5, color='blue'))
 
-    center_6, radius_6, theta_end_6, theta_start_6 = calculate_arc_parameters(arc_6_1, arc_6_2, arc_6_3)
+    center_6, radius_6, theta_start_6, theta_end_6 = calculate_arc_parameters(arc_6_1, arc_6_2, arc_6_3)
     arcs.append(patches.Arc((center_6[0] * scale, center_6[1] * scale), 2 * radius_6 * scale, 2 * radius_6 * scale,
                             angle=0, theta1=theta_start_6, theta2=theta_end_6, color='blue'))
 
-    center_7, radius_7, theta_end_7, theta_start_7 = calculate_arc_parameters(arc_7_1, arc_7_2, arc_7_3)
+    center_7, radius_7, theta_start_7, theta_end_7 = calculate_arc_parameters(arc_7_1, arc_7_2, arc_7_3)
     arcs.append(patches.Arc((center_7[0] * scale, center_7[1] * scale), 2 * radius_7 * scale, 2 * radius_7 * scale,
                             angle=0, theta1=theta_start_7, theta2=theta_end_7, color='blue'))
 
@@ -556,7 +572,4 @@ def place_fixed_symbols_for_queer(circle: GrCircle, symbol: Symbol, distance: fl
     # 旋转角度
     rotate = theta_degrees - 90
     return Rectangle(symbol.uuid, left_bottom_x, left_bottom_y, rect_width, rect_length, rotate)
-
-
-
 

@@ -596,7 +596,11 @@ def save_plot(board: Board, compound_rectangles: list[Rectangle], save_path, fil
         # 2 绘制边界
         for segment in board.segments:
             if isinstance(segment, patches.Arc):
-                arc_copy = copy.copy(segment)
+                arc_copy = patches.Arc(
+                    segment.center, segment.width, segment.height,
+                    angle=segment.angle, theta1=segment.theta1, theta2=segment.theta2,
+                    color=segment.get_edgecolor()
+                )
                 ax.add_patch(arc_copy)
             else:
                 ax.plot([segment[0][0], segment[1][0]], [segment[0][1], segment[1][1]], color='blue', lw=0.3,
@@ -608,5 +612,74 @@ def save_plot(board: Board, compound_rectangles: list[Rectangle], save_path, fil
         save_path = os.path.join(base_dir, save_path)
 
         plt.savefig(save_path, dpi=dpi)
+
+        return top_rects
+
+
+def _draw_rect_test(board: Board, layout: list[Rectangle], save_path="../data/temp/rect.png"):
+    """绘制矩形(本地测试专用test)"""
+
+    rectangles = []
+    # 处理位号的空间
+    for rectangle in layout:
+        # 禁布区
+        if rectangle.layer == "screw_hole":
+            rectangles.append(rectangle)
+            continue
+        rectangles.append(Rectangle("S_" + rectangle.uuid, rectangle.x, rectangle.y, rectangle.w, rectangle.h - 1.28 - 0.1, rectangle.r, rectangle.layer))
+        rectangles.append(Rectangle(rectangle.uuid, rectangle.x, rectangle.y + (rectangle.h - 1.28) + 0.1, rectangle.w, 1.28, rectangle.r, "location_number"))
+
+    top_rects = [rect for rect in rectangles if rect.layer == "top" or rect.layer == "location_number" or rect.layer == "screw_hole"]
+    bottom_rects = [rect for rect in rectangles if rect.layer == "bottom"]
+
+    if len(bottom_rects) == 0:
+
+        fig, ax = plt.subplots(dpi=400)
+        ax.set_xlim(0, board.size[0])
+        ax.set_ylim(0, board.size[1])
+        ax.set_aspect('equal')
+        ax.set_title('PCB Layout', fontsize=14)
+        ax.set_xlabel(f'Width ({board.unit}mm)', fontsize=12)
+        ax.set_ylabel(f'Height ({board.unit}mm)', fontsize=12)
+
+        # 添加矩形到板上
+        for rect in top_rects:
+            # 区分位号和器件
+            full_edge_color = 'blue'
+            if rect.layer == "location_number":
+                full_edge_color = 'none'
+            if rect.layer != "screw_hole":
+                # 生成矩形，xy参数是左下角，宽度w和高度h
+                rect_patch = patches.Rectangle( (rect.x, rect.y), rect.w, rect.h, angle=rect.r, edgecolor=full_edge_color, facecolor='none', lw=0.3 )
+                ax.add_patch(rect_patch)
+            else:
+                # 绘制螺丝柱
+                circle_patch = patches.Circle( (rect.x + rect.w / 2, rect.y + rect.h / 2), radius=rect.w / 2, edgecolor='none', facecolor='red', lw=0.3)
+                ax.add_patch(circle_patch)
+            # 放置位号(旋转位号先不显示)
+            if rect.layer == "location_number" and rect.r == 0:
+                ax.text( rect.x + rect.w / 2, rect.y + rect.h / 2, rect.uuid, fontsize=5, ha='center', va='center', rotation=rect.r )
+
+        # 绘制外边界
+        # 2 绘制边界
+        for segment in board.segments:
+            if isinstance(segment, patches.Arc):
+                arc_copy = patches.Arc(
+                    segment.center, segment.width, segment.height,
+                    angle=segment.angle, theta1=segment.theta1, theta2=segment.theta2,
+                    color=segment.get_edgecolor()
+                )
+                ax.add_patch(arc_copy)
+            else:
+                ax.plot([segment[0][0], segment[1][0]], [segment[0][1], segment[1][1]], color='blue', lw=0.3,
+                        marker='o')
+
+        plt.grid(False)
+
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        save_path = os.path.join(base_dir, save_path)
+
+        plt.savefig(save_path)
+        plt.close()
 
         return top_rects

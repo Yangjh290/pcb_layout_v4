@@ -57,15 +57,13 @@ async def pcb_layout(source_record_id: int, chat_detail_id=1875111791218778114):
         board_data = await external_client.get_board(source_record_table, source_record_id)
         if board_data["code"] == 0:
             scale = board_data["data"]["scale"]
-            general_logger.info(f"板子接口数据：{board_data}")
-            if scale == '':
-                scale = 1.51
-            general_logger.info(f"板子缩放比：{scale}")
+            # if scale == '':
+            #     scale = 1.34
             board = _get_board_top(board_data["data"], scale)
             board.scale = scale
             _draw_board(board, scale)
         if not board:
-            general_logger.error("板子j接口数据格式有错误")
+            general_logger.error("解析板子信息发生错误")
 
         # 进行布局
         result_rects = uniform_layout_service(symbols, modules, board)
@@ -227,7 +225,7 @@ def _get_board_top(data, scale):
         general_logger.error("暂不支持自定义板子")
         return None
     elif source == "chat":
-        board_edge = _shape2()
+        board_edge = _shape1()
         return _get_board_mid(board_edge, scale, "shape2")
 
 

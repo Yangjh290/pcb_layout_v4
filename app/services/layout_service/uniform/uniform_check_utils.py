@@ -14,8 +14,6 @@ def is_out_of_margin(rectangle: Rectangle, board: Board)-> bool:
         bound_points = board.other['points']
     elif board.shape == 'rectangle':
         bound_points = board.other['points']
-    elif board.shape == 'circle':
-        bound_points = board.other['points']
 
     # 获取矩形的四个顶点坐标
     vertices = [
@@ -28,7 +26,7 @@ def is_out_of_margin(rectangle: Rectangle, board: Board)-> bool:
     for vertex in vertices:
         target_radius = math.sqrt((vertex[0]-center_x)**2 + (vertex[1]-center_y)**2)
         border_radius = get_border_points(vertex, center_x, center_y, bound_points)
-        if target_radius > border_radius - 5:
+        if target_radius > border_radius:
             return True
     return False
 

@@ -12,6 +12,7 @@ import numpy as np
 from shapely.geometry.polygon import Polygon
 from shapely.measurement import distance
 
+from app.config import global_var
 from app.config.logger_config import general_logger
 from .parse_kiutils import generate_connection_networks
 from .ssa_entity import ConnectionNet, SymbolModule
@@ -34,10 +35,6 @@ def is_out_of_bounds(rect: Rectangle, board: Board) -> bool:
         return is_out_of_bounds_for_queer(rect, bound_points)
 
     if board.shape == 'rectangle':
-        bound_points = board.other['points']
-        return is_out_of_bounds_for_queer(rect, bound_points)
-
-    if board.shape == 'circle':
         bound_points = board.other['points']
         return is_out_of_bounds_for_queer(rect, bound_points)
 
@@ -351,48 +348,41 @@ def filter_symbols(symbols: list[Symbol], fixed_layout: list[Rectangle]):
 def quantization_table():
     """
     距离量化表
-                # 奖励函数设定如下：
-                # 如果两个模块要求距离较近，实际距离较近，得分应该较高
-                # 如果两个模块要求距离较近，实际距离较远，得分应该较低
-                # 如果两个模块要求距离较远，实际距离较近，得分应该较低
-                # 如果两个模块要求距离较远，实际距离较远，得分应该较高
-    example:
-    [mcu,origin]: grade = 5 distance = 1 , fitness = 5
-    [mcu,origin]: grade = 5 distance = -1, fitness = -5
-    [mcu,sensor]: grade = -5 distance = 1, fitness = -5
-    [mcu,sensor]: grade = -5 distance = -1, fitness = 5
+    # 奖励函数设定如下：
+        （1）如果两个模块要求距离较近，实际距离较近，得分应该较高
+        （2）如果两个模块要求距离较近，实际距离较远，得分应该较低
+        （3）如果两个模块要求距离较远，实际距离较近，得分应该较低
+        （4）如果两个模块要求距离较远，实际距离较远，得分应该较高
+    example 1:
+        [mcu,origin]: grade = 5 distance = 1 , fitness = 5
+        [mcu,origin]: grade = 5 distance = -1, fitness = -5
+        [mcu,sensor]: grade = -5 distance = 1, fitness = -5
+        [mcu,sensor]: grade = -5 distance = -1, fitness = 5
+    example 2:
+         ("6_SENSOR", "4_MCU"): scores["E"]             传感器距离主控较远
+         ("6_SENSOR", "7_CONVERTER"): scores["A"]      传感器距离转换器较近
     """
+    # 等级划分
     scores = {"A": 5, "B": 2, "C": 0, "D": -2, "E": -5}
-    """
-        # 暂不考虑同一个对器件满足两个规则的情况
-        # 如果同一模块满足多个规则对
-    example: 传感器模块6_SENSOR满：
-             ("6_SENSOR", "4_MCU"): scores["E"]             传感器距离主控较远
-             ("6_SENSOR", "7_CONVERTER"): scores["A"]      传感器距离转换器较近
-    """
 
-    """ 还应该考虑规则之间的权重（n表示规则数）"""
+    # 还应该考虑规则之间的权重（n表示规则数）
     n = 5
     s_n = 1 / n
     distance_grade_table = {
-
         ("4_MCU", "ORIGIN"): scores["A"] * s_n,
         ("2_STORAGE", "4_MCU"): scores["A"] * s_n,
         ("7_CONVERTER", "4_MCU"): scores["A"] * s_n,
         ("6_SENSOR", "7_CONVERTER"): scores["A"] * s_n,
         ("6_SENSOR", "4_MCU"): scores["E"] * s_n,
-
         ("0_COMMON", "0_COMMON"): scores["C"],
     }
     return distance_grade_table
 
 
-
-
-
 def calculate_b_ij(d_max, symbol_i, symbol_j, n=1000):
     """
     计算两个符号之间的 b_ij 值。
+    （1）计算的是中心距离
     :param d_max: 最大距离
     :param symbol_i: 符号 i，包含 x, y, width, height 属性
     :param symbol_j: 符号 j，包含 x, y, width, height 属性
@@ -410,21 +400,10 @@ def calculate_b_ij(d_max, symbol_i, symbol_j, n=1000):
 
     # 确保 d_ij 在有效范围内
     if not (0 < d_ij <= d_max):
-        return -9999  # 距离超出有效范围
-
-    # 计算每个区间的宽度
-    interval_width = d_max / n
-
-    # 根据区间计算 b_ij 值
-    for i in range(n):
-        lower_bound = i * interval_width
-        upper_bound = (i + 1) * interval_width
-        if lower_bound < d_ij <= upper_bound:
-            # 计算 b_ij 值，从 1 线性递减到 -1
-            return 1 - 2 * (i / (n - 1))
-
-    # 默认返回无效值
-    return -9999
+        general_logger.error(f"d_ij 计算错误, 原因：有器件超出布局边界：{d_ij}，{d_max}")
+        return -9999
+    else:
+        return d_ij
 
 
 def find_symbol_by_uuid(uuid, symbols):
@@ -437,7 +416,7 @@ def find_symbol_by_uuid(uuid, symbols):
 
 def find_another_symbol(symbol_uuid, uuids_order, module_types_order, symbols: list[Symbol], board):
     """
-    查找一个器件规则对中的另一个器件
+    查找一个器件(symbol_uuid)规则对中的另一个器件
     :param symbol_uuid: 当前器件的 UUID
     :param uuids_order:
     :param module_types_order:
@@ -463,7 +442,7 @@ def find_another_symbol(symbol_uuid, uuids_order, module_types_order, symbols: l
     if module_types_order[i] == "4_MCU":
         result.append(Symbol('O', board.size[1], board.size[0], 0, 0, "ORIGIN", 0,
                         board.size[0] / 2, board.size[1] / 2))
-    # 处理其它模块
+    # 处理其它模块(同一规则对中的两个模块，只需考虑一个即可)
     elif module_types_order[i] in key_pairs_0:
         # eg：i_module_type 为 "6_SENSOR"
         i_module_type = module_types_order[i]
@@ -475,6 +454,12 @@ def find_another_symbol(symbol_uuid, uuids_order, module_types_order, symbols: l
                 j_module_types.append(key_pairs_1[index])
         # eg: 找到所有模块类型为["4_MCU", "7_CONVERTER"]的器件
         for module_type in j_module_types:
+            if module_type == "4_MCU":
+                m_symbol = Symbol(global_var.main_uuid, global_var.h, global_var.w,
+                                  0, 0, "4_MCU", None,
+                                  global_var.x, global_var.y)
+                result.append(m_symbol)
+                continue
             for index, input_module_type in enumerate(module_types_order):
                 if input_module_type == module_type:
                     result.append(find_symbol_by_uuid(uuids_order[index], symbols))
@@ -518,15 +503,19 @@ def calculate_single_fitness(individual, uuids_order, module_types_order, d_max,
             symbol_i.y = individual[i, 1]
 
             symbol_j = j_symbol
-            j_index = uuids_order.index(symbol_j.uuid)
-            symbol_j.x = individual[j_index, 0]
-            symbol_j.y = individual[j_index, 1]
+            if symbol_j.type == "4_MCU":
+                j_module_type = "4_MCU"
+            else:
+                j_index = uuids_order.index(symbol_j.uuid)
+                symbol_j.x = individual[j_index, 0]
+                symbol_j.y = individual[j_index, 1]
+                j_module_type = module_types_order[j_index]
 
             # 计算 b_ij
             b_ij = calculate_b_ij(d_max, symbol_i, symbol_j)
             # 计算具体的奖励
             # distance_grade_table的参数为模块名["4_MCU", "7_CONVERTER"]
-            individual_score += b_ij * distance_grade_table[module_types_order[i], module_types_order[j_index]]
+            individual_score += b_ij * distance_grade_table[module_types_order[i], j_module_type]
 
     return individual_score
 

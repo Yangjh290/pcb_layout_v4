@@ -9,6 +9,7 @@ from app.services.layout_service.SSA.ssa_utils import generate_rules, separate_r
     calculate_optimistic_board, judge_accommodation, select_back_symbols, place_back_symbols, \
     generate_queer_board
 from app.services.layout_service.sch_analysis.generate_net import reverse_net
+from app.services.layout_service.uniform.uniform_player import _draw_board, _draw_board_test
 from app.services.layout_service.uniform.uniform_utils import uniform_module_placement, precise_layout
 
 
@@ -16,10 +17,8 @@ def uniform_layout():
     # 先获取数据
     symbols = generate_input_symbols()
     modules = generate_mudules()
-    # objective_board = generate_board()
-    # 异形板设定-1
     objective_board = generate_queer_board()
-
+    _draw_board_test(objective_board, 1, "data/test_displayer/board.png")
     # 规则划分
     # 确定所有规则
     rules = generate_rules()
@@ -38,7 +37,7 @@ def uniform_layout():
     back_layout = []
 
     # 保存结果
-    save_path = "../data/demo01/display"
+    save_path = "../data/test_displayer"
 
     while not_be_placed:
 
@@ -52,6 +51,7 @@ def uniform_layout():
         fixed_layout = copy.deepcopy(screw_layout)
         # 然后正式放置硬规则器件
         place_fixed_symbols(current_board, fixed_symbols, rule_types, fixed_layout)
+        save_plot(current_board, fixed_layout, save_path + "/模块间布局.png")
         # 异形板布局-4
         # 软规则器件布局
         # 先进行模块间布局
