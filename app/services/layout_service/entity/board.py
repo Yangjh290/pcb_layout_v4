@@ -12,7 +12,7 @@ class Board:
 
     def __init__(self, shape, size, unit=1, other='desc'):
         self.shape = shape  # 形状为"rectangle"(矩形)或者“queer”（异形）
-        self.size = size    # 如果是矩形则[width,height]，如果是异形则[(x1,y1), (x2,y2), (x3,y3), ...]
+        self.size = size    # 如果是矩形则[width,height]
         self.unit = unit    # 网格大小，单位为mm
         self.other = other  # 板子内部的螺丝孔等
         self.scale = 1.0    # 缩放比例，默认1.0

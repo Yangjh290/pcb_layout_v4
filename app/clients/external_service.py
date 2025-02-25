@@ -48,7 +48,8 @@ class ExternalServiceClient:
         url = self.request_board_url
         input_params = {
             "sourceRecordTable":"scheme",
-            "sourceRecordId":1871119618579812354
+            # "sourceRecordId":1871119618579812354
+            "sourceRecordId":source_record_id
         }
 
         # 记录请求的开始
